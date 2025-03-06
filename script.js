@@ -329,14 +329,101 @@ function loadPatientDetails(patientId) {
   if (visitHistoryBody) {
     visitHistoryBody.innerHTML = '';
     
-    // Add more example visits for demonstration
-    patientDetails.visits = [
-      { date: '2023-06-01', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Well-controlled hypertension', treatment: 'Continue current medications', notes: 'Blood pressure 130/85, follow up in 3 months', money: 150 },
-      { date: '2023-03-15', type: 'Illness', doctor: 'Dr. Michael Chen', diagnosis: 'Upper respiratory infection', treatment: 'Antibiotics, rest', notes: 'Prescribed amoxicillin for 7 days', money: 225 },
-      { date: '2022-12-10', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Diabetes follow-up', treatment: 'Adjusted medication dosage', notes: 'HbA1c 7.2, improved from last visit', money: 175 },
-      { date: '2022-09-05', type: 'Specialist', doctor: 'Dr. Emily Rodriguez', diagnosis: 'Cardiovascular assessment', treatment: 'No changes to current treatment', notes: 'ECG normal, cholesterol levels stable', money: 300 },
-      { date: '2022-06-18', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Hypertension and diabetes monitoring', treatment: 'Continue medications', notes: 'All vitals within normal range', money: 150 }
+    // Generate more random visit data
+    const visitTypes = ['Regular Check-up', 'Illness', 'Specialist', 'Emergency', 'Follow-up', 'Surgery Consultation', 'Vaccination', 'Lab Results Review'];
+    const doctors = ['Dr. Sarah Johnson', 'Dr. Michael Chen', 'Dr. Emily Rodriguez', 'Dr. David Wilson', 'Dr. Maria Garcia', 'Dr. James Taylor', 'Dr. Lisa Brown', 'Dr. Robert Lee'];
+    const diagnoses = [
+      'Well-controlled hypertension', 
+      'Upper respiratory infection', 
+      'Diabetes follow-up', 
+      'Cardiovascular assessment', 
+      'Acute bronchitis', 
+      'Allergic rhinitis', 
+      'Mild anxiety', 
+      'Lower back pain', 
+      'Gastroenteritis',
+      'Seasonal allergies',
+      'Vitamin D deficiency',
+      'Osteoarthritis',
+      'Migraine headache',
+      'Annual wellness visit'
     ];
+    const treatments = [
+      'Continue current medications', 
+      'Antibiotics, rest', 
+      'Adjusted medication dosage', 
+      'No changes to current treatment', 
+      'NSAIDs for pain management',
+      'Prescribed antihistamines',
+      'Physical therapy referral',
+      'Dietary modifications',
+      'Hydration and rest',
+      'Stress management techniques',
+      'Prescribed muscle relaxants',
+      'Updated vaccination schedule',
+      'Referred to specialist'
+    ];
+    
+    // Create a dynamic array of visits with random dates over the past 3 years
+    const randomVisits = [];
+    const today = new Date();
+    
+    // First add the most recent visit to keep the last diagnostic consistent
+    randomVisits.push({ 
+      date: '2023-06-01', 
+      type: 'Regular Check-up', 
+      doctor: 'Dr. Sarah Johnson', 
+      diagnosis: 'Well-controlled hypertension', 
+      treatment: 'Continue current medications', 
+      notes: 'Blood pressure 130/85, follow up in 3 months', 
+      money: 150 
+    });
+    
+    // Generate 15 random visits
+    for (let i = 1; i < 15; i++) {
+      // Generate a random date within the last 3 years
+      const randomDate = new Date(today);
+      randomDate.setDate(today.getDate() - Math.floor(Math.random() * 1095)); // 1095 days = 3 years
+      
+      // Format the date to YYYY-MM-DD
+      const dateString = randomDate.toISOString().split('T')[0];
+      
+      // Get random elements from arrays
+      const randomType = visitTypes[Math.floor(Math.random() * visitTypes.length)];
+      const randomDoctor = doctors[Math.floor(Math.random() * doctors.length)];
+      const randomDiagnosis = diagnoses[Math.floor(Math.random() * diagnoses.length)];
+      const randomTreatment = treatments[Math.floor(Math.random() * treatments.length)];
+      
+      // Generate random cost between $50 and $500
+      const randomCost = Math.floor(Math.random() * 450) + 50;
+      
+      // Create random notes
+      const vitalSigns = [`Blood pressure ${Math.floor(Math.random() * 40) + 100}/${Math.floor(Math.random() * 20) + 70}`, 
+                         `Heart rate ${Math.floor(Math.random() * 40) + 60} bpm`, 
+                         `Temperature ${(Math.random() * 1.5 + 97).toFixed(1)}°F`];
+      const randomVital = vitalSigns[Math.floor(Math.random() * vitalSigns.length)];
+      const followUpPeriods = ['2 weeks', '1 month', '3 months', '6 months', 'as needed'];
+      const randomFollowUp = followUpPeriods[Math.floor(Math.random() * followUpPeriods.length)];
+      
+      const randomNotes = `${randomVital}, follow up in ${randomFollowUp}`;
+      
+      // Add the random visit
+      randomVisits.push({
+        date: dateString,
+        type: randomType,
+        doctor: randomDoctor,
+        diagnosis: randomDiagnosis,
+        treatment: randomTreatment,
+        notes: randomNotes,
+        money: randomCost
+      });
+    }
+    
+    // Sort visits by date (most recent first)
+    randomVisits.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    // Set the visits array
+    patientDetails.visits = randomVisits;
     
     patientDetails.visits.forEach((visit, index) => {
       const row = document.createElement('tr');
