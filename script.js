@@ -15,27 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Dashboard Page Initialization
 function initializeDashboard() {
-  // Set current date
-  const currentDateElement = document.getElementById('current-date');
-  if (currentDateElement) {
-    const today = new Date();
-    currentDateElement.textContent = `Today: ${formatDate(today)}`;
-  }
-  
   // Initialize calendar
   initializeCalendar();
   
   // Load mock patient data
   loadPatientStatusData();
-  
-  // Add event listeners for date navigation
-  const prevDateBtn = document.getElementById('prev-date');
-  const nextDateBtn = document.getElementById('next-date');
-  
-  if (prevDateBtn && nextDateBtn) {
-    prevDateBtn.addEventListener('click', navigateDate);
-    nextDateBtn.addEventListener('click', navigateDate);
-  }
 }
 
 // Patients Page Initialization
@@ -218,10 +202,16 @@ function loadPatientStatusData(date) {
     { id: 8, name: 'Jennifer Adams', age: 28, gender: 'Female', time: '04:30 PM', image: 'https://randomuser.me/api/portraits/women/33.jpg' }
   ];
   
+  const completedPatients = [
+    { id: 9, name: 'Thomas Wright', age: 55, gender: 'Male', time: '08:45 AM', image: 'https://randomuser.me/api/portraits/men/22.jpg' },
+    { id: 10, name: 'Jessica Lee', age: 31, gender: 'Female', time: '09:20 AM', image: 'https://randomuser.me/api/portraits/women/28.jpg' }
+  ];
+  
   // Populate patient lists
   populatePatientList('waiting', waitingPatients);
   populatePatientList('examination', examinationPatients);
   populatePatientList('scheduled', scheduledPatients);
+  populatePatientList('completed', completedPatients);
 }
 
 function populatePatientList(containerId, patients) {
@@ -493,27 +483,7 @@ function closePatientDetailsModal() {
   }
 }
 
-// Navigation Functions
-function navigateDate(event) {
-  const direction = event.currentTarget.id === 'prev-date' ? -1 : 1;
-  const currentDateElement = document.getElementById('current-date');
-  
-  if (!currentDateElement) return;
-  
-  const dateText = currentDateElement.textContent;
-  const currentDate = dateText.includes('Today:') ? new Date() : parseDate(dateText.split(': ')[1]);
-  
-  // Move to next or previous day
-  const newDate = new Date(currentDate);
-  newDate.setDate(newDate.getDate() + direction);
-  
-  // Update displayed date
-  const prefix = dateText.includes('Today:') ? 'Selected: ' : dateText.includes('Selected:') ? 'Selected: ' : '';
-  currentDateElement.textContent = `${prefix}${formatDate(newDate)}`;
-  
-  // Load data for the new date
-  loadPatientStatusData(newDate);
-}
+// No longer needed as date navigation is removed
 
 // Utility Functions
 function formatDate(date) {
