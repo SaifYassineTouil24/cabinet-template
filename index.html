@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Clinic Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <div class="logo">
+        <h2>Clinic MS</h2>
+      </div>
+      <ul class="nav-links">
+        <li class="active"><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="patients.html"><i class="fas fa-users"></i> Patients</a></li>
+        <li><a href="#"><i class="fas fa-calendar"></i> Appointments</a></li>
+        <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
+        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+      </ul>
+    </nav>
+    
+    <main class="content">
+      <header>
+        <div class="breadcrumb">
+          <span>Dashboard</span>
+        </div>
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search patient...">
+        </div>
+        <div class="user-info">
+          <span>Dr. Smith</span>
+          <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Profile">
+        </div>
+      </header>
+      
+      <div class="dashboard">
+        <div class="date-selector">
+          <button id="prev-date"><i class="fas fa-chevron-left"></i></button>
+          <h2 id="current-date">Today: June 15, 2023</h2>
+          <button id="next-date"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        
+        <div class="patient-status-container">
+          <div id="scheduled" class="status-card">
+            <h3><i class="fas fa-calendar-check"></i> Scheduled (Didn't Come Yet)</h3>
+            <div class="patient-list">
+              <!-- Patient cards will be dynamically added here -->
+            </div>
+          </div>
+          
+          <div id="waiting" class="status-card">
+            <h3><i class="fas fa-clock"></i> Waiting Room</h3>
+            <div class="patient-list">
+              <!-- Patient cards will be dynamically added here -->
+            </div>
+          </div>
+          
+          <div id="examination" class="status-card">
+            <h3><i class="fas fa-stethoscope"></i> In Medicine Room</h3>
+            <div class="patient-list">
+              <!-- Patient cards will be dynamically added here -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="calendar-widget">
+          <div class="calendar-header">
+            <h3>Calendar</h3>
+            <div class="calendar-nav">
+              <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+              <h4 id="current-month">June 2023</h4>
+              <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+          <div id="calendar-body" class="calendar-grid">
+            <!-- Calendar days will be dynamically added here -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
