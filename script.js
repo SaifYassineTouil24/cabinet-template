@@ -267,16 +267,16 @@ function populatePatientList(containerId, patients) {
 }
 
 function loadPatientsListData() {
-  // Mock patients data
+  // Mock patients data with next visit information
   const patients = [
-    { id: 'P001', name: 'John Smith', lastVisit: '2023-06-01' },
-    { id: 'P002', name: 'Sarah Johnson', lastVisit: '2023-05-15' },
-    { id: 'P003', name: 'Michael Brown', lastVisit: '2023-06-10' },
-    { id: 'P004', name: 'Emily Davis', lastVisit: '2023-06-12' },
-    { id: 'P005', name: 'Robert Wilson', lastVisit: '2023-04-20' },
-    { id: 'P006', name: 'Lisa Martin', lastVisit: '2023-05-30' },
-    { id: 'P007', name: 'David Taylor', lastVisit: '2023-03-15' },
-    { id: 'P008', name: 'Jennifer Adams', lastVisit: '2023-06-02' }
+    { id: 'P001', name: 'John Smith', lastVisit: '2023-06-01', nextVisit: '2023-09-15' },
+    { id: 'P002', name: 'Sarah Johnson', lastVisit: '2023-05-15', nextVisit: '2023-08-22' },
+    { id: 'P003', name: 'Michael Brown', lastVisit: '2023-06-10', nextVisit: '2023-07-25' },
+    { id: 'P004', name: 'Emily Davis', lastVisit: '2023-06-12', nextVisit: '2023-08-01' },
+    { id: 'P005', name: 'Robert Wilson', lastVisit: '2023-04-20', nextVisit: '2023-08-10' },
+    { id: 'P006', name: 'Lisa Martin', lastVisit: '2023-05-30', nextVisit: '' },
+    { id: 'P007', name: 'David Taylor', lastVisit: '2023-03-15', nextVisit: '2023-07-28' },
+    { id: 'P008', name: 'Jennifer Adams', lastVisit: '2023-06-02', nextVisit: '2023-09-05' }
   ];
   
   const tableBody = document.getElementById('patients-list-body');
@@ -288,10 +288,14 @@ function loadPatientsListData() {
     const row = document.createElement('tr');
     row.dataset.id = patient.id;
     
+    const nextVisitValue = patient.nextVisit ? formatDateSimple(patient.nextVisit) : 'Not scheduled';
+    const nextVisitClass = patient.nextVisit ? '' : 'text-muted';
+    
     row.innerHTML = `
       <td>${patient.id}</td>
       <td>${patient.name}</td>
       <td>${formatDateSimple(patient.lastVisit)}</td>
+      <td class="${nextVisitClass}">${nextVisitValue}</td>
       <td>
         <button class="action-btn view-patient-btn" data-id="${patient.id}"><i class="fas fa-eye"></i></button>
       </td>

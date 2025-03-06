@@ -419,6 +419,11 @@ tbody tr:hover {
   color: var(--text-light);
 }
 
+.text-muted {
+  color: var(--text-light);
+  font-style: italic;
+}
+
 .action-btn {
   background: none;
   border: none;
