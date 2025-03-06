@@ -320,9 +320,9 @@ function loadPatientDetails(patientId) {
     chronicConditions: 'Hypertension, Diabetes',
     medications: 'Lisinopril 10mg, Metformin 500mg',
     visits: [
-      { date: '2023-06-01', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Well-controlled hypertension', treatment: 'Continue current medications', notes: 'Blood pressure 130/85, follow up in 3 months' },
-      { date: '2023-03-15', type: 'Illness', doctor: 'Dr. Michael Chen', diagnosis: 'Upper respiratory infection', treatment: 'Antibiotics, rest', notes: 'Prescribed amoxicillin for 7 days' },
-      { date: '2022-12-10', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Diabetes follow-up', treatment: 'Adjusted medication dosage', notes: 'HbA1c 7.2, improved from last visit' }
+      { date: '2023-06-01', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Well-controlled hypertension', treatment: 'Continue current medications', notes: 'Blood pressure 130/85, follow up in 3 months', money: 150 },
+      { date: '2023-03-15', type: 'Illness', doctor: 'Dr. Michael Chen', diagnosis: 'Upper respiratory infection', treatment: 'Antibiotics, rest', notes: 'Prescribed amoxicillin for 7 days', money: 225 },
+      { date: '2022-12-10', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Diabetes follow-up', treatment: 'Adjusted medication dosage', notes: 'HbA1c 7.2, improved from last visit', money: 175 }
     ]
   };
   
@@ -342,6 +342,9 @@ function loadPatientDetails(patientId) {
   document.getElementById('patient-conditions').textContent = patientDetails.chronicConditions;
   document.getElementById('patient-medications').textContent = patientDetails.medications;
   
+  // Add last diagnostic
+  document.getElementById('patient-last-diagnostic').textContent = patientDetails.visits[0].diagnosis;
+  
   // Populate visit history
   const visitHistoryBody = document.getElementById('visit-history-body');
   if (visitHistoryBody) {
@@ -352,10 +355,7 @@ function loadPatientDetails(patientId) {
       row.innerHTML = `
         <td>${formatDateSimple(visit.date)}</td>
         <td>${visit.type}</td>
-        <td>${visit.doctor}</td>
-        <td>${visit.diagnosis}</td>
-        <td>${visit.treatment}</td>
-        <td>${visit.notes}</td>
+        <td>$${visit.money || Math.floor(Math.random() * 200) + 50}</td>
       `;
       visitHistoryBody.appendChild(row);
     });
