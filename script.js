@@ -10,8 +10,24 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePatientsPage();
   } else if (currentPath.includes('patient-detail.html')) {
     initializePatientDetailPage();
+  } else if (currentPath.includes('settings.html')) {
+    initializeSettingsPage();
   }
 });
+
+// Settings Page Initialization
+function initializeSettingsPage() {
+  // Add event listeners to save buttons
+  const saveButtons = document.querySelectorAll('.settings-form .btn');
+  
+  saveButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // In a real app, this would save data to a backend
+      // For demo purposes, just show a success message
+      alert('Settings saved successfully!');
+    });
+  });
+}
 
 // Dashboard Page Initialization
 function initializeDashboard() {
