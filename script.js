@@ -263,14 +263,14 @@ function populatePatientList(containerId, patients) {
 function loadPatientsListData() {
   // Mock patients data
   const patients = [
-    { id: 'P001', name: 'John Smith', age: 45, gender: 'Male', phone: '(555) 123-4567', lastVisit: '2023-06-01', status: 'active' },
-    { id: 'P002', name: 'Sarah Johnson', age: 38, gender: 'Female', phone: '(555) 234-5678', lastVisit: '2023-05-15', status: 'active' },
-    { id: 'P003', name: 'Michael Brown', age: 52, gender: 'Male', phone: '(555) 345-6789', lastVisit: '2023-06-10', status: 'active' },
-    { id: 'P004', name: 'Emily Davis', age: 29, gender: 'Female', phone: '(555) 456-7890', lastVisit: '2023-06-12', status: 'active' },
-    { id: 'P005', name: 'Robert Wilson', age: 62, gender: 'Male', phone: '(555) 567-8901', lastVisit: '2023-04-20', status: 'inactive' },
-    { id: 'P006', name: 'Lisa Martin', age: 41, gender: 'Female', phone: '(555) 678-9012', lastVisit: '2023-05-30', status: 'active' },
-    { id: 'P007', name: 'David Taylor', age: 35, gender: 'Male', phone: '(555) 789-0123', lastVisit: '2023-03-15', status: 'inactive' },
-    { id: 'P008', name: 'Jennifer Adams', age: 28, gender: 'Female', phone: '(555) 890-1234', lastVisit: '2023-06-02', status: 'active' }
+    { id: 'P001', name: 'John Smith', lastVisit: '2023-06-01' },
+    { id: 'P002', name: 'Sarah Johnson', lastVisit: '2023-05-15' },
+    { id: 'P003', name: 'Michael Brown', lastVisit: '2023-06-10' },
+    { id: 'P004', name: 'Emily Davis', lastVisit: '2023-06-12' },
+    { id: 'P005', name: 'Robert Wilson', lastVisit: '2023-04-20' },
+    { id: 'P006', name: 'Lisa Martin', lastVisit: '2023-05-30' },
+    { id: 'P007', name: 'David Taylor', lastVisit: '2023-03-15' },
+    { id: 'P008', name: 'Jennifer Adams', lastVisit: '2023-06-02' }
   ];
   
   const tableBody = document.getElementById('patients-list-body');
@@ -282,20 +282,12 @@ function loadPatientsListData() {
     const row = document.createElement('tr');
     row.dataset.id = patient.id;
     
-    const statusClass = patient.status === 'active' ? 'status-active' : 'status-inactive';
-    
     row.innerHTML = `
       <td>${patient.id}</td>
       <td>${patient.name}</td>
-      <td>${patient.age}</td>
-      <td>${patient.gender}</td>
-      <td>${patient.phone}</td>
       <td>${formatDateSimple(patient.lastVisit)}</td>
-      <td><span class="status-badge ${statusClass}">${capitalizeFirstLetter(patient.status)}</span></td>
       <td>
         <button class="action-btn view-patient-btn" data-id="${patient.id}"><i class="fas fa-eye"></i></button>
-        <button class="action-btn"><i class="fas fa-edit"></i></button>
-        <button class="action-btn"><i class="fas fa-calendar-plus"></i></button>
       </td>
     `;
     
