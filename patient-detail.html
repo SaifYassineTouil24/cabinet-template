@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Details - Clinic Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <div class="logo">
+        <h2>Clinic MS</h2>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li class="active"><a href="patients.html"><i class="fas fa-users"></i> Patients</a></li>
+        <li><a href="#"><i class="fas fa-calendar"></i> Appointments</a></li>
+        <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
+        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+      </ul>
+    </nav>
+    
+    <main class="content">
+      <header>
+        <div class="breadcrumb">
+          <a href="patients.html">Patients</a> / <span id="patient-name-header">Patient Details</span>
+        </div>
+        <div class="user-info">
+          <span>Dr. Smith</span>
+          <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Profile">
+        </div>
+      </header>
+      
+      <div class="patient-detail-page">
+        <div class="page-header">
+          <h1 id="patient-full-name">Patient Name</h1>
+          <div class="action-buttons">
+            <button class="btn edit-btn"><i class="fas fa-edit"></i> Edit</button>
+            <button class="btn schedule-btn"><i class="fas fa-calendar-plus"></i> Schedule</button>
+          </div>
+        </div>
+        
+        <div class="patient-profile">
+          <div class="profile-section info-card">
+            <h3>Personal Information</h3>
+            <div class="profile-details">
+              <div class="profile-image">
+                <img id="patient-image" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Patient">
+              </div>
+              <div class="profile-info">
+                <div class="info-item">
+                  <span class="label">Patient ID:</span>
+                  <span id="patient-id" class="value">P00123</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Date of Birth:</span>
+                  <span id="patient-dob" class="value">01/15/1985</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Age:</span>
+                  <span id="patient-age" class="value">38</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Gender:</span>
+                  <span id="patient-gender" class="value">Male</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Blood Type:</span>
+                  <span id="patient-blood" class="value">O+</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Phone:</span>
+                  <span id="patient-phone" class="value">+1 (555) 123-4567</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Email:</span>
+                  <span id="patient-email" class="value">patient@example.com</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Address:</span>
+                  <span id="patient-address" class="value">123 Main St, Anytown, ST 12345</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="medical-summary info-card">
+            <h3>Medical Summary</h3>
+            <div class="medical-info">
+              <div class="info-item">
+                <span class="label">Allergies:</span>
+                <span id="patient-allergies" class="value">Penicillin, Peanuts</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Chronic Conditions:</span>
+                <span id="patient-conditions" class="value">Hypertension, Diabetes</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Current Medications:</span>
+                <span id="patient-medications" class="value">Lisinopril 10mg, Metformin 500mg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="visit-history info-card">
+          <h3>Visit History</h3>
+          <table class="visit-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Doctor</th>
+                <th>Diagnosis</th>
+                <th>Treatment</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody id="visit-history-body">
+              <!-- Visit history will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
