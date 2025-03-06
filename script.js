@@ -293,10 +293,8 @@ function loadPatientDetails(patientId) {
     dob: '1978-01-15',
     age: 45,
     gender: 'Male',
-    bloodType: 'O+',
+    cin: 'AE123456',
     phone: '(555) 123-4567',
-    email: 'john.smith@example.com',
-    address: '123 Main St, Anytown, ST 12345',
     image: 'https://randomuser.me/api/portraits/men/32.jpg',
     allergies: 'Penicillin, Peanuts',
     chronicConditions: 'Hypertension, Diabetes',
@@ -315,10 +313,8 @@ function loadPatientDetails(patientId) {
   document.getElementById('patient-dob').textContent = formatDateSimple(patientDetails.dob);
   document.getElementById('patient-age').textContent = patientDetails.age;
   document.getElementById('patient-gender').textContent = patientDetails.gender;
-  document.getElementById('patient-blood').textContent = patientDetails.bloodType;
+  document.getElementById('patient-cin').textContent = patientDetails.cin || 'AE123456';
   document.getElementById('patient-phone').textContent = patientDetails.phone;
-  document.getElementById('patient-email').textContent = patientDetails.email;
-  document.getElementById('patient-address').textContent = patientDetails.address;
   document.getElementById('patient-allergies').textContent = patientDetails.allergies;
   document.getElementById('patient-conditions').textContent = patientDetails.chronicConditions;
   document.getElementById('patient-medications').textContent = patientDetails.medications;
@@ -447,12 +443,8 @@ function openPatientDetailsModal(patientId) {
         <span class="value">${patientDetails.phone}</span>
       </div>
       <div class="info-item">
-        <span class="label">Email:</span>
-        <span class="value">${patientDetails.email}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">Address:</span>
-        <span class="value">${patientDetails.address}</span>
+        <span class="label">CIN:</span>
+        <span class="value">${patientDetails.cin || 'AE123456'}</span>
       </div>
       <div class="info-item">
         <span class="label">Last Visit:</span>
