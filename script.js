@@ -336,6 +336,7 @@ function loadPatientDetails(patientId) {
       row.innerHTML = `
         <td>${formatDateSimple(visit.date)}</td>
         <td>${visit.type}</td>
+        <td>${visit.diagnosis || 'No diagnostic recorded'}</td>
         <td>$${visit.money || Math.floor(Math.random() * 200) + 50}</td>
       `;
       visitHistoryBody.appendChild(row);
