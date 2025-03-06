@@ -329,7 +329,7 @@ function loadPatientDetails(patientId) {
   // Populate patient information
   document.getElementById('patient-name-header').textContent = patientDetails.name;
   document.getElementById('patient-full-name').textContent = patientDetails.name;
-  document.getElementById('patient-id').textContent = patientDetails.id;
+  document.getElementById('patient-name').textContent = patientDetails.name;
   document.getElementById('patient-dob').textContent = formatDateSimple(patientDetails.dob);
   document.getElementById('patient-age').textContent = patientDetails.age;
   document.getElementById('patient-gender').textContent = patientDetails.gender;
@@ -337,7 +337,6 @@ function loadPatientDetails(patientId) {
   document.getElementById('patient-phone').textContent = patientDetails.phone;
   document.getElementById('patient-email').textContent = patientDetails.email;
   document.getElementById('patient-address').textContent = patientDetails.address;
-  document.getElementById('patient-image').src = patientDetails.image;
   document.getElementById('patient-allergies').textContent = patientDetails.allergies;
   document.getElementById('patient-conditions').textContent = patientDetails.chronicConditions;
   document.getElementById('patient-medications').textContent = patientDetails.medications;
