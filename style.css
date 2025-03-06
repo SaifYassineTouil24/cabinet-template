@@ -607,12 +607,47 @@ tbody tr:hover {
   gap: 15px;
 }
 
+.visit-history-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
 .visit-history {
   overflow-x: auto;
 }
 
 .visit-table {
-  min-width: 800px;
+  min-width: 600px;
+}
+
+.appointment-detail {
+  height: fit-content;
+}
+
+#appointment-detail-content {
+  margin-top: 15px;
+}
+
+.visit-action-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.visit-action-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+@media (max-width: 1024px) {
+  .visit-history-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Modal Styles */

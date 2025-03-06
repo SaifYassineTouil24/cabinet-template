@@ -324,19 +324,83 @@ function loadPatientDetails(patientId) {
   
   // Populate visit history
   const visitHistoryBody = document.getElementById('visit-history-body');
+  const appointmentDetailContent = document.getElementById('appointment-detail-content');
+  
   if (visitHistoryBody) {
     visitHistoryBody.innerHTML = '';
     
-    patientDetails.visits.forEach(visit => {
+    // Add more example visits for demonstration
+    patientDetails.visits = [
+      { date: '2023-06-01', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Well-controlled hypertension', treatment: 'Continue current medications', notes: 'Blood pressure 130/85, follow up in 3 months', money: 150 },
+      { date: '2023-03-15', type: 'Illness', doctor: 'Dr. Michael Chen', diagnosis: 'Upper respiratory infection', treatment: 'Antibiotics, rest', notes: 'Prescribed amoxicillin for 7 days', money: 225 },
+      { date: '2022-12-10', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Diabetes follow-up', treatment: 'Adjusted medication dosage', notes: 'HbA1c 7.2, improved from last visit', money: 175 },
+      { date: '2022-09-05', type: 'Specialist', doctor: 'Dr. Emily Rodriguez', diagnosis: 'Cardiovascular assessment', treatment: 'No changes to current treatment', notes: 'ECG normal, cholesterol levels stable', money: 300 },
+      { date: '2022-06-18', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Hypertension and diabetes monitoring', treatment: 'Continue medications', notes: 'All vitals within normal range', money: 150 }
+    ];
+    
+    patientDetails.visits.forEach((visit, index) => {
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>${formatDateSimple(visit.date)}</td>
         <td>${visit.type}</td>
-        <td>${visit.treatment || visit.notes || 'No appointment details recorded'}</td>
         <td>$${visit.money || Math.floor(Math.random() * 200) + 50}</td>
+        <td>
+          <button class="visit-action-btn" data-index="${index}">View Details</button>
+        </td>
       `;
       visitHistoryBody.appendChild(row);
+      
+      // Add event listener to view details button
+      row.querySelector('.visit-action-btn').addEventListener('click', () => {
+        showAppointmentDetail(visit);
+      });
     });
+    
+    // Show first visit details by default
+    if (patientDetails.visits.length > 0) {
+      showAppointmentDetail(patientDetails.visits[0]);
+    }
+  }
+  
+  // Function to display appointment details
+  function showAppointmentDetail(visit) {
+    if (appointmentDetailContent) {
+      appointmentDetailContent.innerHTML = `
+        <div class="info-item">
+          <span class="label">Date:</span>
+          <span class="value">${formatDateSimple(visit.date)}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Type:</span>
+          <span class="value">${visit.type}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Doctor:</span>
+          <span class="value">${visit.doctor}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Diagnosis:</span>
+          <span class="value">${visit.diagnosis}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Treatment:</span>
+          <span class="value">${visit.treatment}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Notes:</span>
+          <span class="value">${visit.notes}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Cost:</span>
+          <span class="value">$${visit.money}</span>
+        </div>
+        <div style="margin-top: 20px;">
+          <button class="btn schedule-btn" onclick="alert('Redirecting to appointment detail page...')">
+            <i class="fas fa-calendar-check"></i> Go to Appointment
+          </button>
+        </div>
+      `;
+    }
   }
 }
 
