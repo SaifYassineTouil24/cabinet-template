@@ -607,6 +607,22 @@ tbody tr:hover {
   gap: 15px;
 }
 
+.next-visit-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.next-visit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.next-visit-actions .btn {
+  padding: 8px 15px;
+}
+
 .visit-history-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
