@@ -338,57 +338,6 @@ function loadPatientDetails(patientId) {
   // Add last diagnostic
   document.getElementById('patient-last-diagnostic').textContent = patientDetails.visits[0].diagnosis;
   
-  // Add next visit information
-  const nextVisitDate = document.getElementById('next-visit-date');
-  const nextVisitTime = document.getElementById('next-visit-time');
-  const nextVisitType = document.getElementById('next-visit-type');
-  const nextVisitProvider = document.getElementById('next-visit-provider');
-  
-  // Generate a random next visit date (2-4 weeks from now)
-  const today = new Date();
-  const nextVisitDateObj = new Date(today);
-  nextVisitDateObj.setDate(today.getDate() + Math.floor(Math.random() * 14) + 14); // 14-28 days from now
-  
-  // Random time slots
-  const timeSlots = ['09:00 AM', '10:30 AM', '11:45 AM', '01:15 PM', '02:30 PM', '03:45 PM', '04:30 PM'];
-  const randomTimeSlot = timeSlots[Math.floor(Math.random() * timeSlots.length)];
-  
-  // Random visit types
-  const visitTypes = ['Follow-up', 'Check-up', 'Lab Results Review', 'Medication Review', 'Specialist Consultation'];
-  const randomVisitType = visitTypes[Math.floor(Math.random() * visitTypes.length)];
-  
-  // Random providers
-  const providers = ['Dr. Sarah Johnson', 'Dr. Michael Chen', 'Dr. Emily Rodriguez', 'Dr. David Wilson'];
-  const randomProvider = providers[Math.floor(Math.random() * providers.length)];
-  
-  // Set next visit info in DOM
-  nextVisitDate.textContent = formatDateSimple(nextVisitDateObj);
-  nextVisitTime.textContent = randomTimeSlot;
-  nextVisitType.textContent = randomVisitType;
-  nextVisitProvider.textContent = randomProvider;
-  
-  // Add event listeners for next visit buttons
-  const rescheduleBtn = document.getElementById('reschedule-btn');
-  const cancelVisitBtn = document.getElementById('cancel-visit-btn');
-  
-  if (rescheduleBtn) {
-    rescheduleBtn.addEventListener('click', function() {
-      alert('Reschedule functionality would open a calendar here to pick a new date and time.');
-    });
-  }
-  
-  if (cancelVisitBtn) {
-    cancelVisitBtn.addEventListener('click', function() {
-      if (confirm('Are you sure you want to cancel this appointment?')) {
-        nextVisitDate.textContent = 'Not scheduled';
-        nextVisitTime.textContent = '-';
-        nextVisitType.textContent = '-';
-        nextVisitProvider.textContent = '-';
-        alert('Appointment canceled successfully.');
-      }
-    });
-  }
-  
   // Populate visit history
   const visitHistoryBody = document.getElementById('visit-history-body');
   const appointmentDetailContent = document.getElementById('appointment-detail-content');
