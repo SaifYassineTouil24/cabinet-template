@@ -41,8 +41,8 @@
         <div class="page-header">
           <h1 id="patient-full-name">Patient Name</h1>
           <div class="action-buttons">
-            <button class="btn edit-btn"><i class="fas fa-edit"></i> Edit</button>
-            <button class="btn schedule-btn"><i class="fas fa-calendar-plus"></i> Schedule</button>
+            <button class="btn edit-btn" id="edit-patient-btn"><i class="fas fa-edit"></i> Edit</button>
+            <button class="btn schedule-btn" id="schedule-patient-btn"><i class="fas fa-calendar-plus"></i> Schedule</button>
           </div>
         </div>
         
@@ -160,6 +160,106 @@
         </div>
       </div>
     </main>
+  </div>
+  
+  <!-- Edit Patient Modal -->
+  <div id="edit-patient-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Patient</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="edit-patient-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="edit-patient-name">Full Name</label>
+              <input type="text" id="edit-patient-name" class="form-input" placeholder="Enter patient name" required>
+            </div>
+            <div class="form-group">
+              <label for="edit-patient-dob">Date of Birth</label>
+              <input type="date" id="edit-patient-dob" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="edit-patient-gender">Gender</label>
+              <select id="edit-patient-gender" class="form-input" required>
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-patient-cin">CIN/ID Number</label>
+              <input type="text" id="edit-patient-cin" class="form-input" placeholder="Enter ID number">
+            </div>
+            <div class="form-group">
+              <label for="edit-patient-phone">Phone Number</label>
+              <input type="tel" id="edit-patient-phone" class="form-input" placeholder="Enter phone number" required>
+            </div>
+            <div class="form-group">
+              <label for="edit-patient-phone-alt">Alternative Phone Number</label>
+              <input type="tel" id="edit-patient-phone-alt" class="form-input" placeholder="Enter alternative phone number">
+            </div>
+            <div class="form-group">
+              <label for="edit-patient-allergies">Allergies</label>
+              <textarea id="edit-patient-allergies" class="form-input" rows="2" placeholder="Any allergies (if applicable)"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="edit-patient-conditions">Chronic Conditions</label>
+              <textarea id="edit-patient-conditions" class="form-input" rows="2" placeholder="Any chronic conditions (if applicable)"></textarea>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn edit-btn" id="cancel-edit-patient">Cancel</button>
+            <button type="submit" class="btn schedule-btn">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Schedule Appointment Modal -->
+  <div id="schedule-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Schedule Appointment</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="schedule-appointment-form">
+          <div class="form-group">
+            <label for="appointment-date">Appointment Date</label>
+            <input type="date" id="appointment-date" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="appointment-time">Appointment Time</label>
+            <input type="time" id="appointment-time" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="appointment-type">Type of Visit</label>
+            <select id="appointment-type" class="form-input" required>
+              <option value="">Select type</option>
+              <option value="Regular Check-up">Regular Check-up</option>
+              <option value="Illness">Illness</option>
+              <option value="Follow-up">Follow-up</option>
+              <option value="Specialist">Specialist Consultation</option>
+              <option value="Vaccination">Vaccination</option>
+              <option value="Lab Results">Lab Results Review</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="appointment-notes">Notes</label>
+            <textarea id="appointment-notes" class="form-input" rows="3" placeholder="Any notes about the appointment"></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn edit-btn" id="cancel-schedule">Cancel</button>
+            <button type="submit" class="btn schedule-btn">Schedule Appointment</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
   
   <script src="script.js"></script>

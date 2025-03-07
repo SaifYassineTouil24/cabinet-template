@@ -182,6 +182,104 @@ function initializePatientDetailPage() {
   if (patientId) {
     loadPatientDetails(patientId);
   }
+  
+  // Initialize edit modal
+  const editBtn = document.getElementById('edit-patient-btn');
+  const editModal = document.getElementById('edit-patient-modal');
+  const cancelEditBtn = document.getElementById('cancel-edit-patient');
+  const closeEditModal = editModal ? editModal.querySelector('.close') : null;
+  
+  if (editBtn && editModal) {
+    editBtn.addEventListener('click', function() {
+      // Pre-fill the form with patient details
+      document.getElementById('edit-patient-name').value = document.getElementById('patient-name').textContent;
+      document.getElementById('edit-patient-cin').value = document.getElementById('patient-cin').textContent;
+      document.getElementById('edit-patient-phone').value = document.getElementById('patient-phone').textContent;
+      document.getElementById('edit-patient-allergies').value = document.getElementById('patient-allergies').textContent;
+      document.getElementById('edit-patient-conditions').value = document.getElementById('patient-conditions').textContent;
+      
+      // Show the modal
+      editModal.style.display = 'block';
+    });
+  }
+  
+  if (cancelEditBtn) {
+    cancelEditBtn.addEventListener('click', function() {
+      editModal.style.display = 'none';
+    });
+  }
+  
+  if (closeEditModal) {
+    closeEditModal.addEventListener('click', function() {
+      editModal.style.display = 'none';
+    });
+  }
+  
+  // Initialize schedule modal
+  const scheduleBtn = document.getElementById('schedule-patient-btn');
+  const scheduleModal = document.getElementById('schedule-modal');
+  const cancelScheduleBtn = document.getElementById('cancel-schedule');
+  const closeScheduleModal = scheduleModal ? scheduleModal.querySelector('.close') : null;
+  
+  if (scheduleBtn && scheduleModal) {
+    scheduleBtn.addEventListener('click', function() {
+      // Set default date to tomorrow
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      document.getElementById('appointment-date').valueAsDate = tomorrow;
+      
+      // Show the modal
+      scheduleModal.style.display = 'block';
+    });
+  }
+  
+  if (cancelScheduleBtn) {
+    cancelScheduleBtn.addEventListener('click', function() {
+      scheduleModal.style.display = 'none';
+    });
+  }
+  
+  if (closeScheduleModal) {
+    closeScheduleModal.addEventListener('click', function() {
+      scheduleModal.style.display = 'none';
+    });
+  }
+  
+  // Handle form submissions
+  const editForm = document.getElementById('edit-patient-form');
+  const scheduleForm = document.getElementById('schedule-appointment-form');
+  
+  if (editForm) {
+    editForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // In a real app, you would save this data to a database
+      alert('Patient information updated successfully!');
+      editModal.style.display = 'none';
+    });
+  }
+  
+  if (scheduleForm) {
+    scheduleForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const date = document.getElementById('appointment-date').value;
+      const time = document.getElementById('appointment-time').value;
+      const type = document.getElementById('appointment-type').value;
+      
+      // In a real app, you would save this data to a database
+      alert(`Appointment scheduled for ${date} at ${time} successfully!`);
+      scheduleModal.style.display = 'none';
+    });
+  }
+  
+  // Close modals when clicking outside
+  window.addEventListener('click', function(e) {
+    if (e.target === editModal) {
+      editModal.style.display = 'none';
+    } else if (e.target === scheduleModal) {
+      scheduleModal.style.display = 'none';
+    }
+  });
 }
 
 // Calendar Functions
