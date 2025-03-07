@@ -34,29 +34,79 @@ html, body {
 
 /* Sidebar Styles */
 .sidebar {
-  width: 250px;
-  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  width: 260px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
   height: 100%;
-  padding: 20px 0;
+  padding: 25px 0;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 100;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   padding: 0 20px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   margin-bottom: 20px;
+}
+
+.logo i {
+  font-size: 28px;
+}
+
+.logo h2 {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 15px;
+}
+
+.user-profile img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  object-fit: cover;
+}
+
+.user-details {
+  margin-left: 12px;
+}
+
+.user-details h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.user-details span {
+  font-size: 12px;
+  opacity: 0.8;
 }
 
 .nav-links {
   list-style: none;
+  padding: 0;
+  flex-grow: 1;
 }
 
 .nav-links li {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  padding: 0 15px;
 }
 
 .nav-links li a {
@@ -64,40 +114,89 @@ html, body {
   align-items: center;
   color: white;
   text-decoration: none;
-  padding: 12px 20px;
+  padding: 14px 20px;
+  border-radius: 10px;
   transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .nav-links li a i {
-  margin-right: 10px;
+  margin-right: 12px;
   font-size: 18px;
+  width: 20px;
+  text-align: center;
 }
 
 .nav-links li:hover a {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
 }
 
 .nav-links li.active a {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-left: 4px solid white;
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  justify-content: space-around;
+}
+
+.sidebar-footer a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.sidebar-footer a i {
+  margin-right: 8px;
+}
+
+.sidebar-footer a:hover {
+  opacity: 1;
 }
 
 /* Content Styles */
 .content {
   flex: 1;
-  margin-left: 250px;
+  margin-left: 260px;
   padding: 20px;
   overflow-y: auto;
 }
 
 /* Header Styles */
 header {
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--border-color);
+}
+
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.breadcrumb-container i {
+  color: var(--primary-color);
+  font-size: 16px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .clock {
@@ -107,8 +206,14 @@ header {
   font-size: 16px;
   background-color: var(--light-bg);
   padding: 8px 15px;
-  border-radius: 20px;
+  border-radius: 12px;
   box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.clock:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .clock i {
@@ -120,15 +225,21 @@ header {
 }
 
 .breadcrumb {
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .breadcrumb a {
   color: var(--primary-color);
   text-decoration: none;
+  transition: all 0.2s ease;
 }
 
-.search-bar {
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.search-box {
   display: flex;
   align-items: center;
   background-color: white;
@@ -136,27 +247,81 @@ header {
   padding: 5px 15px;
   box-shadow: var(--shadow);
   width: 300px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
 }
 
-.search-bar input {
+.search-box:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.2);
+}
+
+.search-box i {
+  color: var(--text-light);
+  margin-right: 10px;
+}
+
+.search-box input {
   border: none;
   outline: none;
   flex: 1;
-  padding: 8px;
+  padding: 10px 0;
   font-size: 14px;
+  background: transparent;
 }
 
-.search-bar button {
-  background: none;
-  border: none;
-  color: var(--primary-color);
+.notifications {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--light-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.notifications:hover {
+  background-color: rgba(46, 139, 87, 0.1);
+}
+
+.notifications i {
+  color: var(--primary-color);
+  font-size: 18px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #e74c3c;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 12px;
+  background-color: var(--light-bg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.user-info:hover {
+  background-color: rgba(46, 139, 87, 0.1);
 }
 
 .user-info img {
@@ -164,6 +329,22 @@ header {
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid var(--primary-color);
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.user-role {
+  font-size: 12px;
+  color: var(--text-light);
 }
 
 /* Dashboard Styles */
