@@ -113,8 +113,63 @@ function initializePatientsPage() {
     }
 
     if (e.target.classList.contains('close')) {
-      closePatientDetailsModal();
+      closeAllModals();
     }
+  });
+  
+  // Add New Patient Modal
+  const addPatientBtn = document.getElementById('add-patient-btn');
+  const addPatientModal = document.getElementById('add-patient-modal');
+  const cancelAddPatientBtn = document.getElementById('cancel-add-patient');
+  const addPatientForm = document.getElementById('add-patient-form');
+  
+  if (addPatientBtn && addPatientModal) {
+    addPatientBtn.addEventListener('click', function() {
+      addPatientModal.style.display = 'block';
+    });
+  }
+  
+  if (cancelAddPatientBtn) {
+    cancelAddPatientBtn.addEventListener('click', function() {
+      addPatientModal.style.display = 'none';
+    });
+  }
+  
+  if (addPatientForm) {
+    addPatientForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('patient-name').value;
+      const dob = document.getElementById('patient-dob').value;
+      const gender = document.getElementById('patient-gender').value;
+      const cin = document.getElementById('patient-cin').value;
+      const phone = document.getElementById('patient-phone').value;
+      
+      // In a real app, you would save this data to a database
+      // For demo purposes, just alert and close the modal
+      alert(`Patient ${name} added successfully!`);
+      addPatientModal.style.display = 'none';
+      addPatientForm.reset();
+      
+      // Refresh patient list (in a real app, this would fetch updated data)
+      // Here we're just reloading the mock data
+      loadPatientsListData();
+    });
+  }
+  
+  // Close modal when clicking outside
+  window.addEventListener('click', function(e) {
+    if (e.target === addPatientModal) {
+      addPatientModal.style.display = 'none';
+    }
+  });
+}
+
+function closeAllModals() {
+  const modals = document.querySelectorAll('.modal');
+  modals.forEach(modal => {
+    modal.style.display = 'none';
   });
 }
 
@@ -686,10 +741,7 @@ function openPatientDetailsModal(patientId) {
 }
 
 function closePatientDetailsModal() {
-  const modal = document.getElementById('patient-details-modal');
-  if (modal) {
-    modal.style.display = 'none';
-  }
+  closeAllModals();
 }
 
 // No longer needed as date navigation is removed
