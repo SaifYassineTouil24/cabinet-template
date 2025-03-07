@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePatientDetailPage();
   } else if (currentPath.includes('settings.html')) {
     initializeSettingsPage();
+  } else if (currentPath.includes('medicament.html')) {
+    initializeMedicamentPage();
   }
 });
 
@@ -728,4 +730,155 @@ function getMonthNumber(monthName) {
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Medicament Page Initialization
+function initializeMedicamentPage() {
+  // Load mock medicament data
+  loadMedicamentData();
+  
+  // Add event listeners for search and filters
+  const searchInput = document.getElementById('medicament-search');
+  const categoryFilter = document.getElementById('filter-category');
+  const stockFilter = document.getElementById('filter-stock');
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', filterMedicaments);
+  }
+  
+  if (categoryFilter) {
+    categoryFilter.addEventListener('change', filterMedicaments);
+  }
+  
+  if (stockFilter) {
+    stockFilter.addEventListener('change', filterMedicaments);
+  }
+  
+  // Modal functionality
+  const medicationModal = document.getElementById('medication-modal');
+  const addMedicationBtn = document.getElementById('add-medication-btn');
+  const closeModalBtn = document.querySelector('#medication-modal .close');
+  const cancelBtn = document.getElementById('cancel-med-btn');
+  const saveMedBtn = document.getElementById('save-med-btn');
+  
+  if (addMedicationBtn) {
+    addMedicationBtn.addEventListener('click', () => {
+      medicationModal.style.display = 'block';
+    });
+  }
+  
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+      medicationModal.style.display = 'none';
+    });
+  }
+  
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+      medicationModal.style.display = 'none';
+    });
+  }
+  
+  if (saveMedBtn) {
+    saveMedBtn.addEventListener('click', () => {
+      // In a real app, this would save data to the backend
+      alert('Medication saved successfully!');
+      medicationModal.style.display = 'none';
+    });
+  }
+  
+  // Close modal when clicking outside the modal content
+  window.addEventListener('click', (e) => {
+    if (e.target === medicationModal) {
+      medicationModal.style.display = 'none';
+    }
+  });
+}
+
+function loadMedicamentData() {
+  // Mock medicament data - in a real app, this would come from an API
+  const medications = [
+    { code: 'MED001', name: 'Amoxicillin 500mg', category: 'antibiotics', stock: 125, price: 12.50, expiry: '2024-12-01' },
+    { code: 'MED002', name: 'Ibuprofen 400mg', category: 'analgesics', stock: 85, price: 8.75, expiry: '2025-06-15' },
+    { code: 'MED003', name: 'Metformin 850mg', category: 'antidiabetic', stock: 210, price: 15.30, expiry: '2024-08-22' },
+    { code: 'MED004', name: 'Atorvastatin 20mg', category: 'antihypertensive', stock: 75, price: 18.90, expiry: '2024-07-10' },
+    { code: 'MED005', name: 'Diclofenac 50mg', category: 'anti-inflammatory', stock: 42, price: 9.45, expiry: '2023-12-30' },
+    { code: 'MED006', name: 'Clopidogrel 75mg', category: 'antihypertensive', stock: 95, price: 25.60, expiry: '2024-09-05' },
+    { code: 'MED007', name: 'Allopurinol 100mg', category: 'other', stock: 110, price: 11.25, expiry: '2025-01-18' },
+    { code: 'MED008', name: 'Azithromycin 250mg', category: 'antibiotics', stock: 15, price: 22.75, expiry: '2023-11-25' },
+    { code: 'MED009', name: 'Paracetamol 500mg', category: 'analgesics', stock: 320, price: 5.50, expiry: '2025-03-12' },
+    { code: 'MED010', name: 'Losartan 50mg', category: 'antihypertensive', stock: 0, price: 14.80, expiry: '2024-05-30' },
+    { code: 'MED011', name: 'Aspirin 100mg', category: 'analgesics', stock: 10, price: 7.25, expiry: '2024-02-15' },
+    { code: 'MED012', name: 'Fluoxetine 20mg', category: 'other', stock: 0, price: 19.30, expiry: '2024-04-22' }
+  ];
+  
+  const tbody = document.getElementById('medicament-list-body');
+  if (!tbody) return;
+  
+  tbody.innerHTML = '';
+  
+  medications.forEach(med => {
+    // Determine stock status
+    let stockStatus, statusClass;
+    if (med.stock === 0) {
+      stockStatus = 'Out of Stock';
+      statusClass = 'stock-out';
+    } else if (med.stock <= 15) {
+      stockStatus = 'Low Stock';
+      statusClass = 'stock-low';
+    } else {
+      stockStatus = 'In Stock';
+      statusClass = 'stock-normal';
+    }
+    
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${med.code}</td>
+      <td>${med.name}</td>
+      <td>${capitalizeFirstLetter(med.category)}</td>
+      <td><span class="stock-badge ${statusClass}">${stockStatus} (${med.stock})</span></td>
+      <td>$${med.price.toFixed(2)}</td>
+      <td>${formatDateSimple(med.expiry)}</td>
+      <td>
+        <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+        <button class="action-btn" title="View details"><i class="fas fa-eye"></i></button>
+      </td>
+    `;
+    
+    tbody.appendChild(row);
+  });
+}
+
+function filterMedicaments() {
+  const searchInput = document.getElementById('medicament-search');
+  const categoryFilter = document.getElementById('filter-category');
+  const stockFilter = document.getElementById('filter-stock');
+  const rows = document.querySelectorAll('#medicament-list-body tr');
+  
+  if (!searchInput || !categoryFilter || !stockFilter || !rows.length) return;
+  
+  const searchText = searchInput.value.toLowerCase();
+  const categoryValue = categoryFilter.value;
+  const stockValue = stockFilter.value;
+  
+  rows.forEach(row => {
+    const name = row.children[1].textContent.toLowerCase(); // Name column
+    const category = row.children[2].textContent.toLowerCase(); // Category column
+    const stockStatus = row.children[3].textContent.toLowerCase(); // Stock column
+    
+    // Check if the row matches all filters
+    const matchesSearch = name.includes(searchText);
+    const matchesCategory = categoryValue === 'all' || category.toLowerCase() === categoryValue;
+    
+    let matchesStock = true;
+    if (stockValue === 'in-stock') {
+      matchesStock = stockStatus.includes('in stock');
+    } else if (stockValue === 'low-stock') {
+      matchesStock = stockStatus.includes('low stock');
+    } else if (stockValue === 'out-of-stock') {
+      matchesStock = stockStatus.includes('out of stock');
+    }
+    
+    row.style.display = matchesSearch && matchesCategory && matchesStock ? '' : 'none';
+  });
 }
