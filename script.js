@@ -818,31 +818,12 @@ function loadMedicamentData() {
   tbody.innerHTML = '';
   
   medications.forEach(med => {
-    // Determine stock status
-    let stockStatus, statusClass;
-    if (med.stock === 0) {
-      stockStatus = 'Out of Stock';
-      statusClass = 'stock-out';
-    } else if (med.stock <= 15) {
-      stockStatus = 'Low Stock';
-      statusClass = 'stock-low';
-    } else {
-      stockStatus = 'In Stock';
-      statusClass = 'stock-normal';
-    }
-    
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>${med.code}</td>
       <td>${med.name}</td>
       <td>${capitalizeFirstLetter(med.category)}</td>
-      <td><span class="stock-badge ${statusClass}">${stockStatus} (${med.stock})</span></td>
       <td>$${med.price.toFixed(2)}</td>
-      <td>${formatDateSimple(med.expiry)}</td>
-      <td>
-        <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
-        <button class="action-btn" title="View details"><i class="fas fa-eye"></i></button>
-      </td>
     `;
     
     tbody.appendChild(row);
@@ -852,33 +833,21 @@ function loadMedicamentData() {
 function filterMedicaments() {
   const searchInput = document.getElementById('medicament-search');
   const categoryFilter = document.getElementById('filter-category');
-  const stockFilter = document.getElementById('filter-stock');
   const rows = document.querySelectorAll('#medicament-list-body tr');
   
-  if (!searchInput || !categoryFilter || !stockFilter || !rows.length) return;
+  if (!searchInput || !categoryFilter || !rows.length) return;
   
   const searchText = searchInput.value.toLowerCase();
   const categoryValue = categoryFilter.value;
-  const stockValue = stockFilter.value;
   
   rows.forEach(row => {
     const name = row.children[1].textContent.toLowerCase(); // Name column
     const category = row.children[2].textContent.toLowerCase(); // Category column
-    const stockStatus = row.children[3].textContent.toLowerCase(); // Stock column
     
     // Check if the row matches all filters
     const matchesSearch = name.includes(searchText);
     const matchesCategory = categoryValue === 'all' || category.toLowerCase() === categoryValue;
     
-    let matchesStock = true;
-    if (stockValue === 'in-stock') {
-      matchesStock = stockStatus.includes('in stock');
-    } else if (stockValue === 'low-stock') {
-      matchesStock = stockStatus.includes('low stock');
-    } else if (stockValue === 'out-of-stock') {
-      matchesStock = stockStatus.includes('out of stock');
-    }
-    
-    row.style.display = matchesSearch && matchesCategory && matchesStock ? '' : 'none';
+    row.style.display = matchesSearch && matchesCategory ? '' : 'none';
   });
 }
