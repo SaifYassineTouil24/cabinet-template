@@ -39,64 +39,10 @@
       
       <div class="medicament-page">
         <div class="page-header">
-          <h1>Medicament Inventory</h1>
+          <h1>Medicament List</h1>
           <button class="add-patient-btn" id="add-medication-btn">
             <i class="fas fa-plus"></i> Add New Medication
           </button>
-        </div>
-        
-        <div class="filter-bar">
-          <div class="filter">
-            <label for="filter-category">Category:</label>
-            <select id="filter-category">
-              <option value="all">All Categories</option>
-              <option value="antibiotics">Antibiotics</option>
-              <option value="analgesics">Analgesics</option>
-              <option value="anti-inflammatory">Anti-inflammatory</option>
-              <option value="antihypertensive">Antihypertensive</option>
-              <option value="antidiabetic">Antidiabetic</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="medicament-stats">
-          <div class="stat-card">
-            <div class="stat-icon">
-              <i class="fas fa-pills"></i>
-            </div>
-            <div class="stat-info">
-              <h4>Total Medications</h4>
-              <p>124</p>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">
-              <i class="fas fa-exclamation-triangle"></i>
-            </div>
-            <div class="stat-info">
-              <h4>Low Stock</h4>
-              <p>15</p>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">
-              <i class="fas fa-times-circle"></i>
-            </div>
-            <div class="stat-info">
-              <h4>Out of Stock</h4>
-              <p>8</p>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">
-              <i class="fas fa-calendar-alt"></i>
-            </div>
-            <div class="stat-info">
-              <h4>Expiring Soon</h4>
-              <p>12</p>
-            </div>
-          </div>
         </div>
         
         <div class="medicament-list">
@@ -105,8 +51,7 @@
               <tr>
                 <th>Code</th>
                 <th>Name</th>
-                <th>Category</th>
-                <th>Unit Price</th>
+                <th>Price</th>
               </tr>
             </thead>
             <tbody id="medicament-list-body">
@@ -131,31 +76,12 @@
           <input type="text" id="med-name" class="form-input" placeholder="Enter medication name">
         </div>
         <div class="form-group">
-          <label for="med-category">Category</label>
-          <select id="med-category" class="form-select">
-            <option value="antibiotics">Antibiotics</option>
-            <option value="analgesics">Analgesics</option>
-            <option value="anti-inflammatory">Anti-inflammatory</option>
-            <option value="antihypertensive">Antihypertensive</option>
-            <option value="antidiabetic">Antidiabetic</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="form-group">
           <label for="med-description">Description</label>
           <textarea id="med-description" class="form-input" rows="3" placeholder="Enter medication description"></textarea>
         </div>
         <div class="form-group">
-          <label for="med-stock">Initial Stock</label>
-          <input type="number" id="med-stock" class="form-input" placeholder="Enter quantity">
-        </div>
-        <div class="form-group">
-          <label for="med-price">Unit Price</label>
+          <label for="med-price">Price</label>
           <input type="number" id="med-price" class="form-input" placeholder="Enter price">
-        </div>
-        <div class="form-group">
-          <label for="med-expiry">Expiration Date</label>
-          <input type="date" id="med-expiry" class="form-input">
         </div>
         <div class="modal-actions">
           <button class="btn edit-btn" id="cancel-med-btn">Cancel</button>

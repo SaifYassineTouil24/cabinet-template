@@ -737,21 +737,11 @@ function initializeMedicamentPage() {
   // Load mock medicament data
   loadMedicamentData();
   
-  // Add event listeners for search and filters
+  // Add event listeners for search
   const searchInput = document.getElementById('medicament-search');
-  const categoryFilter = document.getElementById('filter-category');
-  const stockFilter = document.getElementById('filter-stock');
   
   if (searchInput) {
     searchInput.addEventListener('input', filterMedicaments);
-  }
-  
-  if (categoryFilter) {
-    categoryFilter.addEventListener('change', filterMedicaments);
-  }
-  
-  if (stockFilter) {
-    stockFilter.addEventListener('change', filterMedicaments);
   }
   
   // Modal functionality
@@ -798,18 +788,18 @@ function initializeMedicamentPage() {
 function loadMedicamentData() {
   // Mock medicament data - in a real app, this would come from an API
   const medications = [
-    { code: 'MED001', name: 'Amoxicillin 500mg', category: 'antibiotics', stock: 125, price: 12.50, expiry: '2024-12-01' },
-    { code: 'MED002', name: 'Ibuprofen 400mg', category: 'analgesics', stock: 85, price: 8.75, expiry: '2025-06-15' },
-    { code: 'MED003', name: 'Metformin 850mg', category: 'antidiabetic', stock: 210, price: 15.30, expiry: '2024-08-22' },
-    { code: 'MED004', name: 'Atorvastatin 20mg', category: 'antihypertensive', stock: 75, price: 18.90, expiry: '2024-07-10' },
-    { code: 'MED005', name: 'Diclofenac 50mg', category: 'anti-inflammatory', stock: 42, price: 9.45, expiry: '2023-12-30' },
-    { code: 'MED006', name: 'Clopidogrel 75mg', category: 'antihypertensive', stock: 95, price: 25.60, expiry: '2024-09-05' },
-    { code: 'MED007', name: 'Allopurinol 100mg', category: 'other', stock: 110, price: 11.25, expiry: '2025-01-18' },
-    { code: 'MED008', name: 'Azithromycin 250mg', category: 'antibiotics', stock: 15, price: 22.75, expiry: '2023-11-25' },
-    { code: 'MED009', name: 'Paracetamol 500mg', category: 'analgesics', stock: 320, price: 5.50, expiry: '2025-03-12' },
-    { code: 'MED010', name: 'Losartan 50mg', category: 'antihypertensive', stock: 0, price: 14.80, expiry: '2024-05-30' },
-    { code: 'MED011', name: 'Aspirin 100mg', category: 'analgesics', stock: 10, price: 7.25, expiry: '2024-02-15' },
-    { code: 'MED012', name: 'Fluoxetine 20mg', category: 'other', stock: 0, price: 19.30, expiry: '2024-04-22' }
+    { code: 'MED001', name: 'Amoxicillin 500mg', price: 12.50 },
+    { code: 'MED002', name: 'Ibuprofen 400mg', price: 8.75 },
+    { code: 'MED003', name: 'Metformin 850mg', price: 15.30 },
+    { code: 'MED004', name: 'Atorvastatin 20mg', price: 18.90 },
+    { code: 'MED005', name: 'Diclofenac 50mg', price: 9.45 },
+    { code: 'MED006', name: 'Clopidogrel 75mg', price: 25.60 },
+    { code: 'MED007', name: 'Allopurinol 100mg', price: 11.25 },
+    { code: 'MED008', name: 'Azithromycin 250mg', price: 22.75 },
+    { code: 'MED009', name: 'Paracetamol 500mg', price: 5.50 },
+    { code: 'MED010', name: 'Losartan 50mg', price: 14.80 },
+    { code: 'MED011', name: 'Aspirin 100mg', price: 7.25 },
+    { code: 'MED012', name: 'Fluoxetine 20mg', price: 19.30 }
   ];
   
   const tbody = document.getElementById('medicament-list-body');
@@ -822,7 +812,6 @@ function loadMedicamentData() {
     row.innerHTML = `
       <td>${med.code}</td>
       <td>${med.name}</td>
-      <td>${capitalizeFirstLetter(med.category)}</td>
       <td>$${med.price.toFixed(2)}</td>
     `;
     
@@ -832,22 +821,18 @@ function loadMedicamentData() {
 
 function filterMedicaments() {
   const searchInput = document.getElementById('medicament-search');
-  const categoryFilter = document.getElementById('filter-category');
   const rows = document.querySelectorAll('#medicament-list-body tr');
   
-  if (!searchInput || !categoryFilter || !rows.length) return;
+  if (!searchInput || !rows.length) return;
   
   const searchText = searchInput.value.toLowerCase();
-  const categoryValue = categoryFilter.value;
   
   rows.forEach(row => {
     const name = row.children[1].textContent.toLowerCase(); // Name column
-    const category = row.children[2].textContent.toLowerCase(); // Category column
     
-    // Check if the row matches all filters
+    // Check if the row matches search
     const matchesSearch = name.includes(searchText);
-    const matchesCategory = categoryValue === 'all' || category.toLowerCase() === categoryValue;
     
-    row.style.display = matchesSearch && matchesCategory ? '' : 'none';
+    row.style.display = matchesSearch ? '' : 'none';
   });
 }
