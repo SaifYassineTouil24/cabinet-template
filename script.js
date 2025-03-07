@@ -1,4 +1,45 @@
 
+// Add event listener for adding new medication in appointment detail page
+document.addEventListener('DOMContentLoaded', function() {
+  const addMedicationButton = document.getElementById('add-medication');
+  if (addMedicationButton) {
+    addMedicationButton.addEventListener('click', function() {
+      const medicationList = document.getElementById('medication-list');
+      const newMedItem = document.createElement('div');
+      newMedItem.className = 'medication-item';
+      
+      newMedItem.innerHTML = `
+        <div class="medication-inputs">
+          <input type="text" placeholder="Medication name" class="form-input med-name">
+          <input type="text" placeholder="Dosage" class="form-input med-dose">
+          <input type="text" placeholder="Frequency" class="form-input med-freq">
+          <input type="text" placeholder="Duration" class="form-input med-duration">
+        </div>
+        <button class="action-btn remove-med"><i class="fas fa-trash"></i></button>
+      `;
+      
+      medicationList.appendChild(newMedItem);
+      
+      // Add event listener to remove button
+      const removeButton = newMedItem.querySelector('.remove-med');
+      removeButton.addEventListener('click', function() {
+        medicationList.removeChild(newMedItem);
+      });
+    });
+  }
+  
+  // Add event listeners to existing remove buttons
+  const removeMedButtons = document.querySelectorAll('.remove-med');
+  removeMedButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const medItem = button.closest('.medication-item');
+      const medicationList = document.getElementById('medication-list');
+      medicationList.removeChild(medItem);
+    });
+  });
+});
+
+
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize different pages based on current page

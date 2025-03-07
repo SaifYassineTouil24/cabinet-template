@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointment Details - Clinic Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <div class="logo">
+        <h2>Clinic MS</h2>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="patients.html"><i class="fas fa-users"></i> Patients</a></li>
+        <li><a href="#"><i class="fas fa-pills"></i> Medicament</a></li>
+        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+      </ul>
+    </nav>
+    
+    <main class="content">
+      <header>
+        <div class="breadcrumb">
+          <a href="patients.html">Patients</a> / <a href="#" id="patient-link">Patient Name</a> / <span>Appointment Details</span>
+        </div>
+        <div class="user-info">
+          <span>Dr. Smith</span>
+          <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Profile">
+        </div>
+      </header>
+      
+      <div class="appointment-detail-page">
+        <div class="page-header">
+          <h1>Appointment Details</h1>
+          <div class="appointment-date">
+            <i class="fas fa-calendar"></i> <span id="appointment-date">June 15, 2023</span>
+          </div>
+        </div>
+        
+        <div class="appointment-info-container">
+          <div class="info-card">
+            <h3><i class="fas fa-info-circle"></i> Case Description</h3>
+            <div class="appointment-section">
+              <div class="form-group">
+                <label for="case-description">Chief Complaint</label>
+                <textarea id="case-description" class="form-input" rows="4" placeholder="Describe the patient's complaint and symptoms"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="vital-signs">Vital Signs</label>
+                <div class="vital-signs-grid">
+                  <div class="vital-sign">
+                    <label>BP</label>
+                    <input type="text" id="blood-pressure" placeholder="120/80" class="form-input">
+                  </div>
+                  <div class="vital-sign">
+                    <label>Pulse</label>
+                    <input type="text" id="pulse" placeholder="72" class="form-input">
+                  </div>
+                  <div class="vital-sign">
+                    <label>Temp</label>
+                    <input type="text" id="temperature" placeholder="98.6" class="form-input">
+                  </div>
+                  <div class="vital-sign">
+                    <label>Weight</label>
+                    <input type="text" id="weight" placeholder="70 kg" class="form-input">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="diagnosis">Diagnosis</label>
+                <input type="text" id="diagnosis" class="form-input" placeholder="Enter diagnosis">
+              </div>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <h3><i class="fas fa-pills"></i> Treatment Plan</h3>
+            <div class="appointment-section">
+              <div class="form-group">
+                <label for="medication-list">Medications</label>
+                <div id="medication-list">
+                  <div class="medication-item">
+                    <div class="medication-inputs">
+                      <input type="text" placeholder="Medication name" class="form-input med-name">
+                      <input type="text" placeholder="Dosage" class="form-input med-dose">
+                      <input type="text" placeholder="Frequency" class="form-input med-freq">
+                      <input type="text" placeholder="Duration" class="form-input med-duration">
+                    </div>
+                    <button class="action-btn remove-med"><i class="fas fa-trash"></i></button>
+                  </div>
+                </div>
+                <button id="add-medication" class="btn edit-btn">
+                  <i class="fas fa-plus"></i> Add Medication
+                </button>
+              </div>
+              <div class="form-group">
+                <label for="treatment-instructions">Instructions</label>
+                <textarea id="treatment-instructions" class="form-input" rows="3" placeholder="Special instructions for treatment"></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <h3><i class="fas fa-clipboard"></i> Notes</h3>
+            <div class="appointment-section">
+              <div class="form-group">
+                <label for="clinical-notes">Clinical Notes</label>
+                <textarea id="clinical-notes" class="form-input" rows="5" placeholder="Enter clinical notes, observations, or follow-up reminders"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="next-visit">Next Visit</label>
+                <div class="next-visit-container">
+                  <input type="date" id="next-visit-date" class="form-input">
+                  <input type="text" id="next-visit-reason" placeholder="Reason for next visit" class="form-input">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="action-buttons">
+          <button class="btn edit-btn"><i class="fas fa-save"></i> Save Draft</button>
+          <button class="btn schedule-btn"><i class="fas fa-check-circle"></i> Finalize Appointment</button>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
