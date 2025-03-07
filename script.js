@@ -39,8 +39,39 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// Function to include the sidebar navigation
+function includeNavbar() {
+  const sidebarContainers = document.querySelectorAll('.container nav');
+  
+  sidebarContainers.forEach(container => {
+    fetch('list.html')
+      .then(response => response.text())
+      .then(data => {
+        container.innerHTML = data;
+        
+        // Set active class based on current page
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('index.html') || currentPath === '/' || currentPath.endsWith('/')) {
+          document.getElementById('nav-dashboard').classList.add('active');
+        } else if (currentPath.includes('patients.html')) {
+          document.getElementById('nav-patients').classList.add('active');
+        } else if (currentPath.includes('patient-detail.html')) {
+          document.getElementById('nav-patients').classList.add('active'); // Patient detail is under Patients
+        } else if (currentPath.includes('settings.html')) {
+          document.getElementById('nav-settings').classList.add('active');
+        } else if (currentPath.includes('medicament.html')) {
+          document.getElementById('nav-medicament').classList.add('active');
+        }
+      })
+      .catch(error => console.error('Error loading the navigation bar:', error));
+  });
+}
+
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
+  // Include the navigation bar
+  includeNavbar();
+  
   // Start the clock
   initializeClock();
   
