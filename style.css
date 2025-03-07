@@ -1,11 +1,11 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #4361ee;
-  --secondary-color: #3f37c9;
-  --accent-color: #4cc9f0;
-  --light-bg: #f8f9fa;
-  --border-color: #e0e0e0;
+  --primary-color: #2e8b57;
+  --secondary-color: #1e6e45;
+  --accent-color: #58d0f5;
+  --light-bg: #e6f7ff;
+  --border-color: #c1e6eb;
   --text-dark: #333;
   --text-light: #666;
   --success-color: #4caf50;
@@ -24,7 +24,7 @@
 html, body {
   height: 100%;
   width: 100%;
-  background-color: #f5f7fb;
+  background-color: var(--light-bg);
   color: var(--text-dark);
 }
 
