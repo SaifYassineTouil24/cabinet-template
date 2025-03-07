@@ -1,4 +1,3 @@
-
 /* Global Styles */
 :root {
   --primary-color: #2e8b57;
@@ -212,6 +211,10 @@ header {
 
 #completed h3 {
   color: var(--success-color);
+}
+
+#canceled h3 {
+  color: #e74c3c;
 }
 
 .patient-list {
@@ -743,7 +746,7 @@ textarea.form-input {
   .patient-status-container {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .patient-profile {
     grid-template-columns: 1fr;
   }
@@ -753,28 +756,28 @@ textarea.form-input {
   .sidebar {
     width: 70px;
   }
-  
+
   .logo h2, .nav-links li a span {
     display: none;
   }
-  
+
   .nav-links li a i {
     margin-right: 0;
     font-size: 20px;
   }
-  
+
   .content {
     margin-left: 70px;
   }
-  
+
   .patient-status-container {
     grid-template-columns: 1fr;
   }
-  
+
   .profile-details {
     flex-direction: column;
   }
-  
+
   .profile-info {
     grid-template-columns: 1fr;
   }
@@ -858,11 +861,11 @@ textarea.form-input {
     align-items: flex-start;
     gap: 10px;
   }
-  
+
   .search-bar {
     width: 100%;
   }
-  
+
   .filter-bar {
     flex-direction: column;
   }
@@ -1027,12 +1030,23 @@ textarea.form-input {
   .vital-signs-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .medication-inputs {
     grid-template-columns: 1fr;
   }
-  
+
   .next-visit-container {
     grid-template-columns: 1fr;
   }
 }
+
+#completed .patient-card {
+  border-left: 4px solid var(--success-color);
+}
+
+#canceled .patient-card {
+  border-left: 4px solid #e74c3c;
+  opacity: 0.8;
+}
+
+/* Patient Profile Page Styles */

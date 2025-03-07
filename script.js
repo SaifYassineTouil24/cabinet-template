@@ -322,12 +322,19 @@ function loadPatientStatusData(date) {
     { id: 9, name: 'Thomas Wright', age: 55, gender: 'Male', time: '08:45 AM', image: 'https://randomuser.me/api/portraits/men/22.jpg', hasAppointment: false },
     { id: 10, name: 'Jessica Lee', age: 31, gender: 'Female', time: '09:20 AM', image: 'https://randomuser.me/api/portraits/women/28.jpg', hasAppointment: true }
   ];
+  
+  const canceledPatients = [
+    { id: 11, name: 'Richard Anderson', age: 50, gender: 'Male', time: '11:30 AM', image: 'https://randomuser.me/api/portraits/men/67.jpg', hasAppointment: true },
+    { id: 12, name: 'Laura Miller', age: 34, gender: 'Female', time: '02:00 PM', image: 'https://randomuser.me/api/portraits/women/63.jpg', hasAppointment: true },
+    { id: 13, name: 'Kevin Thompson', age: 42, gender: 'Male', time: '03:15 PM', image: 'https://randomuser.me/api/portraits/men/52.jpg', hasAppointment: false }
+  ];
 
   // Populate patient lists
   populatePatientList('waiting', waitingPatients);
   populatePatientList('examination', examinationPatients);
   populatePatientList('scheduled', scheduledPatients);
   populatePatientList('completed', completedPatients);
+  populatePatientList('canceled', canceledPatients);
 }
 
 function populatePatientList(containerId, patients) {
