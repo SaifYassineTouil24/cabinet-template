@@ -646,8 +646,11 @@ function loadPatientDetails(patientId) {
   document.getElementById('patient-conditions').textContent = patientDetails.chronicConditions;
   document.getElementById('patient-medications').textContent = patientDetails.medications;
 
-  // Add last diagnostic
+  // Add last appointment info
   document.getElementById('patient-last-diagnostic').textContent = patientDetails.visits[0].diagnosis;
+  document.getElementById('last-appointment-date').textContent = formatDateSimple(patientDetails.visits[0].date);
+  document.getElementById('last-appointment-type').textContent = patientDetails.visits[0].type;
+  document.getElementById('last-appointment-treatment').textContent = patientDetails.visits[0].treatment;
 
   // Populate visit history
   const visitHistoryBody = document.getElementById('visit-history-body');
