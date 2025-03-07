@@ -1,4 +1,3 @@
-
 // Add event listener for adding new medication in appointment detail page
 document.addEventListener('DOMContentLoaded', function() {
   const addMedicationButton = document.getElementById('add-medication');
@@ -7,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const medicationList = document.getElementById('medication-list');
       const newMedItem = document.createElement('div');
       newMedItem.className = 'medication-item';
-      
+
       newMedItem.innerHTML = `
         <div class="medication-inputs">
           <input type="text" placeholder="Medication name" class="form-input med-name">
@@ -17,9 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <button class="action-btn remove-med"><i class="fas fa-trash"></i></button>
       `;
-      
+
       medicationList.appendChild(newMedItem);
-      
+
       // Add event listener to remove button
       const removeButton = newMedItem.querySelector('.remove-med');
       removeButton.addEventListener('click', function() {
@@ -27,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
-  
+
   // Add event listeners to existing remove buttons
   const removeMedButtons = document.querySelectorAll('.remove-med');
   removeMedButtons.forEach(button => {
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize different pages based on current page
   const currentPath = window.location.pathname;
-  
+
   if (currentPath.includes('index.html') || currentPath === '/') {
     initializeDashboard();
   } else if (currentPath.includes('patients.html')) {
@@ -62,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeSettingsPage() {
   // Add event listeners to save buttons
   const saveButtons = document.querySelectorAll('.settings-form .btn');
-  
+
   saveButtons.forEach(button => {
     button.addEventListener('click', function() {
       // In a real app, this would save data to a backend
@@ -76,7 +75,7 @@ function initializeSettingsPage() {
 function initializeDashboard() {
   // Initialize calendar
   initializeCalendar();
-  
+
   // Load mock patient data
   loadPatientStatusData();
 }
@@ -85,31 +84,31 @@ function initializeDashboard() {
 function initializePatientsPage() {
   // Load mock patients data
   loadPatientsListData();
-  
+
   // Add event listeners for search and filters
   const searchInput = document.getElementById('patient-search');
   const statusFilter = document.getElementById('filter-status');
   const sortFilter = document.getElementById('filter-sort');
-  
+
   if (searchInput) {
     searchInput.addEventListener('input', filterPatients);
   }
-  
+
   if (statusFilter) {
     statusFilter.addEventListener('change', filterPatients);
   }
-  
+
   if (sortFilter) {
     sortFilter.addEventListener('change', sortPatients);
   }
-  
+
   // Add event listener for patient details modal
   document.addEventListener('click', function(e) {
     if (e.target.classList.contains('view-patient-btn')) {
       const patientId = e.target.getAttribute('data-id');
       openPatientDetailsModal(patientId);
     }
-    
+
     if (e.target.classList.contains('close')) {
       closePatientDetailsModal();
     }
@@ -121,7 +120,7 @@ function initializePatientDetailPage() {
   // Get patient ID from URL
   const urlParams = new URLSearchParams(window.location.search);
   const patientId = urlParams.get('id');
-  
+
   if (patientId) {
     loadPatientDetails(patientId);
   }
@@ -131,23 +130,23 @@ function initializePatientDetailPage() {
 function initializeCalendar() {
   const calendarBody = document.getElementById('calendar-body');
   const currentMonthElement = document.getElementById('current-month');
-  
+
   if (!calendarBody || !currentMonthElement) return;
-  
+
   const today = new Date();
   const currentMonth = today.getMonth();
   const currentYear = today.getFullYear();
-  
+
   // Set current month and year
   currentMonthElement.textContent = `${getMonthName(currentMonth)} ${currentYear}`;
-  
+
   // Generate calendar days
   generateCalendarDays(currentYear, currentMonth, calendarBody);
-  
+
   // Add event listeners for month navigation
   const prevMonthBtn = document.getElementById('prev-month');
   const nextMonthBtn = document.getElementById('next-month');
-  
+
   if (prevMonthBtn && nextMonthBtn) {
     prevMonthBtn.addEventListener('click', () => navigateMonth(-1));
     nextMonthBtn.addEventListener('click', () => navigateMonth(1));
@@ -157,11 +156,11 @@ function initializeCalendar() {
 function generateCalendarDays(year, month, calendarBody) {
   // Clear existing calendar
   calendarBody.innerHTML = '';
-  
+
   // Get first day of month and number of days
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-  
+
   // Create day labels (Sun-Sat)
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   days.forEach(day => {
@@ -170,21 +169,21 @@ function generateCalendarDays(year, month, calendarBody) {
     dayLabel.textContent = day;
     calendarBody.appendChild(dayLabel);
   });
-  
+
   // Add empty cells for days before first day of month
   for (let i = 0; i < firstDay; i++) {
     const emptyDay = document.createElement('div');
     emptyDay.className = 'calendar-day empty';
     calendarBody.appendChild(emptyDay);
   }
-  
+
   // Generate actual days
   const today = new Date();
   for (let i = 1; i <= daysInMonth; i++) {
     const dayElement = document.createElement('div');
     dayElement.className = 'calendar-day';
     dayElement.textContent = i;
-    
+
     // Check if day is today
     if (
       year === today.getFullYear() &&
@@ -193,12 +192,12 @@ function generateCalendarDays(year, month, calendarBody) {
     ) {
       dayElement.classList.add('today');
     }
-    
+
     // Mock appointments (for demo)
     if ([5, 12, 18, 23, 25].includes(i)) {
       dayElement.classList.add('has-appointments');
     }
-    
+
     dayElement.addEventListener('click', () => selectDate(year, month, i));
     calendarBody.appendChild(dayElement);
   }
@@ -207,14 +206,14 @@ function generateCalendarDays(year, month, calendarBody) {
 function navigateMonth(direction) {
   const currentMonthElement = document.getElementById('current-month');
   const calendarBody = document.getElementById('calendar-body');
-  
+
   if (!currentMonthElement || !calendarBody) return;
-  
+
   // Get current month and year from title
   const [monthName, year] = currentMonthElement.textContent.split(' ');
   let month = getMonthNumber(monthName);
   let yearNumber = parseInt(year);
-  
+
   // Calculate new month and year
   month += direction;
   if (month < 0) {
@@ -224,7 +223,7 @@ function navigateMonth(direction) {
     month = 0;
     yearNumber++;
   }
-  
+
   // Update title and regenerate calendar
   currentMonthElement.textContent = `${getMonthName(month)} ${yearNumber}`;
   generateCalendarDays(yearNumber, month, calendarBody);
@@ -233,7 +232,7 @@ function navigateMonth(direction) {
 function selectDate(year, month, day) {
   const selectedDate = new Date(year, month, day);
   const currentDateElement = document.getElementById('current-date');
-  
+
   if (currentDateElement) {
     currentDateElement.textContent = `Selected: ${formatDate(selectedDate)}`;
     // You would typically load data for the selected date here
@@ -245,27 +244,27 @@ function selectDate(year, month, day) {
 function loadPatientStatusData(date) {
   // Mock patient data - in real app, this would come from API
   const waitingPatients = [
-    { id: 1, name: 'John Smith', age: 45, gender: 'Male', time: '09:30 AM', image: 'https://randomuser.me/api/portraits/men/32.jpg' },
-    { id: 2, name: 'Sarah Johnson', age: 38, gender: 'Female', time: '10:15 AM', image: 'https://randomuser.me/api/portraits/women/44.jpg' },
-    { id: 3, name: 'Michael Brown', age: 52, gender: 'Male', time: '11:00 AM', image: 'https://randomuser.me/api/portraits/men/45.jpg' }
+    { id: 1, name: 'John Smith', age: 45, gender: 'Male', time: '09:30 AM', image: 'https://randomuser.me/api/portraits/men/32.jpg', hasAppointment: true },
+    { id: 2, name: 'Sarah Johnson', age: 38, gender: 'Female', time: '10:15 AM', image: 'https://randomuser.me/api/portraits/women/44.jpg', hasAppointment: false },
+    { id: 3, name: 'Michael Brown', age: 52, gender: 'Male', time: '11:00 AM', image: 'https://randomuser.me/api/portraits/men/45.jpg', hasAppointment: true }
   ];
-  
+
   const examinationPatients = [
-    { id: 4, name: 'Emily Davis', age: 29, gender: 'Female', time: 'Since 09:45 AM', image: 'https://randomuser.me/api/portraits/women/22.jpg' }
+    { id: 4, name: 'Emily Davis', age: 29, gender: 'Female', time: 'Since 09:45 AM', image: 'https://randomuser.me/api/portraits/women/22.jpg', hasAppointment: false }
   ];
-  
+
   const scheduledPatients = [
-    { id: 5, name: 'Robert Wilson', age: 62, gender: 'Male', time: '01:30 PM', image: 'https://randomuser.me/api/portraits/men/78.jpg' },
-    { id: 6, name: 'Lisa Martin', age: 41, gender: 'Female', time: '02:15 PM', image: 'https://randomuser.me/api/portraits/women/56.jpg' },
-    { id: 7, name: 'David Taylor', age: 35, gender: 'Male', time: '03:45 PM', image: 'https://randomuser.me/api/portraits/men/60.jpg' },
-    { id: 8, name: 'Jennifer Adams', age: 28, gender: 'Female', time: '04:30 PM', image: 'https://randomuser.me/api/portraits/women/33.jpg' }
+    { id: 5, name: 'Robert Wilson', age: 62, gender: 'Male', time: '01:30 PM', image: 'https://randomuser.me/api/portraits/men/78.jpg', hasAppointment: true },
+    { id: 6, name: 'Lisa Martin', age: 41, gender: 'Female', time: '02:15 PM', image: 'https://randomuser.me/api/portraits/women/56.jpg', hasAppointment: false },
+    { id: 7, name: 'David Taylor', age: 35, gender: 'Male', time: '03:45 PM', image: 'https://randomuser.me/api/portraits/men/60.jpg', hasAppointment: true },
+    { id: 8, name: 'Jennifer Adams', age: 28, gender: 'Female', time: '04:30 PM', image: 'https://randomuser.me/api/portraits/women/33.jpg', hasAppointment: false }
   ];
-  
+
   const completedPatients = [
-    { id: 9, name: 'Thomas Wright', age: 55, gender: 'Male', time: '08:45 AM', image: 'https://randomuser.me/api/portraits/men/22.jpg' },
-    { id: 10, name: 'Jessica Lee', age: 31, gender: 'Female', time: '09:20 AM', image: 'https://randomuser.me/api/portraits/women/28.jpg' }
+    { id: 9, name: 'Thomas Wright', age: 55, gender: 'Male', time: '08:45 AM', image: 'https://randomuser.me/api/portraits/men/22.jpg', hasAppointment: false },
+    { id: 10, name: 'Jessica Lee', age: 31, gender: 'Female', time: '09:20 AM', image: 'https://randomuser.me/api/portraits/women/28.jpg', hasAppointment: true }
   ];
-  
+
   // Populate patient lists
   populatePatientList('waiting', waitingPatients);
   populatePatientList('examination', examinationPatients);
@@ -276,9 +275,9 @@ function loadPatientStatusData(date) {
 function populatePatientList(containerId, patients) {
   const container = document.querySelector(`#${containerId} .patient-list`);
   if (!container) return;
-  
+
   container.innerHTML = '';
-  
+
   if (patients.length === 0) {
     const emptyMessage = document.createElement('p');
     emptyMessage.className = 'empty-message';
@@ -286,12 +285,12 @@ function populatePatientList(containerId, patients) {
     container.appendChild(emptyMessage);
     return;
   }
-  
+
   patients.forEach(patient => {
     const patientCard = document.createElement('div');
-    patientCard.className = 'patient-card';
+    patientCard.className = patient.hasAppointment ? 'patient-card has-rendez-vous' : 'patient-card';
     patientCard.dataset.id = patient.id;
-    
+
     patientCard.innerHTML = `
       <img src="${patient.image}" alt="${patient.name}">
       <div class="patient-info">
@@ -300,11 +299,11 @@ function populatePatientList(containerId, patients) {
       </div>
       <div class="patient-time">${patient.time}</div>
     `;
-    
+
     patientCard.addEventListener('click', () => {
       window.location.href = `patient-detail.html?id=${patient.id}`;
     });
-    
+
     container.appendChild(patientCard);
   });
 }
@@ -321,19 +320,19 @@ function loadPatientsListData() {
     { id: 'P007', name: 'David Taylor', lastVisit: '2023-03-15', nextVisit: '2023-07-28' },
     { id: 'P008', name: 'Jennifer Adams', lastVisit: '2023-06-02', nextVisit: '2023-09-05' }
   ];
-  
+
   const tableBody = document.getElementById('patients-list-body');
   if (!tableBody) return;
-  
+
   tableBody.innerHTML = '';
-  
+
   patients.forEach(patient => {
     const row = document.createElement('tr');
     row.dataset.id = patient.id;
-    
+
     const nextVisitValue = patient.nextVisit ? formatDateSimple(patient.nextVisit) : 'Not scheduled';
     const nextVisitClass = patient.nextVisit ? '' : 'text-muted';
-    
+
     row.innerHTML = `
       <td>${patient.id}</td>
       <td>${patient.name}</td>
@@ -343,7 +342,7 @@ function loadPatientsListData() {
         <button class="action-btn view-patient-btn" data-id="${patient.id}"><i class="fas fa-eye"></i></button>
       </td>
     `;
-    
+
     tableBody.appendChild(row);
   });
 }
@@ -368,7 +367,7 @@ function loadPatientDetails(patientId) {
       { date: '2022-12-10', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Diabetes follow-up', treatment: 'Adjusted medication dosage', notes: 'HbA1c 7.2, improved from last visit', money: 175 }
     ]
   };
-  
+
   // Populate patient information
   document.getElementById('patient-name-header').textContent = patientDetails.name;
   document.getElementById('patient-full-name').textContent = patientDetails.name;
@@ -381,17 +380,17 @@ function loadPatientDetails(patientId) {
   document.getElementById('patient-allergies').textContent = patientDetails.allergies;
   document.getElementById('patient-conditions').textContent = patientDetails.chronicConditions;
   document.getElementById('patient-medications').textContent = patientDetails.medications;
-  
+
   // Add last diagnostic
   document.getElementById('patient-last-diagnostic').textContent = patientDetails.visits[0].diagnosis;
-  
+
   // Populate visit history
   const visitHistoryBody = document.getElementById('visit-history-body');
   const appointmentDetailContent = document.getElementById('appointment-detail-content');
-  
+
   if (visitHistoryBody) {
     visitHistoryBody.innerHTML = '';
-    
+
     // Generate more random visit data
     const visitTypes = ['Regular Check-up', 'Illness', 'Specialist', 'Emergency', 'Follow-up', 'Surgery Consultation', 'Vaccination', 'Lab Results Review'];
     const doctors = ['Dr. Sarah Johnson', 'Dr. Michael Chen', 'Dr. Emily Rodriguez', 'Dr. David Wilson', 'Dr. Maria Garcia', 'Dr. James Taylor', 'Dr. Lisa Brown', 'Dr. Robert Lee'];
@@ -426,11 +425,11 @@ function loadPatientDetails(patientId) {
       'Updated vaccination schedule',
       'Referred to specialist'
     ];
-    
+
     // Create a dynamic array of visits with random dates over the past 3 years
     const randomVisits = [];
     const today = new Date();
-    
+
     // First add the most recent visit to keep the last diagnostic consistent
     randomVisits.push({ 
       date: '2023-06-01', 
@@ -441,25 +440,25 @@ function loadPatientDetails(patientId) {
       notes: 'Blood pressure 130/85, follow up in 3 months', 
       money: 150 
     });
-    
+
     // Generate 15 random visits
     for (let i = 1; i < 15; i++) {
       // Generate a random date within the last 3 years
       const randomDate = new Date(today);
       randomDate.setDate(today.getDate() - Math.floor(Math.random() * 1095)); // 1095 days = 3 years
-      
+
       // Format the date to YYYY-MM-DD
       const dateString = randomDate.toISOString().split('T')[0];
-      
+
       // Get random elements from arrays
       const randomType = visitTypes[Math.floor(Math.random() * visitTypes.length)];
       const randomDoctor = doctors[Math.floor(Math.random() * doctors.length)];
       const randomDiagnosis = diagnoses[Math.floor(Math.random() * diagnoses.length)];
       const randomTreatment = treatments[Math.floor(Math.random() * treatments.length)];
-      
+
       // Generate random cost between $50 and $500
       const randomCost = Math.floor(Math.random() * 450) + 50;
-      
+
       // Create random notes
       const vitalSigns = [`Blood pressure ${Math.floor(Math.random() * 40) + 100}/${Math.floor(Math.random() * 20) + 70}`, 
                          `Heart rate ${Math.floor(Math.random() * 40) + 60} bpm`, 
@@ -467,9 +466,9 @@ function loadPatientDetails(patientId) {
       const randomVital = vitalSigns[Math.floor(Math.random() * vitalSigns.length)];
       const followUpPeriods = ['2 weeks', '1 month', '3 months', '6 months', 'as needed'];
       const randomFollowUp = followUpPeriods[Math.floor(Math.random() * followUpPeriods.length)];
-      
+
       const randomNotes = `${randomVital}, follow up in ${randomFollowUp}`;
-      
+
       // Add the random visit
       randomVisits.push({
         date: dateString,
@@ -481,13 +480,13 @@ function loadPatientDetails(patientId) {
         money: randomCost
       });
     }
-    
+
     // Sort visits by date (most recent first)
     randomVisits.sort((a, b) => new Date(b.date) - new Date(a.date));
-    
+
     // Set the visits array
     patientDetails.visits = randomVisits;
-    
+
     patientDetails.visits.forEach((visit, index) => {
       const row = document.createElement('tr');
       row.innerHTML = `
@@ -499,19 +498,19 @@ function loadPatientDetails(patientId) {
         </td>
       `;
       visitHistoryBody.appendChild(row);
-      
+
       // Add event listener to view details button
       row.querySelector('.visit-action-btn').addEventListener('click', () => {
         showAppointmentDetail(visit);
       });
     });
-    
+
     // Show first visit details by default
     if (patientDetails.visits.length > 0) {
       showAppointmentDetail(patientDetails.visits[0]);
     }
   }
-  
+
   // Function to display appointment details
   function showAppointmentDetail(visit) {
     if (appointmentDetailContent) {
@@ -559,19 +558,19 @@ function filterPatients() {
   const searchInput = document.getElementById('patient-search');
   const statusFilter = document.getElementById('filter-status');
   const rows = document.querySelectorAll('#patients-list-body tr');
-  
+
   if (!searchInput || !statusFilter || !rows.length) return;
-  
+
   const searchText = searchInput.value.toLowerCase();
   const statusValue = statusFilter.value;
-  
+
   rows.forEach(row => {
     const name = row.children[1].textContent.toLowerCase(); // Name column
     const status = row.querySelector('.status-badge').textContent.toLowerCase();
-    
+
     const matchesSearch = name.includes(searchText);
     const matchesStatus = statusValue === 'all' || status === statusValue.toLowerCase();
-    
+
     row.style.display = matchesSearch && matchesStatus ? '' : 'none';
   });
 }
@@ -579,14 +578,14 @@ function filterPatients() {
 function sortPatients() {
   const sortFilter = document.getElementById('filter-sort');
   const tableBody = document.getElementById('patients-list-body');
-  
+
   if (!sortFilter || !tableBody) return;
-  
+
   const rows = Array.from(tableBody.querySelectorAll('tr'));
-  
+
   rows.sort((a, b) => {
     const sortValue = sortFilter.value;
-    
+
     if (sortValue === 'name') {
       const nameA = a.children[1].textContent;
       const nameB = b.children[1].textContent;
@@ -600,15 +599,15 @@ function sortPatients() {
       const idB = b.children[0].textContent;
       return idA.localeCompare(idB);
     }
-    
+
     return 0;
   });
-  
+
   // Remove all rows
   while (tableBody.firstChild) {
     tableBody.removeChild(tableBody.firstChild);
   }
-  
+
   // Add sorted rows
   rows.forEach(row => tableBody.appendChild(row));
 }
@@ -617,9 +616,9 @@ function sortPatients() {
 function openPatientDetailsModal(patientId) {
   const modal = document.getElementById('patient-details-modal');
   const modalBody = document.getElementById('patient-details');
-  
+
   if (!modal || !modalBody) return;
-  
+
   // Mock patient data - in real app, this would come from API based on patientId
   const patientDetails = {
     id: patientId,
@@ -633,7 +632,7 @@ function openPatientDetailsModal(patientId) {
     nextAppointment: '2023-09-15',
     doctor: 'Dr. Sarah Johnson'
   };
-  
+
   modalBody.innerHTML = `
     <div class="patient-modal-info">
       <div class="info-item">
@@ -679,7 +678,7 @@ function openPatientDetailsModal(patientId) {
       </button>
     </div>
   `;
-  
+
   modal.style.display = 'block';
 }
 
@@ -700,7 +699,7 @@ function formatDate(date) {
 
 function formatDateSimple(dateStr) {
   if (!dateStr) return '';
-  
+
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
 }
@@ -736,39 +735,39 @@ function capitalizeFirstLetter(string) {
 function initializeMedicamentPage() {
   // Load mock medicament data
   loadMedicamentData();
-  
+
   // Add event listeners for search
   const searchInput = document.getElementById('medicament-search');
-  
+
   if (searchInput) {
     searchInput.addEventListener('input', filterMedicaments);
   }
-  
+
   // Modal functionality
   const medicationModal = document.getElementById('medication-modal');
   const addMedicationBtn = document.getElementById('add-medication-btn');
   const closeModalBtn = document.querySelector('#medication-modal .close');
   const cancelBtn = document.getElementById('cancel-med-btn');
   const saveMedBtn = document.getElementById('save-med-btn');
-  
+
   if (addMedicationBtn) {
     addMedicationBtn.addEventListener('click', () => {
       medicationModal.style.display = 'block';
     });
   }
-  
+
   if (closeModalBtn) {
     closeModalBtn.addEventListener('click', () => {
       medicationModal.style.display = 'none';
     });
   }
-  
+
   if (cancelBtn) {
     cancelBtn.addEventListener('click', () => {
       medicationModal.style.display = 'none';
     });
   }
-  
+
   if (saveMedBtn) {
     saveMedBtn.addEventListener('click', () => {
       // In a real app, this would save data to the backend
@@ -776,7 +775,7 @@ function initializeMedicamentPage() {
       medicationModal.style.display = 'none';
     });
   }
-  
+
   // Close modal when clicking outside the modal content
   window.addEventListener('click', (e) => {
     if (e.target === medicationModal) {
@@ -787,8 +786,7 @@ function initializeMedicamentPage() {
 
 function loadMedicamentData() {
   // Mock medicament data - in a real app, this would come from an API
-  const medications = [
-    { code: 'MED001', name: 'Amoxicillin 500mg', price: 12.50 },
+  const medications = [    { code: 'MED001', name: 'Amoxicillin 500mg', price: 12.50 },
     { code: 'MED002', name: 'Ibuprofen 400mg', price: 8.75 },
     { code: 'MED003', name: 'Metformin 850mg', price: 15.30 },
     { code: 'MED004', name: 'Atorvastatin 20mg', price: 18.90 },
@@ -801,12 +799,12 @@ function loadMedicamentData() {
     { code: 'MED011', name: 'Aspirin 100mg', price: 7.25 },
     { code: 'MED012', name: 'Fluoxetine 20mg', price: 19.30 }
   ];
-  
+
   const tbody = document.getElementById('medicament-list-body');
   if (!tbody) return;
-  
+
   tbody.innerHTML = '';
-  
+
   medications.forEach(med => {
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -814,7 +812,7 @@ function loadMedicamentData() {
       <td>${med.name}</td>
       <td>$${med.price.toFixed(2)}</td>
     `;
-    
+
     tbody.appendChild(row);
   });
 }
@@ -822,17 +820,17 @@ function loadMedicamentData() {
 function filterMedicaments() {
   const searchInput = document.getElementById('medicament-search');
   const rows = document.querySelectorAll('#medicament-list-body tr');
-  
+
   if (!searchInput || !rows.length) return;
-  
+
   const searchText = searchInput.value.toLowerCase();
-  
+
   rows.forEach(row => {
     const name = row.children[1].textContent.toLowerCase(); // Name column
-    
+
     // Check if the row matches search
     const matchesSearch = name.includes(searchText);
-    
+
     row.style.display = matchesSearch ? '' : 'none';
   });
 }

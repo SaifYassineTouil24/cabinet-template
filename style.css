@@ -214,6 +214,11 @@ header {
   transition: all 0.2s ease;
 }
 
+.patient-card.has-rendez-vous {
+  background-color: rgba(255, 215, 0, 0.15);
+  border-left: 3px solid gold;
+}
+
 .patient-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
