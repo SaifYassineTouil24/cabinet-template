@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
+  // Start the clock
+  initializeClock();
+  
   // Initialize different pages based on current page
   const currentPath = window.location.pathname;
 
@@ -729,6 +732,27 @@ function getMonthNumber(monthName) {
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Clock functionality
+function initializeClock() {
+  const clockElement = document.getElementById('live-clock');
+  if (!clockElement) return;
+  
+  function updateClock() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    
+    clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+  }
+  
+  // Update clock immediately
+  updateClock();
+  
+  // Update clock every second
+  setInterval(updateClock, 1000);
 }
 
 // Medicament Page Initialization

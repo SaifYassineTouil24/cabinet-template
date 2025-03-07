@@ -101,6 +101,25 @@ header {
   border-bottom: 1px solid var(--border-color);
 }
 
+.clock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  background-color: var(--light-bg);
+  padding: 8px 15px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.clock i {
+  color: var(--primary-color);
+}
+
+.clock span {
+  font-weight: 500;
+}
+
 .breadcrumb {
   font-size: 14px;
 }
