@@ -263,11 +263,10 @@ function initializePatientDetailPage() {
       e.preventDefault();
       
       const date = document.getElementById('appointment-date').value;
-      const time = document.getElementById('appointment-time').value;
       const type = document.getElementById('appointment-type').value;
       
       // In a real app, you would save this data to a database
-      alert(`Appointment scheduled for ${date} at ${time} successfully!`);
+      alert(`Appointment scheduled for ${date} successfully!`);
       scheduleModal.style.display = 'none';
     });
   }
