@@ -361,6 +361,7 @@ header {
 .patient-status-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
   gap: 20px;
 }
 
