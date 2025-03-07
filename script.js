@@ -67,13 +67,78 @@ function includeNavbar() {
   });
 }
 
+// Function to include the header
+function includeHeader() {
+  const headerContainers = document.querySelectorAll('.content header');
+  
+  headerContainers.forEach(container => {
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        container.innerHTML = data;
+        
+        // Set breadcrumb based on current page
+        const currentPath = window.location.pathname;
+        const breadcrumb = document.getElementById('page-breadcrumb');
+        
+        if (breadcrumb) {
+          if (currentPath.includes('index.html') || currentPath === '/' || currentPath.endsWith('/')) {
+            breadcrumb.innerHTML = '<span>Dashboard</span>';
+          } else if (currentPath.includes('patients.html')) {
+            breadcrumb.innerHTML = '<span>Patients</span>';
+          } else if (currentPath.includes('patient-detail.html')) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const patientId = urlParams.get('id');
+            const patientName = document.getElementById('patient-full-name') ? 
+                                document.getElementById('patient-full-name').textContent : 
+                                'Patient Details';
+            breadcrumb.innerHTML = '<a href="patients.html">Patients</a> / <span id="patient-name-header">' + patientName + '</span>';
+          } else if (currentPath.includes('appointment-detail.html')) {
+            const patientName = 'Patient Name'; // This should be dynamic in a real app
+            breadcrumb.innerHTML = '<a href="patients.html">Patients</a> / <a href="#" id="patient-link">' + patientName + '</a> / <span>Appointment Details</span>';
+          } else if (currentPath.includes('settings.html')) {
+            breadcrumb.innerHTML = '<span>Settings</span>';
+          } else if (currentPath.includes('medicament.html')) {
+            breadcrumb.innerHTML = '<span>Medicament</span>';
+          }
+        }
+        
+        // Hide search box for pages that don't need it
+        const searchBox = document.getElementById('header-search');
+        if (searchBox) {
+          if (currentPath.includes('patient-detail.html') || 
+              currentPath.includes('appointment-detail.html') || 
+              currentPath.includes('settings.html')) {
+            searchBox.style.display = 'none';
+          } else {
+            // Set placeholder text based on page
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+              if (currentPath.includes('patients.html')) {
+                searchInput.placeholder = 'Search patient...';
+              } else if (currentPath.includes('medicament.html')) {
+                searchInput.placeholder = 'Search medicament...';
+              } else {
+                searchInput.placeholder = 'Search...';
+              }
+            }
+          }
+        }
+        
+        // Initialize clock
+        initializeClock();
+      })
+      .catch(error => console.error('Error loading the header:', error));
+  });
+}
+
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
   // Include the navigation bar
   includeNavbar();
   
-  // Start the clock
-  initializeClock();
+  // Include the header
+  includeHeader();
   
   // Initialize different pages based on current page
   const currentPath = window.location.pathname;
@@ -120,12 +185,19 @@ function initializePatientsPage() {
   loadPatientsListData();
 
   // Add event listeners for search and filters
-  const searchInput = document.getElementById('patient-search');
+  const searchInput = document.getElementById('search-input');
   const statusFilter = document.getElementById('filter-status');
   const sortFilter = document.getElementById('filter-sort');
 
   if (searchInput) {
-    searchInput.addEventListener('input', filterPatients);
+    searchInput.addEventListener('input', function() {
+      const currentPath = window.location.pathname;
+      if (currentPath.includes('patients.html')) {
+        filterPatients();
+      } else if (currentPath.includes('medicament.html')) {
+        filterMedicaments();
+      }
+    });
   }
 
   if (statusFilter) {
@@ -748,7 +820,7 @@ function loadPatientDetails(patientId) {
 
 // Patient Search and Filter Functions
 function filterPatients() {
-  const searchInput = document.getElementById('patient-search');
+  const searchInput = document.getElementById('search-input');
   const statusFilter = document.getElementById('filter-status');
   const rows = document.querySelectorAll('#patients-list-body tr');
 
@@ -1029,7 +1101,7 @@ function loadMedicamentData() {
 }
 
 function filterMedicaments() {
-  const searchInput = document.getElementById('medicament-search');
+  const searchInput = document.getElementById('search-input');
   const rows = document.querySelectorAll('#medicament-list-body tr');
 
   if (!searchInput || !rows.length) return;
