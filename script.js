@@ -1148,15 +1148,13 @@ function initializeReportPage() {
 
 function generateReports() {
   const dateInput = document.getElementById('report-date');
-  const reportType = document.getElementById('report-type');
   const illnessType = document.getElementById('illness-type');
   
   const selectedDate = dateInput ? new Date(dateInput.value) : new Date();
-  const selectedReportType = reportType ? reportType.value : 'all';
   const selectedIllnessType = illnessType ? illnessType.value : 'all';
 
   // Generate mock data for reports based on selected filters
-  generateMockReportData(selectedDate, selectedReportType, selectedIllnessType);
+  generateMockReportData(selectedDate, 'all', selectedIllnessType);
 }
 
 function generateMockReportData(date, reportType, illnessType) {
