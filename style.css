@@ -1032,6 +1032,21 @@ textarea.form-input {
   height: 16px;
 }
 
+.compte-rendu-container {
+  background-color: var(--light-bg);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.compte-rendu-container .form-group {
+  margin-bottom: 15px;
+}
+
+.compte-rendu-container .form-group:last-child {
+  margin-bottom: 0;
+}
+
 @media (max-width: 768px) {
   .settings-grid {
     grid-template-columns: 1fr;

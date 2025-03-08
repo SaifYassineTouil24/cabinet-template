@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,17 +12,17 @@
     <nav class="sidebar">
       <!-- Navigation will be loaded from list.html -->
     </nav>
-    
+
     <main class="content">
       <header>
         <!-- Header will be loaded from header.html -->
       </header>
-      
+
       <div class="settings-page">
         <div class="page-header">
           <h1>Settings</h1>
         </div>
-        
+
         <div class="settings-grid">
           <div class="settings-card info-card">
             <h3><i class="fas fa-user-md"></i> User Profile</h3>
@@ -45,7 +44,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="settings-card info-card">
             <h3><i class="fas fa-lock"></i> Security</h3>
             <div class="settings-form">
@@ -66,16 +65,25 @@
               </div>
             </div>
           </div>
-          
+
           <div class="settings-card info-card">
             <h3><i class="fas fa-sliders-h"></i> Preferences</h3>
             <div class="settings-form">
               <div class="form-group">
-                <label for="compte-rendu">Compte Rendu</label>
-                <button id="add-compte-rendu" class="btn schedule-btn">Add Compte Rendu</button>
+                <label for="compte-rendu-section">Compte Rendu</label>
+                <div id="compte-rendu-section" class="compte-rendu-container">
+                  <div class="form-group">
+                    <label for="compte-rendu-title">Title</label>
+                    <input type="text" id="compte-rendu-title" class="form-input" placeholder="Enter title">
+                  </div>
+                  <div class="form-group">
+                    <label for="compte-rendu-content">Content</label>
+                    <textarea id="compte-rendu-content" class="form-input" rows="6" placeholder="Enter compte rendu content"></textarea>
+                  </div>
+                </div>
               </div>
               <div class="form-actions">
-                <button class="btn schedule-btn">Save Preferences</button>
+                <button id="save-compte-rendu" class="btn schedule-btn">Save Preferences</button>
               </div>
             </div>
           </div>
@@ -83,82 +91,33 @@
       </div>
     </main>
   </div>
-  
-  <!-- Add Compte Rendu Modal -->
-  <div id="compte-rendu-modal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Add Compte Rendu</h2>
-        <span class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <form id="compte-rendu-form">
-          <div class="form-group">
-            <label for="compte-rendu-title">Title</label>
-            <input type="text" id="compte-rendu-title" class="form-input" placeholder="Enter title" required>
-          </div>
-          <div class="form-group">
-            <label for="compte-rendu-content">Content</label>
-            <textarea id="compte-rendu-content" class="form-input" rows="6" placeholder="Enter compte rendu content" required></textarea>
-          </div>
-          <div class="modal-actions">
-            <button type="button" class="btn edit-btn" id="cancel-compte-rendu">Cancel</button>
-            <button type="submit" class="btn schedule-btn">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  
+
   <script src="script.js"></script>
   <script>
-    // Initialize the Compte Rendu Modal functionality
+    // Initialize the Compte Rendu functionality
     document.addEventListener('DOMContentLoaded', function() {
-      const addCompteRenduBtn = document.getElementById('add-compte-rendu');
-      const compteRenduModal = document.getElementById('compte-rendu-modal');
-      const cancelCompteRenduBtn = document.getElementById('cancel-compte-rendu');
-      const closeModalBtn = document.querySelector('#compte-rendu-modal .close');
-      const compteRenduForm = document.getElementById('compte-rendu-form');
-      
-      if (addCompteRenduBtn && compteRenduModal) {
-        addCompteRenduBtn.addEventListener('click', function() {
-          compteRenduModal.style.display = 'block';
-        });
-      }
-      
-      if (cancelCompteRenduBtn) {
-        cancelCompteRenduBtn.addEventListener('click', function() {
-          compteRenduModal.style.display = 'none';
-        });
-      }
-      
-      if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', function() {
-          compteRenduModal.style.display = 'none';
-        });
-      }
-      
-      if (compteRenduForm) {
-        compteRenduForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          
+      const saveCompteRenduBtn = document.getElementById('save-compte-rendu');
+
+      if (saveCompteRenduBtn) {
+        saveCompteRenduBtn.addEventListener('click', function() {
           // Get form values
           const title = document.getElementById('compte-rendu-title').value;
           const content = document.getElementById('compte-rendu-content').value;
-          
+
+          // Validate input
+          if (!title || !content) {
+            alert('Please fill in both title and content fields');
+            return;
+          }
+
           // In a real app, you would save this data to a database
           alert(`Compte Rendu "${title}" has been saved.`);
-          compteRenduModal.style.display = 'none';
-          compteRenduForm.reset();
+
+          // Clear the form
+          document.getElementById('compte-rendu-title').value = '';
+          document.getElementById('compte-rendu-content').value = '';
         });
       }
-      
-      // Close modal when clicking outside
-      window.addEventListener('click', function(e) {
-        if (e.target === compteRenduModal) {
-          compteRenduModal.style.display = 'none';
-        }
-      });
     });
   </script>
 </body>
