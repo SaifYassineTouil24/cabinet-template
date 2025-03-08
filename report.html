@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - Clinic Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <!-- Navigation will be loaded from list.html -->
+    </nav>
+    
+    <main class="content">
+      <header>
+        <!-- Header will be loaded from header.html -->
+      </header>
+      
+      <div class="reports-page">
+        <div class="page-header">
+          <h1><i class="fas fa-chart-line"></i> Reports</h1>
+        </div>
+        
+        <div class="report-container">
+          <!-- Daily Report -->
+          <div class="report-card info-card">
+            <h3><i class="fas fa-calendar-day"></i> Daily Report</h3>
+            <div class="report-content">
+              <div class="report-stat">
+                <span class="stat-label">Number of Patients:</span>
+                <span class="stat-value" id="daily-patients">0</span>
+              </div>
+              
+              <div class="report-stat">
+                <span class="stat-label">Total Amount:</span>
+                <span class="stat-value" id="daily-amount">$0.00</span>
+              </div>
+              
+              <div class="report-chart" id="daily-chart">
+                <!-- Chart will be inserted here if needed -->
+              </div>
+            </div>
+          </div>
+          
+          <!-- Weekly Report -->
+          <div class="report-card info-card">
+            <h3><i class="fas fa-calendar-week"></i> Weekly Report</h3>
+            <div class="report-content">
+              <div class="report-stat">
+                <span class="stat-label">Number of Patients:</span>
+                <span class="stat-value" id="weekly-patients">0</span>
+              </div>
+              
+              <div class="report-stat">
+                <span class="stat-label">Total Amount:</span>
+                <span class="stat-value" id="weekly-amount">$0.00</span>
+              </div>
+              
+              <div class="report-chart" id="weekly-chart">
+                <!-- Chart will be inserted here if needed -->
+              </div>
+            </div>
+          </div>
+          
+          <!-- Monthly Report -->
+          <div class="report-card info-card">
+            <h3><i class="fas fa-calendar-alt"></i> Monthly Report</h3>
+            <div class="report-content">
+              <div class="report-stat">
+                <span class="stat-label">Number of Patients:</span>
+                <span class="stat-value" id="monthly-patients">0</span>
+              </div>
+              
+              <div class="report-stat">
+                <span class="stat-label">Total Amount:</span>
+                <span class="stat-value" id="monthly-amount">$0.00</span>
+              </div>
+              
+              <div class="report-chart" id="monthly-chart">
+                <!-- Chart will be inserted here if needed -->
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Date Filter for Reports -->
+        <div class="report-filters info-card">
+          <h3><i class="fas fa-filter"></i> Report Filters</h3>
+          <div class="filter-controls">
+            <div class="form-group">
+              <label for="report-date">Select Date:</label>
+              <input type="date" id="report-date" class="form-input">
+            </div>
+            
+            <div class="form-group">
+              <label for="report-type">Report Type:</label>
+              <select id="report-type" class="form-input">
+                <option value="all">All Reports</option>
+                <option value="daily">Daily Only</option>
+                <option value="weekly">Weekly Only</option>
+                <option value="monthly">Monthly Only</option>
+              </select>
+            </div>
+            
+            <button id="generate-report" class="btn schedule-btn">
+              <i class="fas fa-sync-alt"></i> Generate Reports
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

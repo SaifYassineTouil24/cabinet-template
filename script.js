@@ -61,6 +61,8 @@ function includeNavbar() {
           document.getElementById('nav-settings').classList.add('active');
         } else if (currentPath.includes('medicament.html')) {
           document.getElementById('nav-medicament').classList.add('active');
+        } else if (currentPath.includes('report.html')) {
+          document.getElementById('nav-reports').classList.add('active');
         }
       })
       .catch(error => console.error('Error loading the navigation bar:', error));
@@ -100,6 +102,8 @@ function includeHeader() {
             breadcrumb.innerHTML = '<span>Settings</span>';
           } else if (currentPath.includes('medicament.html')) {
             breadcrumb.innerHTML = '<span>Medicament</span>';
+          } else if (currentPath.includes('report.html')) {
+            breadcrumb.innerHTML = '<span>Reports</span>';
           }
         }
         
@@ -153,6 +157,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSettingsPage();
   } else if (currentPath.includes('medicament.html')) {
     initializeMedicamentPage();
+  } else if (currentPath.includes('report.html')) {
+    initializeReportPage();
   }
 });
 
@@ -1119,4 +1125,74 @@ function filterMedicaments() {
 
     row.style.display = matchesSearch ? '' : 'none';
   });
+}
+
+// Reports Page Initialization
+function initializeReportPage() {
+  // Set today's date as default in date picker
+  const dateInput = document.getElementById('report-date');
+  if (dateInput) {
+    const today = new Date();
+    dateInput.valueAsDate = today;
+  }
+
+  // Add event listener for report generation
+  const generateReportBtn = document.getElementById('generate-report');
+  if (generateReportBtn) {
+    generateReportBtn.addEventListener('click', generateReports);
+  }
+
+  // Generate reports on page load
+  generateReports();
+}
+
+function generateReports() {
+  const dateInput = document.getElementById('report-date');
+  const reportType = document.getElementById('report-type');
+  const selectedDate = dateInput ? new Date(dateInput.value) : new Date();
+  const selectedReportType = reportType ? reportType.value : 'all';
+
+  // Generate mock data for reports based on selected date
+  generateMockReportData(selectedDate, selectedReportType);
+}
+
+function generateMockReportData(date, reportType) {
+  // Mock data generation based on date
+  // In a real application, this would fetch data from a database
+  
+  // Daily report
+  if (reportType === 'all' || reportType === 'daily') {
+    const dailyPatients = Math.floor(Math.random() * 20) + 5; // 5-25 patients
+    const dailyAmount = (Math.random() * 2000 + 500).toFixed(2); // $500-$2500
+    
+    const dailyPatientsElement = document.getElementById('daily-patients');
+    const dailyAmountElement = document.getElementById('daily-amount');
+    
+    if (dailyPatientsElement) dailyPatientsElement.textContent = dailyPatients;
+    if (dailyAmountElement) dailyAmountElement.textContent = `$${dailyAmount}`;
+  }
+  
+  // Weekly report
+  if (reportType === 'all' || reportType === 'weekly') {
+    const weeklyPatients = Math.floor(Math.random() * 60) + 30; // 30-90 patients
+    const weeklyAmount = (Math.random() * 8000 + 3000).toFixed(2); // $3000-$11000
+    
+    const weeklyPatientsElement = document.getElementById('weekly-patients');
+    const weeklyAmountElement = document.getElementById('weekly-amount');
+    
+    if (weeklyPatientsElement) weeklyPatientsElement.textContent = weeklyPatients;
+    if (weeklyAmountElement) weeklyAmountElement.textContent = `$${weeklyAmount}`;
+  }
+  
+  // Monthly report
+  if (reportType === 'all' || reportType === 'monthly') {
+    const monthlyPatients = Math.floor(Math.random() * 200) + 100; // 100-300 patients
+    const monthlyAmount = (Math.random() * 30000 + 15000).toFixed(2); // $15000-$45000
+    
+    const monthlyPatientsElement = document.getElementById('monthly-patients');
+    const monthlyAmountElement = document.getElementById('monthly-amount');
+    
+    if (monthlyPatientsElement) monthlyPatientsElement.textContent = monthlyPatients;
+    if (monthlyAmountElement) monthlyAmountElement.textContent = `$${monthlyAmount}`;
+  }
 }
