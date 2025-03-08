@@ -11,30 +11,12 @@
 <body>
   <div class="container">
     <nav class="sidebar">
-      <div class="logo">
-        <h2>Clinic MS</h2>
-      </div>
-      <ul class="nav-links">
-        <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
-        <li><a href="patients.html"><i class="fas fa-users"></i> Patients</a></li>
-        <li><a href="medicament.html"><i class="fas fa-pills"></i> Medicament</a></li>
-        <li class="active"><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
-      </ul>
+      <!-- Navigation will be loaded from list.html -->
     </nav>
     
     <main class="content">
       <header>
-        <div class="breadcrumb">
-          <span>Settings</span>
-        </div>
-        <div class="clock">
-          <i class="fas fa-clock"></i>
-          <span id="live-clock">00:00:00</span>
-        </div>
-        <div class="user-info">
-          <span>Dr. Smith</span>
-          <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Profile">
-        </div>
+        <!-- Header will be loaded from header.html -->
       </header>
       
       <div class="settings-page">
@@ -51,12 +33,8 @@
                 <input type="text" id="user-name" value="Dr. Smith" class="form-input">
               </div>
               <div class="form-group">
-                <label for="user-email">Email</label>
-                <input type="email" id="user-email" value="dr.smith@clinic.com" class="form-input">
-              </div>
-              <div class="form-group">
-                <label for="user-phone">Phone</label>
-                <input type="text" id="user-phone" value="(555) 123-4567" class="form-input">
+                <label for="username">Username</label>
+                <input type="text" id="username" value="drsmith" class="form-input">
               </div>
               <div class="form-group">
                 <label for="user-specialization">Specialization</label>
@@ -90,57 +68,11 @@
           </div>
           
           <div class="settings-card info-card">
-            <h3><i class="fas fa-clinic-medical"></i> Clinic Information</h3>
-            <div class="settings-form">
-              <div class="form-group">
-                <label for="clinic-name">Clinic Name</label>
-                <input type="text" id="clinic-name" value="City Health Clinic" class="form-input">
-              </div>
-              <div class="form-group">
-                <label for="clinic-address">Address</label>
-                <input type="text" id="clinic-address" value="123 Main Street, Anytown, ST 12345" class="form-input">
-              </div>
-              <div class="form-group">
-                <label for="clinic-phone">Phone</label>
-                <input type="text" id="clinic-phone" value="(555) 987-6543" class="form-input">
-              </div>
-              <div class="form-group">
-                <label for="clinic-email">Email</label>
-                <input type="email" id="clinic-email" value="info@cityhealthclinic.com" class="form-input">
-              </div>
-              <div class="form-actions">
-                <button class="btn schedule-btn">Save Changes</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="settings-card info-card">
             <h3><i class="fas fa-sliders-h"></i> Preferences</h3>
             <div class="settings-form">
-              <div class="form-group checkbox-group">
-                <input type="checkbox" id="notification-email" checked>
-                <label for="notification-email">Email Notifications</label>
-              </div>
-              <div class="form-group checkbox-group">
-                <input type="checkbox" id="notification-sms" checked>
-                <label for="notification-sms">SMS Notifications</label>
-              </div>
               <div class="form-group">
-                <label for="language-preference">Language</label>
-                <select id="language-preference" class="form-select">
-                  <option value="en" selected>English</option>
-                  <option value="fr">French</option>
-                  <option value="es">Spanish</option>
-                  <option value="ar">Arabic</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="date-format">Date Format</label>
-                <select id="date-format" class="form-select">
-                  <option value="mm/dd/yyyy" selected>MM/DD/YYYY</option>
-                  <option value="dd/mm/yyyy">DD/MM/YYYY</option>
-                  <option value="yyyy-mm-dd">YYYY-MM-DD</option>
-                </select>
+                <label for="compte-rendu">Compte Rendu</label>
+                <button id="add-compte-rendu" class="btn schedule-btn">Add Compte Rendu</button>
               </div>
               <div class="form-actions">
                 <button class="btn schedule-btn">Save Preferences</button>
@@ -152,6 +84,82 @@
     </main>
   </div>
   
+  <!-- Add Compte Rendu Modal -->
+  <div id="compte-rendu-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add Compte Rendu</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="compte-rendu-form">
+          <div class="form-group">
+            <label for="compte-rendu-title">Title</label>
+            <input type="text" id="compte-rendu-title" class="form-input" placeholder="Enter title" required>
+          </div>
+          <div class="form-group">
+            <label for="compte-rendu-content">Content</label>
+            <textarea id="compte-rendu-content" class="form-input" rows="6" placeholder="Enter compte rendu content" required></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn edit-btn" id="cancel-compte-rendu">Cancel</button>
+            <button type="submit" class="btn schedule-btn">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
   <script src="script.js"></script>
+  <script>
+    // Initialize the Compte Rendu Modal functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const addCompteRenduBtn = document.getElementById('add-compte-rendu');
+      const compteRenduModal = document.getElementById('compte-rendu-modal');
+      const cancelCompteRenduBtn = document.getElementById('cancel-compte-rendu');
+      const closeModalBtn = document.querySelector('#compte-rendu-modal .close');
+      const compteRenduForm = document.getElementById('compte-rendu-form');
+      
+      if (addCompteRenduBtn && compteRenduModal) {
+        addCompteRenduBtn.addEventListener('click', function() {
+          compteRenduModal.style.display = 'block';
+        });
+      }
+      
+      if (cancelCompteRenduBtn) {
+        cancelCompteRenduBtn.addEventListener('click', function() {
+          compteRenduModal.style.display = 'none';
+        });
+      }
+      
+      if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', function() {
+          compteRenduModal.style.display = 'none';
+        });
+      }
+      
+      if (compteRenduForm) {
+        compteRenduForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Get form values
+          const title = document.getElementById('compte-rendu-title').value;
+          const content = document.getElementById('compte-rendu-content').value;
+          
+          // In a real app, you would save this data to a database
+          alert(`Compte Rendu "${title}" has been saved.`);
+          compteRenduModal.style.display = 'none';
+          compteRenduForm.reset();
+        });
+      }
+      
+      // Close modal when clicking outside
+      window.addEventListener('click', function(e) {
+        if (e.target === compteRenduModal) {
+          compteRenduModal.style.display = 'none';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
