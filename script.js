@@ -1136,6 +1136,9 @@ function initializeReportPage() {
 
   // Load mock data
   loadReportData();
+  
+  // Update the daily, weekly, and monthly summary data
+  updateReportSummary();
 
   // Event listeners for date range selector
   const dateRangeSelector = document.getElementById('date-range-selector');
@@ -1182,6 +1185,42 @@ function initializeReportPage() {
       alert('Excel export functionality would be implemented here');
     });
   }
+}
+
+// Update the report summary with daily, weekly, and monthly data
+function updateReportSummary() {
+  // Daily data
+  const dailyPatients = 12;
+  const dailyAmount = 930;
+  
+  // Weekly data
+  const weeklyPatients = 54;
+  const weeklyAmount = 5250;
+  
+  // Monthly data
+  const monthlyPatients = 218;
+  const monthlyAmount = 21450;
+  
+  // Update daily report
+  const dailyPatientsElement = document.getElementById('daily-patients');
+  const dailyAmountElement = document.getElementById('daily-amount');
+  
+  if (dailyPatientsElement) dailyPatientsElement.textContent = dailyPatients;
+  if (dailyAmountElement) dailyAmountElement.textContent = `$${dailyAmount.toFixed(2)}`;
+  
+  // Update weekly report
+  const weeklyPatientsElement = document.getElementById('weekly-patients');
+  const weeklyAmountElement = document.getElementById('weekly-amount');
+  
+  if (weeklyPatientsElement) weeklyPatientsElement.textContent = weeklyPatients;
+  if (weeklyAmountElement) weeklyAmountElement.textContent = `$${weeklyAmount.toFixed(2)}`;
+  
+  // Update monthly report
+  const monthlyPatientsElement = document.getElementById('monthly-patients');
+  const monthlyAmountElement = document.getElementById('monthly-amount');
+  
+  if (monthlyPatientsElement) monthlyPatientsElement.textContent = monthlyPatients;
+  if (monthlyAmountElement) monthlyAmountElement.textContent = `$${monthlyAmount.toFixed(2)}`;
 }
 
 // Load report data based on time period

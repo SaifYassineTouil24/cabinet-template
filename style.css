@@ -1061,6 +1061,25 @@ textarea.form-input {
   gap: 25px;
 }
 
+.report-summary-item {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0;
+}
+
+.report-summary-item p {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.report-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
 .report-date-filter {
   display: flex;
   align-items: center;
