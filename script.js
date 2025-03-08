@@ -100,6 +100,8 @@ function includeHeader() {
             breadcrumb.innerHTML = '<span>Settings</span>';
           } else if (currentPath.includes('medicament.html')) {
             breadcrumb.innerHTML = '<span>Medicament</span>';
+          } else if (currentPath.includes('report.html')) {
+            breadcrumb.innerHTML = '<span>Rapports</span>';
           }
         }
         
@@ -153,6 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSettingsPage();
   } else if (currentPath.includes('medicament.html')) {
     initializeMedicamentPage();
+  } else if (currentPath.includes('report.html')) {
+    initializeReportPage();
   }
 });
 
@@ -1118,5 +1122,368 @@ function filterMedicaments() {
     const matchesSearch = name.includes(searchText);
 
     row.style.display = matchesSearch ? '' : 'none';
+  });
+}
+
+// Fonctions pour la page de rapport
+function initializeReportPage() {
+  // Définir la date actuelle pour les champs de date
+  const today = new Date();
+  const dateStart = document.getElementById('date-start');
+  const dateEnd = document.getElementById('date-end');
+  
+  if (dateStart && dateEnd) {
+    dateStart.valueAsDate = today;
+    dateEnd.valueAsDate = today;
+  }
+  
+  // Gestionnaire pour le sélecteur de plage de dates
+  const dateRangeSelector = document.getElementById('date-range-selector');
+  const customDateRange = document.getElementById('custom-date-range');
+  
+  if (dateRangeSelector && customDateRange) {
+    dateRangeSelector.addEventListener('change', function() {
+      if (this.value === 'custom') {
+        customDateRange.style.display = 'flex';
+      } else {
+        customDateRange.style.display = 'none';
+        loadReportData(this.value);
+      }
+    });
+  }
+  
+  // Gestionnaire pour le bouton d'application de plage personnalisée
+  const applyDateRange = document.getElementById('apply-date-range');
+  if (applyDateRange) {
+    applyDateRange.addEventListener('click', function() {
+      const start = dateStart.value;
+      const end = dateEnd.value;
+      if (start && end) {
+        loadReportData('custom', { start, end });
+      } else {
+        alert('Veuillez sélectionner des dates de début et de fin valides');
+      }
+    });
+  }
+  
+  // Gestionnaires pour les boutons d'exportation
+  const exportPdfBtn = document.getElementById('export-pdf');
+  const exportExcelBtn = document.getElementById('export-excel');
+  
+  if (exportPdfBtn) {
+    exportPdfBtn.addEventListener('click', function() {
+      alert('Exportation PDF en cours... (fonctionnalité à implémenter)');
+    });
+  }
+  
+  if (exportExcelBtn) {
+    exportExcelBtn.addEventListener('click', function() {
+      alert('Exportation Excel en cours... (fonctionnalité à implémenter)');
+    });
+  }
+  
+  // Charger les données initiales (aujourd'hui par défaut)
+  loadReportData('day');
+}
+
+function loadReportData(timeRange, customDates) {
+  // Simuler un chargement de données
+  setTimeout(() => {
+    // Générer des données aléatoires pour la démonstration
+    const data = generateMockReportData(timeRange, customDates);
+    
+    // Mettre à jour les statistiques générales
+    updateReportStats(data);
+    
+    // Générer les graphiques
+    generateReportCharts(data);
+    
+    // Remplir le tableau des transactions
+    populateTransactionsTable(data.transactions);
+  }, 500);
+}
+
+function generateMockReportData(timeRange, customDates) {
+  let totalPatients, completedAppointments, canceledAppointments, totalRevenue;
+  const transactions = [];
+  const dailyData = [];
+  const appointmentTypes = {};
+  
+  // Générer des nombres aléatoires selon la plage de temps
+  switch(timeRange) {
+    case 'day':
+      totalPatients = Math.floor(Math.random() * 20) + 10;
+      completedAppointments = Math.floor(Math.random() * 15) + 5;
+      canceledAppointments = Math.floor(Math.random() * 5) + 1;
+      totalRevenue = (Math.random() * 1000 + 500).toFixed(2);
+      
+      // Générer des données horaires pour aujourd'hui
+      for (let i = 9; i <= 17; i++) {
+        dailyData.push({
+          label: `${i}:00`,
+          patients: Math.floor(Math.random() * 4) + 1,
+          revenue: Math.floor(Math.random() * 200) + 50
+        });
+      }
+      break;
+      
+    case 'week':
+      totalPatients = Math.floor(Math.random() * 100) + 50;
+      completedAppointments = Math.floor(Math.random() * 80) + 40;
+      canceledAppointments = Math.floor(Math.random() * 20) + 5;
+      totalRevenue = (Math.random() * 5000 + 2000).toFixed(2);
+      
+      // Générer des données quotidiennes pour la semaine
+      const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+      for (let i = 0; i < 7; i++) {
+        dailyData.push({
+          label: days[i],
+          patients: Math.floor(Math.random() * 20) + 5,
+          revenue: Math.floor(Math.random() * 1000) + 200
+        });
+      }
+      break;
+      
+    case 'month':
+      totalPatients = Math.floor(Math.random() * 400) + 200;
+      completedAppointments = Math.floor(Math.random() * 350) + 150;
+      canceledAppointments = Math.floor(Math.random() * 50) + 20;
+      totalRevenue = (Math.random() * 20000 + 10000).toFixed(2);
+      
+      // Générer des données hebdomadaires pour le mois
+      for (let i = 1; i <= 4; i++) {
+        dailyData.push({
+          label: `Semaine ${i}`,
+          patients: Math.floor(Math.random() * 100) + 50,
+          revenue: Math.floor(Math.random() * 5000) + 2000
+        });
+      }
+      break;
+      
+    case 'custom':
+      // Logique similaire pour les dates personnalisées
+      totalPatients = Math.floor(Math.random() * 200) + 100;
+      completedAppointments = Math.floor(Math.random() * 150) + 80;
+      canceledAppointments = Math.floor(Math.random() * 30) + 10;
+      totalRevenue = (Math.random() * 10000 + 5000).toFixed(2);
+      
+      // Générer des données pour la plage personnalisée
+      const start = new Date(customDates.start);
+      const end = new Date(customDates.end);
+      const diffTime = Math.abs(end - start);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+      
+      for (let i = 0; i < diffDays; i++) {
+        const currentDate = new Date(start);
+        currentDate.setDate(start.getDate() + i);
+        dailyData.push({
+          label: currentDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }),
+          patients: Math.floor(Math.random() * 20) + 5,
+          revenue: Math.floor(Math.random() * 1000) + 200
+        });
+      }
+      break;
+  }
+  
+  // Générer des types de consultations aléatoires
+  appointmentTypes['Consultation régulière'] = Math.floor(Math.random() * completedAppointments * 0.4) + Math.floor(completedAppointments * 0.2);
+  appointmentTypes['Urgence'] = Math.floor(Math.random() * completedAppointments * 0.2) + Math.floor(completedAppointments * 0.1);
+  appointmentTypes['Suivi'] = Math.floor(Math.random() * completedAppointments * 0.3) + Math.floor(completedAppointments * 0.15);
+  appointmentTypes['Spécialiste'] = completedAppointments - (appointmentTypes['Consultation régulière'] + appointmentTypes['Urgence'] + appointmentTypes['Suivi']);
+  
+  // Générer des transactions aléatoires
+  const patientNames = [
+    'Jean Dupont', 'Marie Martin', 'Pierre Bernard', 'Sophie Petit', 'Thomas Dubois',
+    'Julie Lambert', 'Nicolas Moreau', 'Camille Leroy', 'Antoine Robert', 'Émilie Simon'
+  ];
+  
+  const appointmentTypesList = ['Consultation régulière', 'Urgence', 'Suivi', 'Spécialiste'];
+  const statusOptions = ['Terminé', 'Annulé'];
+  
+  // Générer un nombre de transactions égal au total des patients
+  for (let i = 0; i < totalPatients; i++) {
+    const isCompleted = Math.random() > 0.2; // 80% de chance d'être terminé
+    const type = appointmentTypesList[Math.floor(Math.random() * appointmentTypesList.length)];
+    const status = isCompleted ? 'Terminé' : 'Annulé';
+    const amount = isCompleted ? Math.floor(Math.random() * 150) + 50 : 0;
+    
+    // Générer une date aléatoire selon la plage
+    let transactionDate;
+    const today = new Date();
+    
+    switch(timeRange) {
+      case 'day':
+        // Aujourd'hui avec des heures différentes
+        transactionDate = new Date(today);
+        transactionDate.setHours(Math.floor(Math.random() * 8) + 9); // Entre 9h et 17h
+        transactionDate.setMinutes(Math.floor(Math.random() * 60));
+        break;
+        
+      case 'week':
+        // Cette semaine
+        transactionDate = new Date(today);
+        transactionDate.setDate(today.getDate() - Math.floor(Math.random() * 7));
+        break;
+        
+      case 'month':
+        // Ce mois
+        transactionDate = new Date(today);
+        transactionDate.setDate(Math.floor(Math.random() * 30) + 1);
+        break;
+        
+      case 'custom':
+        // Entre les dates personnalisées
+        const start = new Date(customDates.start);
+        const end = new Date(customDates.end);
+        const timeRange = end.getTime() - start.getTime();
+        const randomTime = Math.random() * timeRange;
+        transactionDate = new Date(start.getTime() + randomTime);
+        break;
+    }
+    
+    transactions.push({
+      date: transactionDate,
+      patient: patientNames[Math.floor(Math.random() * patientNames.length)],
+      type: type,
+      status: status,
+      amount: amount
+    });
+  }
+  
+  // Trier les transactions par date
+  transactions.sort((a, b) => b.date - a.date);
+  
+  return {
+    totalPatients,
+    completedAppointments,
+    canceledAppointments,
+    totalRevenue,
+    transactions,
+    dailyData,
+    appointmentTypes
+  };
+}
+
+function updateReportStats(data) {
+  document.getElementById('total-patients').textContent = data.totalPatients;
+  document.getElementById('completed-appointments').textContent = data.completedAppointments;
+  document.getElementById('canceled-appointments').textContent = data.canceledAppointments;
+  document.getElementById('total-revenue').textContent = data.totalRevenue + ' €';
+}
+
+function generateReportCharts(data) {
+  // Graphique des revenus
+  const revenueCtx = document.getElementById('revenue-chart').getContext('2d');
+  
+  // Détruire le graphique s'il existe déjà
+  if (window.revenueChart) {
+    window.revenueChart.destroy();
+  }
+  
+  window.revenueChart = new Chart(revenueCtx, {
+    type: 'bar',
+    data: {
+      labels: data.dailyData.map(item => item.label),
+      datasets: [
+        {
+          label: 'Revenus (€)',
+          data: data.dailyData.map(item => item.revenue),
+          backgroundColor: 'rgba(46, 139, 87, 0.7)',
+          borderColor: 'rgba(46, 139, 87, 1)',
+          borderWidth: 1
+        },
+        {
+          label: 'Patients',
+          data: data.dailyData.map(item => item.patients),
+          backgroundColor: 'rgba(88, 208, 245, 0.7)',
+          borderColor: 'rgba(88, 208, 245, 1)',
+          borderWidth: 1,
+          type: 'line'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  
+  // Graphique des types de consultations
+  const typesCtx = document.getElementById('appointment-types-chart').getContext('2d');
+  
+  // Détruire le graphique s'il existe déjà
+  if (window.typesChart) {
+    window.typesChart.destroy();
+  }
+  
+  window.typesChart = new Chart(typesCtx, {
+    type: 'pie',
+    data: {
+      labels: Object.keys(data.appointmentTypes),
+      datasets: [{
+        data: Object.values(data.appointmentTypes),
+        backgroundColor: [
+          'rgba(46, 139, 87, 0.7)',
+          'rgba(88, 208, 245, 0.7)',
+          'rgba(255, 193, 7, 0.7)',
+          'rgba(220, 53, 69, 0.7)'
+        ],
+        borderColor: [
+          'rgba(46, 139, 87, 1)',
+          'rgba(88, 208, 245, 1)',
+          'rgba(255, 193, 7, 1)',
+          'rgba(220, 53, 69, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'right'
+        }
+      }
+    }
+  });
+}
+
+function populateTransactionsTable(transactions) {
+  const tbody = document.getElementById('transactions-body');
+  if (!tbody) return;
+  
+  tbody.innerHTML = '';
+  
+  transactions.forEach(transaction => {
+    const row = document.createElement('tr');
+    
+    // Formater la date
+    const date = new Date(transaction.date);
+    const formattedDate = date.toLocaleDateString('fr-FR', { 
+      day: '2-digit', 
+      month: '2-digit', 
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    
+    // Déterminer la classe pour le statut
+    const statusClass = transaction.status === 'Terminé' ? 'status-active' : 'status-inactive';
+    
+    row.innerHTML = `
+      <td>${formattedDate}</td>
+      <td>${transaction.patient}</td>
+      <td>${transaction.type}</td>
+      <td><span class="status-badge ${statusClass}">${transaction.status}</span></td>
+      <td>${transaction.amount} €</td>
+    `;
+    
+    tbody.appendChild(row);
   });
 }

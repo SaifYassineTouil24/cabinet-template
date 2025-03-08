@@ -1,4 +1,3 @@
-
 <div class="header-container">
   <div class="breadcrumb-container">
     <i class="fas fa-compass"></i>
@@ -6,23 +5,23 @@
       <!-- Breadcrumb content will be dynamically updated by JavaScript -->
     </div>
   </div>
-  
+
   <div class="header-actions">
     <div class="search-box" id="header-search">
       <i class="fas fa-search"></i>
       <input type="text" id="search-input" placeholder="Search...">
     </div>
-    
+
     <div class="clock">
       <i class="fas fa-clock"></i>
       <span id="live-clock">00:00:00</span>
     </div>
-    
+
     <div class="notifications">
       <i class="fas fa-bell"></i>
       <span class="notification-badge">3</span>
     </div>
-    
+
     <div class="user-info">
       <div class="user-details">
         <span class="user-name">Dr. Smith</span>
@@ -32,3 +31,23 @@
     </div>
   </div>
 </div>
+
+<div id="report-page">
+  <h1>Daily Report</h1>
+  <p>Number of Patients: <span id="daily-patients">0</span></p>
+  <p>Total Amount: <span id="daily-amount">$0.00</span></p>
+
+  <h1>Weekly Report</h1>
+  <p>Number of Patients: <span id="weekly-patients">0</span></p>
+  <p>Total Amount: <span id="weekly-amount">$0.00</span></p>
+
+  <h1>Monthly Report</h1>
+  <p>Number of Patients: <span id="monthly-patients">0</span></p>
+  <p>Total Amount: <span id="monthly-amount">$0.00</span></p>
+</div>
+
+<script>
+  // JavaScript to fetch and update report data would go here.  This is a placeholder.
+  document.getElementById('page-breadcrumb').innerHTML = '<span>Reports</span>';
+
+</script>

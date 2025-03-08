@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapports - Système de Gestion de Clinique</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <!-- Navigation will be loaded from list.html -->
+    </nav>
+    
+    <main class="content">
+      <header>
+        <!-- Header will be loaded from header.html -->
+      </header>
+      
+      <div class="report-page">
+        <div class="page-header">
+          <h1><i class="fas fa-chart-line"></i> Rapports Financiers</h1>
+          <div class="report-date-filter">
+            <select id="date-range-selector" class="form-input">
+              <option value="day">Aujourd'hui</option>
+              <option value="week">Cette semaine</option>
+              <option value="month">Ce mois</option>
+              <option value="custom">Personnalisé</option>
+            </select>
+            <div id="custom-date-range" style="display: none;">
+              <input type="date" id="date-start" class="form-input">
+              <input type="date" id="date-end" class="form-input">
+              <button id="apply-date-range" class="btn edit-btn"><i class="fas fa-check"></i> Appliquer</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="report-summary">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="stat-info">
+                <h4>Nombre de patients</h4>
+                <p id="total-patients">0</p>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="stat-info">
+                <h4>Rendez-vous terminés</h4>
+                <p id="completed-appointments">0</p>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-ban"></i>
+              </div>
+              <div class="stat-info">
+                <h4>Rendez-vous annulés</h4>
+                <p id="canceled-appointments">0</p>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-money-bill-wave"></i>
+              </div>
+              <div class="stat-info">
+                <h4>Revenu total</h4>
+                <p id="total-revenue">0 €</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="report-charts">
+          <div class="chart-container">
+            <h3><i class="fas fa-chart-bar"></i> Statistiques quotidiennes</h3>
+            <canvas id="revenue-chart"></canvas>
+          </div>
+          
+          <div class="chart-container">
+            <h3><i class="fas fa-chart-pie"></i> Répartition des types de consultation</h3>
+            <canvas id="appointment-types-chart"></canvas>
+          </div>
+        </div>
+        
+        <div class="report-details info-card">
+          <h3><i class="fas fa-list-alt"></i> Détails des transactions</h3>
+          <div class="report-table-container">
+            <table class="report-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Patient</th>
+                  <th>Type de consultation</th>
+                  <th>Status</th>
+                  <th>Montant</th>
+                </tr>
+              </thead>
+              <tbody id="transactions-body">
+                <!-- Les transactions seront ajoutées ici dynamiquement -->
+              </tbody>
+            </table>
+          </div>
+          <div class="export-options">
+            <button id="export-pdf" class="btn edit-btn"><i class="fas fa-file-pdf"></i> Exporter en PDF</button>
+            <button id="export-excel" class="btn edit-btn"><i class="fas fa-file-excel"></i> Exporter en Excel</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
