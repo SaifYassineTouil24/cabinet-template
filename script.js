@@ -1149,50 +1149,72 @@ function initializeReportPage() {
 function generateReports() {
   const dateInput = document.getElementById('report-date');
   const reportType = document.getElementById('report-type');
+  const illnessType = document.getElementById('illness-type');
+  
   const selectedDate = dateInput ? new Date(dateInput.value) : new Date();
   const selectedReportType = reportType ? reportType.value : 'all';
+  const selectedIllnessType = illnessType ? illnessType.value : 'all';
 
-  // Generate mock data for reports based on selected date
-  generateMockReportData(selectedDate, selectedReportType);
+  // Generate mock data for reports based on selected filters
+  generateMockReportData(selectedDate, selectedReportType, selectedIllnessType);
 }
 
-function generateMockReportData(date, reportType) {
-  // Mock data generation based on date
+function generateMockReportData(date, reportType, illnessType) {
+  // Mock data generation based on filters
   // In a real application, this would fetch data from a database
+  
+  // Apply a multiplier based on illness type to simulate different data
+  let multiplier = 1.0;
+  
+  if (illnessType !== 'all') {
+    // Different illness types would have different weights in a real system
+    // Here we just use mock multipliers
+    switch(illnessType) {
+      case 'Regular Check-up': multiplier = 0.8; break;
+      case 'Illness': multiplier = 1.2; break;
+      case 'Follow-up': multiplier = 0.7; break;
+      case 'Specialist': multiplier = 1.5; break;
+      case 'Vaccination': multiplier = 0.6; break;
+      case 'Lab Results': multiplier = 0.5; break;
+      case 'Emergency': multiplier = 1.8; break;
+      case 'Surgery Consultation': multiplier = 2.0; break;
+      default: multiplier = 1.0;
+    }
+  }
   
   // Daily report
   if (reportType === 'all' || reportType === 'daily') {
-    const dailyPatients = Math.floor(Math.random() * 20) + 5; // 5-25 patients
-    const dailyAmount = (Math.random() * 2000 + 500).toFixed(2); // $500-$2500
+    const dailyPatients = Math.floor((Math.random() * 20 + 5) * multiplier); // 5-25 patients adjusted by multiplier
+    const dailyAmount = ((Math.random() * 2000 + 500) * multiplier).toFixed(2); // $500-$2500 adjusted by multiplier
     
     const dailyPatientsElement = document.getElementById('daily-patients');
     const dailyAmountElement = document.getElementById('daily-amount');
     
-    if (dailyPatientsElement) dailyPatientsElement.textContent = dailyPatients;
-    if (dailyAmountElement) dailyAmountElement.textContent = `$${dailyAmount}`;
+    if (dailyPatientsElement) dailyPatientsElement.textContent = dailyPatients || "0";
+    if (dailyAmountElement) dailyAmountElement.textContent = `$${dailyAmount || "0.00"}`;
   }
   
   // Weekly report
   if (reportType === 'all' || reportType === 'weekly') {
-    const weeklyPatients = Math.floor(Math.random() * 60) + 30; // 30-90 patients
-    const weeklyAmount = (Math.random() * 8000 + 3000).toFixed(2); // $3000-$11000
+    const weeklyPatients = Math.floor((Math.random() * 60 + 30) * multiplier); // 30-90 patients adjusted by multiplier
+    const weeklyAmount = ((Math.random() * 8000 + 3000) * multiplier).toFixed(2); // $3000-$11000 adjusted by multiplier
     
     const weeklyPatientsElement = document.getElementById('weekly-patients');
     const weeklyAmountElement = document.getElementById('weekly-amount');
     
-    if (weeklyPatientsElement) weeklyPatientsElement.textContent = weeklyPatients;
-    if (weeklyAmountElement) weeklyAmountElement.textContent = `$${weeklyAmount}`;
+    if (weeklyPatientsElement) weeklyPatientsElement.textContent = weeklyPatients || "0";
+    if (weeklyAmountElement) weeklyAmountElement.textContent = `$${weeklyAmount || "0.00"}`;
   }
   
   // Monthly report
   if (reportType === 'all' || reportType === 'monthly') {
-    const monthlyPatients = Math.floor(Math.random() * 200) + 100; // 100-300 patients
-    const monthlyAmount = (Math.random() * 30000 + 15000).toFixed(2); // $15000-$45000
+    const monthlyPatients = Math.floor((Math.random() * 200 + 100) * multiplier); // 100-300 patients adjusted by multiplier
+    const monthlyAmount = ((Math.random() * 30000 + 15000) * multiplier).toFixed(2); // $15000-$45000 adjusted by multiplier
     
     const monthlyPatientsElement = document.getElementById('monthly-patients');
     const monthlyAmountElement = document.getElementById('monthly-amount');
     
-    if (monthlyPatientsElement) monthlyPatientsElement.textContent = monthlyPatients;
-    if (monthlyAmountElement) monthlyAmountElement.textContent = `$${monthlyAmount}`;
+    if (monthlyPatientsElement) monthlyPatientsElement.textContent = monthlyPatients || "0";
+    if (monthlyAmountElement) monthlyAmountElement.textContent = `$${monthlyAmount || "0.00"}`;
   }
 }

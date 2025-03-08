@@ -1213,6 +1213,28 @@ textarea.form-input {
   min-width: 200px;
 }
 
+.report-filters select.form-input,
+.report-filters input.form-input {
+  width: 100%;
+  max-width: 100%;
+}
+
+.report-card:empty {
+  display: none;
+}
+
+.report-content .report-stat {
+  background-color: var(--light-bg);
+  border-radius: 8px;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.report-content .report-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 @media (max-width: 768px) {
   .report-container {
     grid-template-columns: 1fr;
