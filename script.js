@@ -1,153 +1,20 @@
-// Add event listener for adding new medication in appointment detail page
+
+// DOM Content Loaded Event - Entry Point
 document.addEventListener('DOMContentLoaded', function() {
-  const addMedicationButton = document.getElementById('add-medication');
-  if (addMedicationButton) {
-    addMedicationButton.addEventListener('click', function() {
-      const medicationList = document.getElementById('medication-list');
-      const newMedItem = document.createElement('div');
-      newMedItem.className = 'medication-item';
-
-      newMedItem.innerHTML = `
-        <div class="medication-inputs">
-          <input type="text" placeholder="Medication name" class="form-input med-name">
-          <input type="text" placeholder="Dosage" class="form-input med-dose">
-          <input type="text" placeholder="Frequency" class="form-input med-freq">
-          <input type="text" placeholder="Duration" class="form-input med-duration">
-        </div>
-        <button class="action-btn remove-med"><i class="fas fa-trash"></i></button>
-      `;
-
-      medicationList.appendChild(newMedItem);
-
-      // Add event listener to remove button
-      const removeButton = newMedItem.querySelector('.remove-med');
-      removeButton.addEventListener('click', function() {
-        medicationList.removeChild(newMedItem);
-      });
-    });
-  }
-
-  // Add event listeners to existing remove buttons
-  const removeMedButtons = document.querySelectorAll('.remove-med');
-  removeMedButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const medItem = button.closest('.medication-item');
-      const medicationList = document.getElementById('medication-list');
-      medicationList.removeChild(medItem);
-    });
-  });
-});
-
-
-// Function to include the sidebar navigation
-function includeNavbar() {
-  const sidebarContainers = document.querySelectorAll('.container nav');
-  
-  sidebarContainers.forEach(container => {
-    fetch('list.html')
-      .then(response => response.text())
-      .then(data => {
-        container.innerHTML = data;
-        
-        // Set active class based on current page
-        const currentPath = window.location.pathname;
-        if (currentPath.includes('index.html') || currentPath === '/' || currentPath.endsWith('/')) {
-          document.getElementById('nav-dashboard').classList.add('active');
-        } else if (currentPath.includes('patients.html')) {
-          document.getElementById('nav-patients').classList.add('active');
-        } else if (currentPath.includes('patient-detail.html')) {
-          document.getElementById('nav-patients').classList.add('active'); // Patient detail is under Patients
-        } else if (currentPath.includes('settings.html')) {
-          document.getElementById('nav-settings').classList.add('active');
-        } else if (currentPath.includes('medicament.html')) {
-          document.getElementById('nav-medicament').classList.add('active');
-        } else if (currentPath.includes('report.html')) {
-          document.getElementById('nav-reports').classList.add('active');
-        }
-      })
-      .catch(error => console.error('Error loading the navigation bar:', error));
-  });
-}
-
-// Function to include the header
-function includeHeader() {
-  const headerContainers = document.querySelectorAll('.content header');
-  
-  headerContainers.forEach(container => {
-    fetch('header.html')
-      .then(response => response.text())
-      .then(data => {
-        container.innerHTML = data;
-        
-        // Set breadcrumb based on current page
-        const currentPath = window.location.pathname;
-        const breadcrumb = document.getElementById('page-breadcrumb');
-        
-        if (breadcrumb) {
-          if (currentPath.includes('index.html') || currentPath === '/' || currentPath.endsWith('/')) {
-            breadcrumb.innerHTML = '<span>Dashboard</span>';
-          } else if (currentPath.includes('patients.html')) {
-            breadcrumb.innerHTML = '<span>Patients</span>';
-          } else if (currentPath.includes('patient-detail.html')) {
-            const urlParams = new URLSearchParams(window.location.search);
-            const patientId = urlParams.get('id');
-            const patientName = document.getElementById('patient-full-name') ? 
-                                document.getElementById('patient-full-name').textContent : 
-                                'Patient Details';
-            breadcrumb.innerHTML = '<a href="patients.html">Patients</a> / <span id="patient-name-header">' + patientName + '</span>';
-          } else if (currentPath.includes('appointment-detail.html')) {
-            const patientName = 'Patient Name'; // This should be dynamic in a real app
-            breadcrumb.innerHTML = '<a href="patients.html">Patients</a> / <a href="#" id="patient-link">' + patientName + '</a> / <span>Appointment Details</span>';
-          } else if (currentPath.includes('settings.html')) {
-            breadcrumb.innerHTML = '<span>Settings</span>';
-          } else if (currentPath.includes('medicament.html')) {
-            breadcrumb.innerHTML = '<span>Medicament</span>';
-          } else if (currentPath.includes('report.html')) {
-            breadcrumb.innerHTML = '<span>Reports</span>';
-          }
-        }
-        
-        // Hide search box for pages that don't need it
-        const searchBox = document.getElementById('header-search');
-        if (searchBox) {
-          if (currentPath.includes('patient-detail.html') || 
-              currentPath.includes('appointment-detail.html') || 
-              currentPath.includes('settings.html')) {
-            searchBox.style.display = 'none';
-          } else {
-            // Set placeholder text based on page
-            const searchInput = document.getElementById('search-input');
-            if (searchInput) {
-              if (currentPath.includes('patients.html')) {
-                searchInput.placeholder = 'Search patient...';
-              } else if (currentPath.includes('medicament.html')) {
-                searchInput.placeholder = 'Search medicament...';
-              } else {
-                searchInput.placeholder = 'Search...';
-              }
-            }
-          }
-        }
-        
-        // Initialize clock
-        initializeClock();
-      })
-      .catch(error => console.error('Error loading the header:', error));
-  });
-}
-
-// DOM Elements
-document.addEventListener('DOMContentLoaded', function() {
-  // Include the navigation bar
+  // Include navigation and header
   includeNavbar();
-  
-  // Include the header
   includeHeader();
   
-  // Initialize different pages based on current page
-  const currentPath = window.location.pathname;
+  // Initialize page-specific functionality
+  initializePageByPath(window.location.pathname);
+  
+  // Initialize medication functionality
+  initializeMedicationHandlers();
+});
 
-  if (currentPath.includes('index.html') || currentPath === '/') {
+// Initialize page based on current path
+function initializePageByPath(currentPath) {
+  if (currentPath.includes('index.html') || currentPath === '/' || currentPath.endsWith('/')) {
     initializeDashboard();
   } else if (currentPath.includes('patients.html')) {
     initializePatientsPage();
@@ -160,37 +27,204 @@ document.addEventListener('DOMContentLoaded', function() {
   } else if (currentPath.includes('report.html')) {
     initializeReportPage();
   }
-});
+}
 
-// Settings Page Initialization
+// Medication Handlers
+function initializeMedicationHandlers() {
+  const addMedicationButton = document.getElementById('add-medication');
+  if (addMedicationButton) {
+    addMedicationButton.addEventListener('click', addNewMedication);
+  }
+
+  // Add event listeners to existing remove buttons
+  document.querySelectorAll('.remove-med').forEach(button => {
+    button.addEventListener('click', removeMedication);
+  });
+}
+
+function addNewMedication() {
+  const medicationList = document.getElementById('medication-list');
+  const newMedItem = document.createElement('div');
+  newMedItem.className = 'medication-item';
+
+  newMedItem.innerHTML = `
+    <div class="medication-inputs">
+      <input type="text" placeholder="Medication name" class="form-input med-name">
+      <input type="text" placeholder="Dosage" class="form-input med-dose">
+      <input type="text" placeholder="Frequency" class="form-input med-freq">
+      <input type="text" placeholder="Duration" class="form-input med-duration">
+    </div>
+    <button class="action-btn remove-med"><i class="fas fa-trash"></i></button>
+  `;
+
+  medicationList.appendChild(newMedItem);
+
+  // Add event listener to remove button
+  const removeButton = newMedItem.querySelector('.remove-med');
+  removeButton.addEventListener('click', removeMedication);
+}
+
+function removeMedication() {
+  const medItem = this.closest('.medication-item');
+  const medicationList = document.getElementById('medication-list');
+  medicationList.removeChild(medItem);
+}
+
+// Navigation Functions
+function includeNavbar() {
+  fetchAndInjectHTML('.container nav', 'list.html', setActiveNavItem);
+}
+
+function includeHeader() {
+  fetchAndInjectHTML('.content header', 'header.html', () => {
+    setBreadcrumb();
+    configureSearchBox();
+    initializeClock();
+  });
+}
+
+function fetchAndInjectHTML(selector, sourcePath, callback) {
+  const containers = document.querySelectorAll(selector);
+  
+  if (containers.length === 0) return;
+  
+  fetch(sourcePath)
+    .then(response => response.text())
+    .then(data => {
+      containers.forEach(container => {
+        container.innerHTML = data;
+      });
+      if (typeof callback === 'function') {
+        callback();
+      }
+    })
+    .catch(error => console.error(`Error loading ${sourcePath}:`, error));
+}
+
+function setActiveNavItem() {
+  const currentPath = window.location.pathname;
+  const navItems = {
+    'index.html': 'nav-dashboard',
+    'patients.html': 'nav-patients',
+    'patient-detail.html': 'nav-patients',
+    'settings.html': 'nav-settings',
+    'medicament.html': 'nav-medicament',
+    'report.html': 'nav-reports'
+  };
+  
+  // Set default for homepage
+  if (currentPath === '/' || currentPath.endsWith('/')) {
+    document.getElementById('nav-dashboard')?.classList.add('active');
+    return;
+  }
+  
+  // Find matching nav item
+  for (const [page, navId] of Object.entries(navItems)) {
+    if (currentPath.includes(page)) {
+      document.getElementById(navId)?.classList.add('active');
+      break;
+    }
+  }
+}
+
+function setBreadcrumb() {
+  const currentPath = window.location.pathname;
+  const breadcrumb = document.getElementById('page-breadcrumb');
+  
+  if (!breadcrumb) return;
+  
+  const breadcrumbMap = {
+    'index.html': '<span>Dashboard</span>',
+    'patients.html': '<span>Patients</span>',
+    'settings.html': '<span>Settings</span>',
+    'medicament.html': '<span>Medicament</span>',
+    'report.html': '<span>Reports</span>'
+  };
+  
+  // Default for homepage
+  if (currentPath === '/' || currentPath.endsWith('/')) {
+    breadcrumb.innerHTML = '<span>Dashboard</span>';
+    return;
+  }
+  
+  // Special case for patient detail page
+  if (currentPath.includes('patient-detail.html')) {
+    const patientName = document.getElementById('patient-full-name')?.textContent || 'Patient Details';
+    breadcrumb.innerHTML = '<a href="patients.html">Patients</a> / <span id="patient-name-header">' + patientName + '</span>';
+    return;
+  }
+  
+  // Special case for appointment detail page
+  if (currentPath.includes('appointment-detail.html')) {
+    const patientName = 'Patient Name'; // This should be dynamic in a real app
+    breadcrumb.innerHTML = '<a href="patients.html">Patients</a> / <a href="#" id="patient-link">' + patientName + '</a> / <span>Appointment Details</span>';
+    return;
+  }
+  
+  // Set breadcrumb for other pages
+  for (const [page, content] of Object.entries(breadcrumbMap)) {
+    if (currentPath.includes(page)) {
+      breadcrumb.innerHTML = content;
+      break;
+    }
+  }
+}
+
+function configureSearchBox() {
+  const currentPath = window.location.pathname;
+  const searchBox = document.getElementById('header-search');
+  
+  if (!searchBox) return;
+  
+  // Hide search for certain pages
+  if (currentPath.includes('patient-detail.html') || 
+      currentPath.includes('appointment-detail.html') || 
+      currentPath.includes('settings.html')) {
+    searchBox.style.display = 'none';
+    return;
+  }
+  
+  // Configure search placeholder
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    const placeholders = {
+      'patients.html': 'Search patient...',
+      'medicament.html': 'Search medicament...'
+    };
+    
+    for (const [page, placeholder] of Object.entries(placeholders)) {
+      if (currentPath.includes(page)) {
+        searchInput.placeholder = placeholder;
+        return;
+      }
+    }
+    
+    // Default placeholder
+    searchInput.placeholder = 'Search...';
+  }
+}
+
+// Page Initialization Functions
 function initializeSettingsPage() {
-  // Add event listeners to save buttons
-  const saveButtons = document.querySelectorAll('.settings-form .btn');
-
-  saveButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // In a real app, this would save data to a backend
-      // For demo purposes, just show a success message
+  document.querySelectorAll('.settings-form .btn').forEach(button => {
+    button.addEventListener('click', () => {
       alert('Settings saved successfully!');
     });
   });
 }
 
-// Dashboard Page Initialization
 function initializeDashboard() {
-  // Initialize calendar
   initializeCalendar();
-
-  // Load mock patient data
   loadPatientStatusData();
 }
 
-// Patients Page Initialization
 function initializePatientsPage() {
-  // Load mock patients data
   loadPatientsListData();
+  addPatientSearchListeners();
+  setupPatientModals();
+}
 
-  // Add event listeners for search and filters
+function addPatientSearchListeners() {
   const searchInput = document.getElementById('search-input');
   const statusFilter = document.getElementById('filter-status');
   const sortFilter = document.getElementById('filter-sort');
@@ -213,8 +247,10 @@ function initializePatientsPage() {
   if (sortFilter) {
     sortFilter.addEventListener('change', sortPatients);
   }
+}
 
-  // Add event listener for patient details modal
+function setupPatientModals() {
+  // View patient details event delegation
   document.addEventListener('click', function(e) {
     if (e.target.classList.contains('view-patient-btn')) {
       const patientId = e.target.getAttribute('data-id');
@@ -226,65 +262,52 @@ function initializePatientsPage() {
     }
   });
   
-  // Add New Patient Modal
+  // Add patient modal
   const addPatientBtn = document.getElementById('add-patient-btn');
   const addPatientModal = document.getElementById('add-patient-modal');
   const cancelAddPatientBtn = document.getElementById('cancel-add-patient');
   const addPatientForm = document.getElementById('add-patient-form');
   
   if (addPatientBtn && addPatientModal) {
-    addPatientBtn.addEventListener('click', function() {
+    addPatientBtn.addEventListener('click', () => {
       addPatientModal.style.display = 'block';
     });
   }
   
   if (cancelAddPatientBtn) {
-    cancelAddPatientBtn.addEventListener('click', function() {
+    cancelAddPatientBtn.addEventListener('click', () => {
       addPatientModal.style.display = 'none';
     });
   }
   
   if (addPatientForm) {
-    addPatientForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Get form values
-      const name = document.getElementById('patient-name').value;
-      const dob = document.getElementById('patient-dob').value;
-      const gender = document.getElementById('patient-gender').value;
-      const cin = document.getElementById('patient-cin').value;
-      const phone = document.getElementById('patient-phone').value;
-      
-      // In a real app, you would save this data to a database
-      // For demo purposes, just alert and close the modal
-      alert(`Patient ${name} added successfully!`);
-      addPatientModal.style.display = 'none';
-      addPatientForm.reset();
-      
-      // Refresh patient list (in a real app, this would fetch updated data)
-      // Here we're just reloading the mock data
-      loadPatientsListData();
-    });
+    addPatientForm.addEventListener('submit', handleAddPatientSubmit);
   }
   
   // Close modal when clicking outside
   window.addEventListener('click', function(e) {
-    if (e.target === addPatientModal) {
-      addPatientModal.style.display = 'none';
+    if (e.target.classList.contains('modal')) {
+      e.target.style.display = 'none';
     }
   });
 }
 
-function closeAllModals() {
-  const modals = document.querySelectorAll('.modal');
-  modals.forEach(modal => {
-    modal.style.display = 'none';
-  });
+function handleAddPatientSubmit(e) {
+  e.preventDefault();
+  
+  // Get form values
+  const name = document.getElementById('patient-name').value;
+  
+  // In a real app, you would save this data to a database
+  alert(`Patient ${name} added successfully!`);
+  document.getElementById('add-patient-modal').style.display = 'none';
+  this.reset();
+  
+  // Refresh patient list
+  loadPatientsListData();
 }
 
-// Patient Detail Page Initialization
 function initializePatientDetailPage() {
-  // Get patient ID from URL
   const urlParams = new URLSearchParams(window.location.search);
   const patientId = urlParams.get('id');
 
@@ -292,102 +315,129 @@ function initializePatientDetailPage() {
     loadPatientDetails(patientId);
   }
   
-  // Initialize edit modal
-  const editBtn = document.getElementById('edit-patient-btn');
-  const editModal = document.getElementById('edit-patient-modal');
-  const cancelEditBtn = document.getElementById('cancel-edit-patient');
-  const closeEditModal = editModal ? editModal.querySelector('.close') : null;
-  
-  if (editBtn && editModal) {
-    editBtn.addEventListener('click', function() {
-      // Pre-fill the form with patient details
-      document.getElementById('edit-patient-name').value = document.getElementById('patient-name').textContent;
-      document.getElementById('edit-patient-cin').value = document.getElementById('patient-cin').textContent;
-      document.getElementById('edit-patient-phone').value = document.getElementById('patient-phone').textContent;
-      document.getElementById('edit-patient-allergies').value = document.getElementById('patient-allergies').textContent;
-      document.getElementById('edit-patient-conditions').value = document.getElementById('patient-conditions').textContent;
-      
-      // Show the modal
-      editModal.style.display = 'block';
-    });
-  }
-  
-  if (cancelEditBtn) {
-    cancelEditBtn.addEventListener('click', function() {
-      editModal.style.display = 'none';
-    });
-  }
-  
-  if (closeEditModal) {
-    closeEditModal.addEventListener('click', function() {
-      editModal.style.display = 'none';
-    });
-  }
-  
-  // Initialize schedule modal
-  const scheduleBtn = document.getElementById('schedule-patient-btn');
-  const scheduleModal = document.getElementById('schedule-modal');
-  const cancelScheduleBtn = document.getElementById('cancel-schedule');
-  const closeScheduleModal = scheduleModal ? scheduleModal.querySelector('.close') : null;
-  
-  if (scheduleBtn && scheduleModal) {
-    scheduleBtn.addEventListener('click', function() {
-      // Set default date to tomorrow
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      document.getElementById('appointment-date').valueAsDate = tomorrow;
-      
-      // Show the modal
-      scheduleModal.style.display = 'block';
-    });
-  }
-  
-  if (cancelScheduleBtn) {
-    cancelScheduleBtn.addEventListener('click', function() {
-      scheduleModal.style.display = 'none';
-    });
-  }
-  
-  if (closeScheduleModal) {
-    closeScheduleModal.addEventListener('click', function() {
-      scheduleModal.style.display = 'none';
-    });
-  }
+  setupPatientDetailModals();
+}
+
+function setupPatientDetailModals() {
+  setupModal('edit-patient-btn', 'edit-patient-modal', 'cancel-edit-patient');
+  setupModal('schedule-patient-btn', 'schedule-modal', 'cancel-schedule');
   
   // Handle form submissions
-  const editForm = document.getElementById('edit-patient-form');
-  const scheduleForm = document.getElementById('schedule-appointment-form');
+  setupFormSubmit('edit-patient-form', 'Patient information updated successfully!', 'edit-patient-modal');
+  setupFormSubmit('schedule-appointment-form', 'Appointment scheduled successfully!', 'schedule-modal');
+}
+
+function setupModal(triggerBtnId, modalId, cancelBtnId) {
+  const triggerBtn = document.getElementById(triggerBtnId);
+  const modal = document.getElementById(modalId);
+  const cancelBtn = document.getElementById(cancelBtnId);
+  const closeModalBtn = modal?.querySelector('.close');
   
-  if (editForm) {
-    editForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      // In a real app, you would save this data to a database
-      alert('Patient information updated successfully!');
-      editModal.style.display = 'none';
+  if (triggerBtn && modal) {
+    triggerBtn.addEventListener('click', () => {
+      if (modalId === 'schedule-modal') {
+        // Set default date to tomorrow for scheduling
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('appointment-date').valueAsDate = tomorrow;
+      } else if (modalId === 'edit-patient-modal') {
+        // Pre-fill the form with patient details
+        prefillPatientEditForm();
+      }
+      
+      modal.style.display = 'block';
     });
   }
   
-  if (scheduleForm) {
-    scheduleForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const date = document.getElementById('appointment-date').value;
-      const type = document.getElementById('appointment-type').value;
-      
-      // In a real app, you would save this data to a database
-      alert(`Appointment scheduled for ${date} successfully!`);
-      scheduleModal.style.display = 'none';
-    });
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => modal.style.display = 'none');
   }
   
-  // Close modals when clicking outside
-  window.addEventListener('click', function(e) {
-    if (e.target === editModal) {
-      editModal.style.display = 'none';
-    } else if (e.target === scheduleModal) {
-      scheduleModal.style.display = 'none';
-    }
-  });
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
+  }
+}
+
+function prefillPatientEditForm() {
+  document.getElementById('edit-patient-name').value = document.getElementById('patient-name').textContent;
+  document.getElementById('edit-patient-cin').value = document.getElementById('patient-cin').textContent;
+  document.getElementById('edit-patient-phone').value = document.getElementById('patient-phone').textContent;
+  document.getElementById('edit-patient-allergies').value = document.getElementById('patient-allergies').textContent;
+  document.getElementById('edit-patient-conditions').value = document.getElementById('patient-conditions').textContent;
+}
+
+function setupFormSubmit(formId, successMessage, modalId) {
+  const form = document.getElementById(formId);
+  const modal = document.getElementById(modalId);
+  
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert(successMessage);
+      modal.style.display = 'none';
+    });
+  }
+}
+
+function initializeMedicamentPage() {
+  loadMedicamentData();
+  
+  const searchInput = document.getElementById('medicament-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', filterMedicaments);
+  }
+  
+  setupMedicamentModal();
+}
+
+function setupMedicamentModal() {
+  const medicationModal = document.getElementById('medication-modal');
+  const addMedicationBtn = document.getElementById('add-medication-btn');
+  const closeModalBtn = document.querySelector('#medication-modal .close');
+  const cancelBtn = document.getElementById('cancel-med-btn');
+  const saveMedBtn = document.getElementById('save-med-btn');
+
+  if (addMedicationBtn && medicationModal) {
+    addMedicationBtn.addEventListener('click', () => {
+      medicationModal.style.display = 'block';
+    });
+  }
+
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+      medicationModal.style.display = 'none';
+    });
+  }
+
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+      medicationModal.style.display = 'none';
+    });
+  }
+
+  if (saveMedBtn) {
+    saveMedBtn.addEventListener('click', () => {
+      alert('Medication saved successfully!');
+      medicationModal.style.display = 'none';
+    });
+  }
+}
+
+function initializeReportPage() {
+  // Set today's date as default in date picker
+  const dateInput = document.getElementById('report-date');
+  if (dateInput) {
+    dateInput.valueAsDate = new Date();
+  }
+
+  // Add event listener for report generation
+  const generateReportBtn = document.getElementById('generate-report');
+  if (generateReportBtn) {
+    generateReportBtn.addEventListener('click', generateReports);
+  }
+
+  // Generate reports on page load
+  generateReports();
 }
 
 // Calendar Functions
@@ -443,22 +493,20 @@ function generateCalendarDays(year, month, calendarBody) {
 
   // Generate actual days
   const today = new Date();
+  const hasAppointmentDays = [5, 12, 18, 23, 25]; // Mock data for days with appointments
+  
   for (let i = 1; i <= daysInMonth; i++) {
     const dayElement = document.createElement('div');
     dayElement.className = 'calendar-day';
     dayElement.textContent = i;
 
     // Check if day is today
-    if (
-      year === today.getFullYear() &&
-      month === today.getMonth() &&
-      i === today.getDate()
-    ) {
+    if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
       dayElement.classList.add('today');
     }
 
-    // Mock appointments (for demo)
-    if ([5, 12, 18, 23, 25].includes(i)) {
+    // Add appointment indicator
+    if (hasAppointmentDays.includes(i)) {
       dayElement.classList.add('has-appointments');
     }
 
@@ -499,48 +547,43 @@ function selectDate(year, month, day) {
 
   if (currentDateElement) {
     currentDateElement.textContent = `Selected: ${formatDate(selectedDate)}`;
-    // You would typically load data for the selected date here
     loadPatientStatusData(selectedDate);
   }
 }
 
-// Mock Data Loaders
+// Data Loading Functions
 function loadPatientStatusData(date) {
-  // Mock patient data - in real app, this would come from API
-  const waitingPatients = [
-    { id: 1, name: 'John Smith', age: 45, gender: 'Male', time: '09:30 AM', image: 'https://randomuser.me/api/portraits/men/32.jpg', hasAppointment: true },
-    { id: 2, name: 'Sarah Johnson', age: 38, gender: 'Female', time: '10:15 AM', image: 'https://randomuser.me/api/portraits/women/44.jpg', hasAppointment: false },
-    { id: 3, name: 'Michael Brown', age: 52, gender: 'Male', time: '11:00 AM', image: 'https://randomuser.me/api/portraits/men/45.jpg', hasAppointment: true }
-  ];
-
-  const examinationPatients = [
-    { id: 4, name: 'Emily Davis', age: 29, gender: 'Female', time: 'Since 09:45 AM', image: 'https://randomuser.me/api/portraits/women/22.jpg', hasAppointment: false }
-  ];
-
-  const scheduledPatients = [
-    { id: 5, name: 'Robert Wilson', age: 62, gender: 'Male', time: '01:30 PM', image: 'https://randomuser.me/api/portraits/men/78.jpg', hasAppointment: true },
-    { id: 6, name: 'Lisa Martin', age: 41, gender: 'Female', time: '02:15 PM', image: 'https://randomuser.me/api/portraits/women/56.jpg', hasAppointment: false },
-    { id: 7, name: 'David Taylor', age: 35, gender: 'Male', time: '03:45 PM', image: 'https://randomuser.me/api/portraits/men/60.jpg', hasAppointment: true },
-    { id: 8, name: 'Jennifer Adams', age: 28, gender: 'Female', time: '04:30 PM', image: 'https://randomuser.me/api/portraits/women/33.jpg', hasAppointment: false }
-  ];
-
-  const completedPatients = [
-    { id: 9, name: 'Thomas Wright', age: 55, gender: 'Male', time: '08:45 AM', image: 'https://randomuser.me/api/portraits/men/22.jpg', hasAppointment: false },
-    { id: 10, name: 'Jessica Lee', age: 31, gender: 'Female', time: '09:20 AM', image: 'https://randomuser.me/api/portraits/women/28.jpg', hasAppointment: true }
-  ];
-  
-  const canceledPatients = [
-    { id: 11, name: 'Richard Anderson', age: 50, gender: 'Male', time: '11:30 AM', image: 'https://randomuser.me/api/portraits/men/67.jpg', hasAppointment: true },
-    { id: 12, name: 'Laura Miller', age: 34, gender: 'Female', time: '02:00 PM', image: 'https://randomuser.me/api/portraits/women/63.jpg', hasAppointment: true },
-    { id: 13, name: 'Kevin Thompson', age: 42, gender: 'Male', time: '03:15 PM', image: 'https://randomuser.me/api/portraits/men/52.jpg', hasAppointment: false }
-  ];
+  // Mock patient data categories
+  const patientCategories = {
+    'waiting': [
+      { id: 1, name: 'John Smith', age: 45, gender: 'Male', time: '09:30 AM', image: 'https://randomuser.me/api/portraits/men/32.jpg', hasAppointment: true },
+      { id: 2, name: 'Sarah Johnson', age: 38, gender: 'Female', time: '10:15 AM', image: 'https://randomuser.me/api/portraits/women/44.jpg', hasAppointment: false },
+      { id: 3, name: 'Michael Brown', age: 52, gender: 'Male', time: '11:00 AM', image: 'https://randomuser.me/api/portraits/men/45.jpg', hasAppointment: true }
+    ],
+    'examination': [
+      { id: 4, name: 'Emily Davis', age: 29, gender: 'Female', time: 'Since 09:45 AM', image: 'https://randomuser.me/api/portraits/women/22.jpg', hasAppointment: false }
+    ],
+    'scheduled': [
+      { id: 5, name: 'Robert Wilson', age: 62, gender: 'Male', time: '01:30 PM', image: 'https://randomuser.me/api/portraits/men/78.jpg', hasAppointment: true },
+      { id: 6, name: 'Lisa Martin', age: 41, gender: 'Female', time: '02:15 PM', image: 'https://randomuser.me/api/portraits/women/56.jpg', hasAppointment: false },
+      { id: 7, name: 'David Taylor', age: 35, gender: 'Male', time: '03:45 PM', image: 'https://randomuser.me/api/portraits/men/60.jpg', hasAppointment: true },
+      { id: 8, name: 'Jennifer Adams', age: 28, gender: 'Female', time: '04:30 PM', image: 'https://randomuser.me/api/portraits/women/33.jpg', hasAppointment: false }
+    ],
+    'completed': [
+      { id: 9, name: 'Thomas Wright', age: 55, gender: 'Male', time: '08:45 AM', image: 'https://randomuser.me/api/portraits/men/22.jpg', hasAppointment: false },
+      { id: 10, name: 'Jessica Lee', age: 31, gender: 'Female', time: '09:20 AM', image: 'https://randomuser.me/api/portraits/women/28.jpg', hasAppointment: true }
+    ],
+    'canceled': [
+      { id: 11, name: 'Richard Anderson', age: 50, gender: 'Male', time: '11:30 AM', image: 'https://randomuser.me/api/portraits/men/67.jpg', hasAppointment: true },
+      { id: 12, name: 'Laura Miller', age: 34, gender: 'Female', time: '02:00 PM', image: 'https://randomuser.me/api/portraits/women/63.jpg', hasAppointment: true },
+      { id: 13, name: 'Kevin Thompson', age: 42, gender: 'Male', time: '03:15 PM', image: 'https://randomuser.me/api/portraits/men/52.jpg', hasAppointment: false }
+    ]
+  };
 
   // Populate patient lists
-  populatePatientList('waiting', waitingPatients);
-  populatePatientList('examination', examinationPatients);
-  populatePatientList('scheduled', scheduledPatients);
-  populatePatientList('completed', completedPatients);
-  populatePatientList('canceled', canceledPatients);
+  Object.entries(patientCategories).forEach(([category, patients]) => {
+    populatePatientList(category, patients);
+  });
 }
 
 function populatePatientList(containerId, patients) {
@@ -620,24 +663,7 @@ function loadPatientsListData() {
 
 function loadPatientDetails(patientId) {
   // Mock patient data - in real app, this would come from API
-  const patientDetails = {
-    id: 'P001',
-    name: 'John Smith',
-    dob: '1978-01-15',
-    age: 45,
-    gender: 'Male',
-    cin: 'AE123456',
-    phone: '(555) 123-4567',
-    image: 'https://randomuser.me/api/portraits/men/32.jpg',
-    allergies: 'Penicillin, Peanuts',
-    chronicConditions: 'Hypertension, Diabetes',
-    medications: 'Lisinopril 10mg, Metformin 500mg',
-    visits: [
-      { date: '2023-06-01', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Well-controlled hypertension', treatment: 'Continue current medications', notes: 'Blood pressure 130/85, follow up in 3 months', money: 150 },
-      { date: '2023-03-15', type: 'Illness', doctor: 'Dr. Michael Chen', diagnosis: 'Upper respiratory infection', treatment: 'Antibiotics, rest', notes: 'Prescribed amoxicillin for 7 days', money: 225 },
-      { date: '2022-12-10', type: 'Regular Check-up', doctor: 'Dr. Sarah Johnson', diagnosis: 'Diabetes follow-up', treatment: 'Adjusted medication dosage', notes: 'HbA1c 7.2, improved from last visit', money: 175 }
-    ]
-  };
+  const patientDetails = getMockPatientDetails(patientId);
 
   // Populate patient information
   document.getElementById('patient-name-header').textContent = patientDetails.name;
@@ -659,426 +685,181 @@ function loadPatientDetails(patientId) {
   document.getElementById('last-appointment-treatment').textContent = patientDetails.visits[0].treatment;
 
   // Populate visit history
-  const visitHistoryBody = document.getElementById('visit-history-body');
-  const appointmentDetailContent = document.getElementById('appointment-detail-content');
-
-  if (visitHistoryBody) {
-    visitHistoryBody.innerHTML = '';
-
-    // Generate more random visit data
-    const visitTypes = ['Regular Check-up', 'Illness', 'Specialist', 'Emergency', 'Follow-up', 'Surgery Consultation', 'Vaccination', 'Lab Results Review'];
-    const doctors = ['Dr. Sarah Johnson', 'Dr. Michael Chen', 'Dr. Emily Rodriguez', 'Dr. David Wilson', 'Dr. Maria Garcia', 'Dr. James Taylor', 'Dr. Lisa Brown', 'Dr. Robert Lee'];
-    const diagnoses = [
-      'Well-controlled hypertension', 
-      'Upper respiratory infection', 
-      'Diabetes follow-up', 
-      'Cardiovascular assessment', 
-      'Acute bronchitis', 
-      'Allergic rhinitis', 
-      'Mild anxiety', 
-      'Lower back pain', 
-      'Gastroenteritis',
-      'Seasonal allergies',
-      'Vitamin D deficiency',
-      'Osteoarthritis',
-      'Migraine headache',
-      'Annual wellness visit'
-    ];
-    const treatments = [
-      'Continue current medications', 
-      'Antibiotics, rest', 
-      'Adjusted medication dosage', 
-      'No changes to current treatment', 
-      'NSAIDs for pain management',
-      'Prescribed antihistamines',
-      'Physical therapy referral',
-      'Dietary modifications',
-      'Hydration and rest',
-      'Stress management techniques',
-      'Prescribed muscle relaxants',
-      'Updated vaccination schedule',
-      'Referred to specialist'
-    ];
-
-    // Create a dynamic array of visits with random dates over the past 3 years
-    const randomVisits = [];
-    const today = new Date();
-
-    // First add the most recent visit to keep the last diagnostic consistent
-    randomVisits.push({ 
-      date: '2023-06-01', 
-      type: 'Regular Check-up', 
-      doctor: 'Dr. Sarah Johnson', 
-      diagnosis: 'Well-controlled hypertension', 
-      treatment: 'Continue current medications', 
-      notes: 'Blood pressure 130/85, follow up in 3 months', 
-      money: 150 
-    });
-
-    // Generate 15 random visits
-    for (let i = 1; i < 15; i++) {
-      // Generate a random date within the last 3 years
-      const randomDate = new Date(today);
-      randomDate.setDate(today.getDate() - Math.floor(Math.random() * 1095)); // 1095 days = 3 years
-
-      // Format the date to YYYY-MM-DD
-      const dateString = randomDate.toISOString().split('T')[0];
-
-      // Get random elements from arrays
-      const randomType = visitTypes[Math.floor(Math.random() * visitTypes.length)];
-      const randomDoctor = doctors[Math.floor(Math.random() * doctors.length)];
-      const randomDiagnosis = diagnoses[Math.floor(Math.random() * diagnoses.length)];
-      const randomTreatment = treatments[Math.floor(Math.random() * treatments.length)];
-
-      // Generate random cost between $50 and $500
-      const randomCost = Math.floor(Math.random() * 450) + 50;
-
-      // Create random notes
-      const vitalSigns = [`Blood pressure ${Math.floor(Math.random() * 40) + 100}/${Math.floor(Math.random() * 20) + 70}`, 
-                         `Heart rate ${Math.floor(Math.random() * 40) + 60} bpm`, 
-                         `Temperature ${(Math.random() * 1.5 + 97).toFixed(1)}°F`];
-      const randomVital = vitalSigns[Math.floor(Math.random() * vitalSigns.length)];
-      const followUpPeriods = ['2 weeks', '1 month', '3 months', '6 months', 'as needed'];
-      const randomFollowUp = followUpPeriods[Math.floor(Math.random() * followUpPeriods.length)];
-
-      const randomNotes = `${randomVital}, follow up in ${randomFollowUp}`;
-
-      // Add the random visit
-      randomVisits.push({
-        date: dateString,
-        type: randomType,
-        doctor: randomDoctor,
-        diagnosis: randomDiagnosis,
-        treatment: randomTreatment,
-        notes: randomNotes,
-        money: randomCost
-      });
-    }
-
-    // Sort visits by date (most recent first)
-    randomVisits.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    // Set the visits array
-    patientDetails.visits = randomVisits;
-
-    patientDetails.visits.forEach((visit, index) => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${formatDateSimple(visit.date)}</td>
-        <td>${visit.type}</td>
-        <td>$${visit.money || Math.floor(Math.random() * 200) + 50}</td>
-        <td>
-          <button class="visit-action-btn" data-index="${index}">View Details</button>
-        </td>
-      `;
-      visitHistoryBody.appendChild(row);
-
-      // Add event listener to view details button
-      row.querySelector('.visit-action-btn').addEventListener('click', () => {
-        showAppointmentDetail(visit);
-      });
-    });
-
-    // Show first visit details by default
-    if (patientDetails.visits.length > 0) {
-      showAppointmentDetail(patientDetails.visits[0]);
-    }
-  }
-
-  // Function to display appointment details
-  function showAppointmentDetail(visit) {
-    if (appointmentDetailContent) {
-      appointmentDetailContent.innerHTML = `
-        <div class="info-item">
-          <span class="label">Date:</span>
-          <span class="value">${formatDateSimple(visit.date)}</span>
-        </div>
-        <div class="info-item">
-          <span class="label">Type:</span>
-          <span class="value">${visit.type}</span>
-        </div>
-        <div class="info-item">
-          <span class="label">Doctor:</span>
-          <span class="value">${visit.doctor}</span>
-        </div>
-        <div class="info-item">
-          <span class="label">Diagnosis:</span>
-          <span class="value">${visit.diagnosis}</span>
-        </div>
-        <div class="info-item">
-          <span class="label">Treatment:</span>
-          <span class="value">${visit.treatment}</span>
-        </div>
-        <div class="info-item">
-          <span class="label">Notes:</span>
-          <span class="value">${visit.notes}</span>
-        </div>
-        <div class="info-item">
-          <span class="label">Cost:</span>
-          <span class="value">$${visit.money}</span>
-        </div>
-        <div style="margin-top: 20px;">
-          <button class="btn schedule-btn" onclick="alert('Redirecting to appointment detail page...')">
-            <i class="fas fa-calendar-check"></i> Go to Appointment
-          </button>
-        </div>
-      `;
-    }
-  }
+  populateVisitHistory(patientDetails.visits);
 }
 
-// Patient Search and Filter Functions
-function filterPatients() {
-  const searchInput = document.getElementById('search-input');
-  const statusFilter = document.getElementById('filter-status');
-  const rows = document.querySelectorAll('#patients-list-body tr');
-
-  if (!searchInput || !statusFilter || !rows.length) return;
-
-  const searchText = searchInput.value.toLowerCase();
-  const statusValue = statusFilter.value;
-
-  rows.forEach(row => {
-    const name = row.children[1].textContent.toLowerCase(); // Name column
-    const status = row.querySelector('.status-badge').textContent.toLowerCase();
-
-    const matchesSearch = name.includes(searchText);
-    const matchesStatus = statusValue === 'all' || status === statusValue.toLowerCase();
-
-    row.style.display = matchesSearch && matchesStatus ? '' : 'none';
-  });
-}
-
-function sortPatients() {
-  const sortFilter = document.getElementById('filter-sort');
-  const tableBody = document.getElementById('patients-list-body');
-
-  if (!sortFilter || !tableBody) return;
-
-  const rows = Array.from(tableBody.querySelectorAll('tr'));
-
-  rows.sort((a, b) => {
-    const sortValue = sortFilter.value;
-
-    if (sortValue === 'name') {
-      const nameA = a.children[1].textContent;
-      const nameB = b.children[1].textContent;
-      return nameA.localeCompare(nameB);
-    } else if (sortValue === 'recent') {
-      const dateA = new Date(a.children[5].textContent);
-      const dateB = new Date(b.children[5].textContent);
-      return dateB - dateA;
-    } else if (sortValue === 'id') {
-      const idA = a.children[0].textContent;
-      const idB = b.children[0].textContent;
-      return idA.localeCompare(idB);
-    }
-
-    return 0;
-  });
-
-  // Remove all rows
-  while (tableBody.firstChild) {
-    tableBody.removeChild(tableBody.firstChild);
-  }
-
-  // Add sorted rows
-  rows.forEach(row => tableBody.appendChild(row));
-}
-
-// Modal Functions
-function openPatientDetailsModal(patientId) {
-  const modal = document.getElementById('patient-details-modal');
-  const modalBody = document.getElementById('patient-details');
-
-  if (!modal || !modalBody) return;
-
-  // Mock patient data - in real app, this would come from API based on patientId
+function getMockPatientDetails(patientId) {
+  // Basic patient info
   const patientDetails = {
-    id: patientId,
+    id: patientId || 'P001',
     name: 'John Smith',
+    dob: '1978-01-15',
     age: 45,
     gender: 'Male',
+    cin: 'AE123456',
     phone: '(555) 123-4567',
-    email: 'john.smith@example.com',
-    address: '123 Main St, Anytown, ST 12345',
-    lastVisit: '2023-06-01',
-    nextAppointment: '2023-09-15',
-    doctor: 'Dr. Sarah Johnson'
+    image: 'https://randomuser.me/api/portraits/men/32.jpg',
+    allergies: 'Penicillin, Peanuts',
+    chronicConditions: 'Hypertension, Diabetes',
+    medications: 'Lisinopril 10mg, Metformin 500mg',
+    visits: []
   };
 
-  modalBody.innerHTML = `
-    <div class="patient-modal-info">
-      <div class="info-item">
-        <span class="label">Patient ID:</span>
-        <span class="value">${patientDetails.id}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">Name:</span>
-        <span class="value">${patientDetails.name}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">Age:</span>
-        <span class="value">${patientDetails.age}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">Gender:</span>
-        <span class="value">${patientDetails.gender}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">Phone:</span>
-        <span class="value">${patientDetails.phone}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">CIN:</span>
-        <span class="value">${patientDetails.cin || 'AE123456'}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">Last Visit:</span>
-        <span class="value">${formatDateSimple(patientDetails.lastVisit)}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">Next Appointment:</span>
-        <span class="value">${formatDateSimple(patientDetails.nextAppointment)}</span>
-      </div>
-      <div class="info-item">
-        <span class="label">Primary Doctor:</span>
-        <span class="value">${patientDetails.doctor}</span>
-      </div>
+  // Generate visit history data
+  patientDetails.visits = generateRandomVisits();
+  
+  return patientDetails;
+}
+
+function generateRandomVisits() {
+  // Arrays for random data generation
+  const visitTypes = ['Regular Check-up', 'Illness', 'Specialist', 'Emergency', 'Follow-up', 'Surgery Consultation', 'Vaccination', 'Lab Results Review'];
+  const doctors = ['Dr. Sarah Johnson', 'Dr. Michael Chen', 'Dr. Emily Rodriguez', 'Dr. David Wilson', 'Dr. Maria Garcia', 'Dr. James Taylor', 'Dr. Lisa Brown', 'Dr. Robert Lee'];
+  const diagnoses = [
+    'Well-controlled hypertension', 'Upper respiratory infection', 'Diabetes follow-up', 
+    'Cardiovascular assessment', 'Acute bronchitis', 'Allergic rhinitis', 
+    'Mild anxiety', 'Lower back pain', 'Gastroenteritis', 'Seasonal allergies',
+    'Vitamin D deficiency', 'Osteoarthritis', 'Migraine headache', 'Annual wellness visit'
+  ];
+  const treatments = [
+    'Continue current medications', 'Antibiotics, rest', 'Adjusted medication dosage', 
+    'No changes to current treatment', 'NSAIDs for pain management', 'Prescribed antihistamines',
+    'Physical therapy referral', 'Dietary modifications', 'Hydration and rest',
+    'Stress management techniques', 'Prescribed muscle relaxants', 'Updated vaccination schedule',
+    'Referred to specialist'
+  ];
+
+  // Create visits array
+  const visits = [];
+  
+  // First add the most recent visit to keep the last diagnostic consistent
+  visits.push({ 
+    date: '2023-06-01', 
+    type: 'Regular Check-up', 
+    doctor: 'Dr. Sarah Johnson', 
+    diagnosis: 'Well-controlled hypertension', 
+    treatment: 'Continue current medications', 
+    notes: 'Blood pressure 130/85, follow up in 3 months', 
+    money: 150 
+  });
+
+  // Generate random visits
+  const today = new Date();
+  for (let i = 1; i < 15; i++) {
+    // Generate a random date within the last 3 years
+    const randomDate = new Date(today);
+    randomDate.setDate(today.getDate() - Math.floor(Math.random() * 1095)); // 1095 days = 3 years
+    const dateString = randomDate.toISOString().split('T')[0];
+
+    // Get random elements from arrays
+    const randomType = visitTypes[Math.floor(Math.random() * visitTypes.length)];
+    const randomDoctor = doctors[Math.floor(Math.random() * doctors.length)];
+    const randomDiagnosis = diagnoses[Math.floor(Math.random() * diagnoses.length)];
+    const randomTreatment = treatments[Math.floor(Math.random() * treatments.length)];
+    const randomCost = Math.floor(Math.random() * 450) + 50;
+
+    // Generate random notes
+    const vitalSigns = [
+      `Blood pressure ${Math.floor(Math.random() * 40) + 100}/${Math.floor(Math.random() * 20) + 70}`, 
+      `Heart rate ${Math.floor(Math.random() * 40) + 60} bpm`, 
+      `Temperature ${(Math.random() * 1.5 + 97).toFixed(1)}°F`
+    ];
+    const randomVital = vitalSigns[Math.floor(Math.random() * vitalSigns.length)];
+    const followUpPeriods = ['2 weeks', '1 month', '3 months', '6 months', 'as needed'];
+    const randomFollowUp = followUpPeriods[Math.floor(Math.random() * followUpPeriods.length)];
+    const randomNotes = `${randomVital}, follow up in ${randomFollowUp}`;
+
+    // Add the random visit
+    visits.push({
+      date: dateString,
+      type: randomType,
+      doctor: randomDoctor,
+      diagnosis: randomDiagnosis,
+      treatment: randomTreatment,
+      notes: randomNotes,
+      money: randomCost
+    });
+  }
+
+  // Sort visits by date (most recent first)
+  return visits.sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+function populateVisitHistory(visits) {
+  const visitHistoryBody = document.getElementById('visit-history-body');
+  if (!visitHistoryBody) return;
+  
+  visitHistoryBody.innerHTML = '';
+
+  visits.forEach((visit, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${formatDateSimple(visit.date)}</td>
+      <td>${visit.type}</td>
+      <td>$${visit.money || Math.floor(Math.random() * 200) + 50}</td>
+      <td>
+        <button class="visit-action-btn" data-index="${index}">View Details</button>
+      </td>
+    `;
+    visitHistoryBody.appendChild(row);
+
+    // Add event listener to view details button
+    row.querySelector('.visit-action-btn').addEventListener('click', () => {
+      showAppointmentDetail(visit);
+    });
+  });
+
+  // Show first visit details by default
+  if (visits.length > 0) {
+    showAppointmentDetail(visits[0]);
+  }
+}
+
+function showAppointmentDetail(visit) {
+  const appointmentDetailContent = document.getElementById('appointment-detail-content');
+  if (!appointmentDetailContent) return;
+  
+  appointmentDetailContent.innerHTML = `
+    <div class="info-item">
+      <span class="label">Date:</span>
+      <span class="value">${formatDateSimple(visit.date)}</span>
     </div>
-    <div class="modal-actions">
-      <button class="btn" onclick="window.location.href='patient-detail.html?id=${patientId}'">
-        <i class="fas fa-user"></i> Full Profile
+    <div class="info-item">
+      <span class="label">Type:</span>
+      <span class="value">${visit.type}</span>
+    </div>
+    <div class="info-item">
+      <span class="label">Doctor:</span>
+      <span class="value">${visit.doctor}</span>
+    </div>
+    <div class="info-item">
+      <span class="label">Diagnosis:</span>
+      <span class="value">${visit.diagnosis}</span>
+    </div>
+    <div class="info-item">
+      <span class="label">Treatment:</span>
+      <span class="value">${visit.treatment}</span>
+    </div>
+    <div class="info-item">
+      <span class="label">Notes:</span>
+      <span class="value">${visit.notes}</span>
+    </div>
+    <div class="info-item">
+      <span class="label">Cost:</span>
+      <span class="value">$${visit.money}</span>
+    </div>
+    <div style="margin-top: 20px;">
+      <button class="btn schedule-btn" onclick="alert('Redirecting to appointment detail page...')">
+        <i class="fas fa-calendar-check"></i> Go to Appointment
       </button>
     </div>
   `;
-
-  modal.style.display = 'block';
-}
-
-function closePatientDetailsModal() {
-  closeAllModals();
-}
-
-// No longer needed as date navigation is removed
-
-// Utility Functions
-function formatDate(date) {
-  const options = { month: 'long', day: 'numeric', year: 'numeric' };
-  return date.toLocaleDateString('en-US', options);
-}
-
-function formatDateSimple(dateStr) {
-  if (!dateStr) return '';
-
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-}
-
-function parseDate(dateStr) {
-  const [month, day, year] = dateStr.split(' ');
-  const monthNumber = getMonthNumber(month.replace(',', ''));
-  return new Date(parseInt(year), monthNumber, parseInt(day));
-}
-
-function getMonthName(monthNumber) {
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-  return months[monthNumber];
-}
-
-function getMonthNumber(monthName) {
-  const months = {
-    'January': 0, 'February': 1, 'March': 2, 'April': 3,
-    'May': 4, 'June': 5, 'July': 6, 'August': 7,
-    'September': 8, 'October': 9, 'November': 10, 'December': 11
-  };
-  return months[monthName] || 0;
-}
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// Clock functionality
-function initializeClock() {
-  const clockElement = document.getElementById('live-clock');
-  if (!clockElement) return;
-  
-  function updateClock() {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const seconds = now.getSeconds().toString().padStart(2, '0');
-    
-    clockElement.textContent = `${hours}:${minutes}:${seconds}`;
-  }
-  
-  // Update clock immediately
-  updateClock();
-  
-  // Update clock every second
-  setInterval(updateClock, 1000);
-}
-
-// Medicament Page Initialization
-function initializeMedicamentPage() {
-  // Load mock medicament data
-  loadMedicamentData();
-
-  // Add event listeners for search
-  const searchInput = document.getElementById('medicament-search');
-
-  if (searchInput) {
-    searchInput.addEventListener('input', filterMedicaments);
-  }
-
-  // Modal functionality
-  const medicationModal = document.getElementById('medication-modal');
-  const addMedicationBtn = document.getElementById('add-medication-btn');
-  const closeModalBtn = document.querySelector('#medication-modal .close');
-  const cancelBtn = document.getElementById('cancel-med-btn');
-  const saveMedBtn = document.getElementById('save-med-btn');
-
-  if (addMedicationBtn) {
-    addMedicationBtn.addEventListener('click', () => {
-      medicationModal.style.display = 'block';
-    });
-  }
-
-  if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', () => {
-      medicationModal.style.display = 'none';
-    });
-  }
-
-  if (cancelBtn) {
-    cancelBtn.addEventListener('click', () => {
-      medicationModal.style.display = 'none';
-    });
-  }
-
-  if (saveMedBtn) {
-    saveMedBtn.addEventListener('click', () => {
-      // In a real app, this would save data to the backend
-      alert('Medication saved successfully!');
-      medicationModal.style.display = 'none';
-    });
-  }
-
-  // Close modal when clicking outside the modal content
-  window.addEventListener('click', (e) => {
-    if (e.target === medicationModal) {
-      medicationModal.style.display = 'none';
-    }
-  });
 }
 
 function loadMedicamentData() {
   // Mock medicament data - in a real app, this would come from an API
-  const medications = [    { code: 'MED001', name: 'Amoxicillin 500mg', price: 12.50 },
+  const medications = [
+    { code: 'MED001', name: 'Amoxicillin 500mg', price: 12.50 },
     { code: 'MED002', name: 'Ibuprofen 400mg', price: 8.75 },
     { code: 'MED003', name: 'Metformin 850mg', price: 15.30 },
     { code: 'MED004', name: 'Atorvastatin 20mg', price: 18.90 },
@@ -1109,6 +890,55 @@ function loadMedicamentData() {
   });
 }
 
+// Search and Filter Functions
+function filterPatients() {
+  const searchInput = document.getElementById('search-input');
+  const statusFilter = document.getElementById('filter-status');
+  const rows = document.querySelectorAll('#patients-list-body tr');
+
+  if (!searchInput || !statusFilter || !rows.length) return;
+
+  const searchText = searchInput.value.toLowerCase();
+  const statusValue = statusFilter.value;
+
+  rows.forEach(row => {
+    const name = row.children[1].textContent.toLowerCase(); // Name column
+    const status = row.querySelector('.status-badge')?.textContent.toLowerCase() || '';
+
+    const matchesSearch = name.includes(searchText);
+    const matchesStatus = statusValue === 'all' || status === statusValue.toLowerCase();
+
+    row.style.display = matchesSearch && matchesStatus ? '' : 'none';
+  });
+}
+
+function sortPatients() {
+  const sortFilter = document.getElementById('filter-sort');
+  const tableBody = document.getElementById('patients-list-body');
+
+  if (!sortFilter || !tableBody) return;
+
+  const rows = Array.from(tableBody.querySelectorAll('tr'));
+  const sortValue = sortFilter.value;
+
+  rows.sort((a, b) => {
+    if (sortValue === 'name') {
+      return a.children[1].textContent.localeCompare(b.children[1].textContent);
+    } else if (sortValue === 'recent') {
+      return new Date(b.children[5]?.textContent || '') - new Date(a.children[5]?.textContent || '');
+    } else if (sortValue === 'id') {
+      return a.children[0].textContent.localeCompare(b.children[0].textContent);
+    }
+    return 0;
+  });
+
+  // Remove all rows
+  tableBody.innerHTML = '';
+
+  // Add sorted rows
+  rows.forEach(row => tableBody.appendChild(row));
+}
+
 function filterMedicaments() {
   const searchInput = document.getElementById('search-input');
   const rows = document.querySelectorAll('#medicament-list-body tr');
@@ -1119,33 +949,86 @@ function filterMedicaments() {
 
   rows.forEach(row => {
     const name = row.children[1].textContent.toLowerCase(); // Name column
-
-    // Check if the row matches search
-    const matchesSearch = name.includes(searchText);
-
-    row.style.display = matchesSearch ? '' : 'none';
+    row.style.display = name.includes(searchText) ? '' : 'none';
   });
 }
 
-// Reports Page Initialization
-function initializeReportPage() {
-  // Set today's date as default in date picker
-  const dateInput = document.getElementById('report-date');
-  if (dateInput) {
-    const today = new Date();
-    dateInput.valueAsDate = today;
-  }
+// Modal Functions
+function openPatientDetailsModal(patientId) {
+  const modal = document.getElementById('patient-details-modal');
+  const modalBody = document.getElementById('patient-details');
 
-  // Add event listener for report generation
-  const generateReportBtn = document.getElementById('generate-report');
-  if (generateReportBtn) {
-    generateReportBtn.addEventListener('click', generateReports);
-  }
+  if (!modal || !modalBody) return;
 
-  // Generate reports on page load
-  generateReports();
+  // Mock patient data - in real app, this would come from API based on patientId
+  const patientDetails = {
+    id: patientId,
+    name: 'John Smith',
+    age: 45,
+    gender: 'Male',
+    phone: '(555) 123-4567',
+    cin: 'AE123456',
+    lastVisit: '2023-06-01',
+    nextAppointment: '2023-09-15',
+    doctor: 'Dr. Sarah Johnson'
+  };
+
+  modalBody.innerHTML = `
+    <div class="patient-modal-info">
+      <div class="info-item">
+        <span class="label">Patient ID:</span>
+        <span class="value">${patientDetails.id}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Name:</span>
+        <span class="value">${patientDetails.name}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Age:</span>
+        <span class="value">${patientDetails.age}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Gender:</span>
+        <span class="value">${patientDetails.gender}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Phone:</span>
+        <span class="value">${patientDetails.phone}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">CIN:</span>
+        <span class="value">${patientDetails.cin}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Last Visit:</span>
+        <span class="value">${formatDateSimple(patientDetails.lastVisit)}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Next Appointment:</span>
+        <span class="value">${formatDateSimple(patientDetails.nextAppointment)}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Primary Doctor:</span>
+        <span class="value">${patientDetails.doctor}</span>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="window.location.href='patient-detail.html?id=${patientId}'">
+        <i class="fas fa-user"></i> Full Profile
+      </button>
+    </div>
+  `;
+
+  modal.style.display = 'block';
 }
 
+function closeAllModals() {
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.style.display = 'none';
+  });
+}
+
+// Reports Functions
 function generateReports() {
   const dateInput = document.getElementById('report-date');
   const illnessType = document.getElementById('illness-type');
@@ -1158,61 +1041,111 @@ function generateReports() {
 }
 
 function generateMockReportData(date, reportType, illnessType) {
-  // Mock data generation based on filters
-  // In a real application, this would fetch data from a database
-  
   // Apply a multiplier based on illness type to simulate different data
   let multiplier = 1.0;
   
   if (illnessType !== 'all') {
-    // Different illness types would have different weights in a real system
-    // Here we just use mock multipliers
-    switch(illnessType) {
-      case 'Regular Check-up': multiplier = 0.8; break;
-      case 'Illness': multiplier = 1.2; break;
-      case 'Follow-up': multiplier = 0.7; break;
-      case 'Specialist': multiplier = 1.5; break;
-      case 'Vaccination': multiplier = 0.6; break;
-      case 'Lab Results': multiplier = 0.5; break;
-      case 'Emergency': multiplier = 1.8; break;
-      case 'Surgery Consultation': multiplier = 2.0; break;
-      default: multiplier = 1.0;
+    // Different illness types would have different weights
+    const multipliers = {
+      'Regular Check-up': 0.8,
+      'Illness': 1.2,
+      'Follow-up': 0.7,
+      'Specialist': 1.5,
+      'Vaccination': 0.6,
+      'Lab Results': 0.5,
+      'Emergency': 1.8,
+      'Surgery Consultation': 2.0
+    };
+    multiplier = multipliers[illnessType] || 1.0;
+  }
+  
+  // Update report data
+  updateReportData('daily', multiplier);
+  updateReportData('weekly', multiplier);
+  updateReportData('monthly', multiplier);
+}
+
+function updateReportData(period, multiplier) {
+  // Configuration for different report periods
+  const config = {
+    'daily': {
+      minPatients: 5,
+      maxPatients: 25,
+      minAmount: 500,
+      maxAmount: 2500
+    },
+    'weekly': {
+      minPatients: 30,
+      maxPatients: 90,
+      minAmount: 3000,
+      maxAmount: 11000
+    },
+    'monthly': {
+      minPatients: 100,
+      maxPatients: 300,
+      minAmount: 15000,
+      maxAmount: 45000
     }
+  };
+  
+  const { minPatients, maxPatients, minAmount, maxAmount } = config[period];
+  
+  // Generate random data with multiplier applied
+  const patients = Math.floor((Math.random() * (maxPatients - minPatients) + minPatients) * multiplier);
+  const amount = ((Math.random() * (maxAmount - minAmount) + minAmount) * multiplier).toFixed(2);
+  
+  // Update DOM elements
+  document.getElementById(`${period}-patients`).textContent = patients || "0";
+  document.getElementById(`${period}-amount`).textContent = `$${amount || "0.00"}`;
+}
+
+// Clock functionality
+function initializeClock() {
+  const clockElement = document.getElementById('live-clock');
+  if (!clockElement) return;
+  
+  function updateClock() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    
+    clockElement.textContent = `${hours}:${minutes}:${seconds}`;
   }
   
-  // Daily report
-  if (reportType === 'all' || reportType === 'daily') {
-    const dailyPatients = Math.floor((Math.random() * 20 + 5) * multiplier); // 5-25 patients adjusted by multiplier
-    const dailyAmount = ((Math.random() * 2000 + 500) * multiplier).toFixed(2); // $500-$2500 adjusted by multiplier
-    
-    const dailyPatientsElement = document.getElementById('daily-patients');
-    const dailyAmountElement = document.getElementById('daily-amount');
-    
-    if (dailyPatientsElement) dailyPatientsElement.textContent = dailyPatients || "0";
-    if (dailyAmountElement) dailyAmountElement.textContent = `$${dailyAmount || "0.00"}`;
-  }
+  // Update clock immediately
+  updateClock();
   
-  // Weekly report
-  if (reportType === 'all' || reportType === 'weekly') {
-    const weeklyPatients = Math.floor((Math.random() * 60 + 30) * multiplier); // 30-90 patients adjusted by multiplier
-    const weeklyAmount = ((Math.random() * 8000 + 3000) * multiplier).toFixed(2); // $3000-$11000 adjusted by multiplier
-    
-    const weeklyPatientsElement = document.getElementById('weekly-patients');
-    const weeklyAmountElement = document.getElementById('weekly-amount');
-    
-    if (weeklyPatientsElement) weeklyPatientsElement.textContent = weeklyPatients || "0";
-    if (weeklyAmountElement) weeklyAmountElement.textContent = `$${weeklyAmount || "0.00"}`;
-  }
-  
-  // Monthly report
-  if (reportType === 'all' || reportType === 'monthly') {
-    const monthlyPatients = Math.floor((Math.random() * 200 + 100) * multiplier); // 100-300 patients adjusted by multiplier
-    const monthlyAmount = ((Math.random() * 30000 + 15000) * multiplier).toFixed(2); // $15000-$45000 adjusted by multiplier
-    
-    const monthlyPatientsElement = document.getElementById('monthly-patients');
-    const monthlyAmountElement = document.getElementById('monthly-amount');
-    
-    if (monthlyPatientsElement) monthlyPatientsElement.textContent = monthlyPatients || "0";
-    if (monthlyAmountElement) monthlyAmountElement.textContent = `$${monthlyAmount || "0.00"}`;
-  }
+  // Update clock every second
+  setInterval(updateClock, 1000);
+}
+
+// Utility Functions
+function formatDate(date) {
+  const options = { month: 'long', day: 'numeric', year: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
+}
+
+function formatDateSimple(dateStr) {
+  if (!dateStr) return '';
+
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+}
+
+function getMonthName(monthNumber) {
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  return months[monthNumber];
+}
+
+function getMonthNumber(monthName) {
+  const months = {
+    'January': 0, 'February': 1, 'March': 2, 'April': 3,
+    'May': 4, 'June': 5, 'July': 6, 'August': 7,
+    'September': 8, 'October': 9, 'November': 10, 'December': 11
+  };
+  return months[monthName] || 0;
 }
