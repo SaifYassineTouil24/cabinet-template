@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('click', function(e) {
     const preparingCard = e.target.closest('#preparing .patient-card');
     if (preparingCard) {
+      e.preventDefault();
+      e.stopPropagation();
       showMeasurementsModal(preparingCard.dataset.id);
     }
   });
@@ -694,9 +696,11 @@ function populatePatientList(containerId, patients) {
       <div class="patient-time">${patient.time}</div>
     `;
 
-    patientCard.addEventListener('click', () => {
-      window.location.href = `patient-detail.html?id=${patient.id}`;
-    });
+    if (!containerId.includes('preparing')) {
+      patientCard.addEventListener('click', () => {
+        window.location.href = `patient-detail.html?id=${patient.id}`;
+      });
+    }
 
     container.appendChild(patientCard);
   });
