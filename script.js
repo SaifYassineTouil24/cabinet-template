@@ -17,7 +17,77 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize medication functionality
   initializeMedicationHandlers();
+  
+  // Add preparing patient click handler
+  document.addEventListener('click', function(e) {
+    const preparingCard = e.target.closest('#preparing .patient-card');
+    if (preparingCard) {
+      showMeasurementsModal(preparingCard.dataset.id);
+    }
+  });
 });
+
+function showMeasurementsModal(patientId) {
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.id = 'measurements-modal';
+  
+  modal.innerHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Take Measurements</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="measurements-form">
+          <div class="vital-signs-grid">
+            <div class="vital-sign">
+              <label>Blood Pressure</label>
+              <input type="text" class="form-input" placeholder="120/80">
+            </div>
+            <div class="vital-sign">
+              <label>Temperature</label>
+              <input type="text" class="form-input" placeholder="37.0">
+            </div>
+            <div class="vital-sign">
+              <label>Pulse</label>
+              <input type="text" class="form-input" placeholder="72">
+            </div>
+            <div class="vital-sign">
+              <label>Weight</label>
+              <input type="text" class="form-input" placeholder="70">
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn edit-btn" id="cancel-measurements">Cancel</button>
+            <button type="submit" class="btn schedule-btn">Save & Move to Examination</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  modal.style.display = 'block';
+  
+  const closeBtn = modal.querySelector('.close');
+  const cancelBtn = modal.querySelector('#cancel-measurements');
+  const form = modal.querySelector('#measurements-form');
+  
+  closeBtn.onclick = () => modal.remove();
+  cancelBtn.onclick = () => modal.remove();
+  
+  form.onsubmit = (e) => {
+    e.preventDefault();
+    // Here you would save the measurements and move patient to examination
+    alert('Measurements saved. Patient moved to examination.');
+    modal.remove();
+  };
+  
+  window.onclick = (e) => {
+    if (e.target === modal) modal.remove();
+  };
+}
 
 // Initialize page based on current path
 function initializePageByPath(currentPath) {
@@ -566,6 +636,9 @@ function loadPatientStatusData(date) {
       { id: 1, name: 'John Smith', age: 45, gender: 'Male', time: '09:30 AM', image: 'https://randomuser.me/api/portraits/men/32.jpg', hasAppointment: true },
       { id: 2, name: 'Sarah Johnson', age: 38, gender: 'Female', time: '10:15 AM', image: 'https://randomuser.me/api/portraits/women/44.jpg', hasAppointment: false },
       { id: 3, name: 'Michael Brown', age: 52, gender: 'Male', time: '11:00 AM', image: 'https://randomuser.me/api/portraits/men/45.jpg', hasAppointment: true }
+    ],
+    'preparing': [
+      { id: 14, name: 'Emma Wilson', age: 33, gender: 'Female', time: '10:45 AM', image: 'https://randomuser.me/api/portraits/women/67.jpg', hasAppointment: true }
     ],
     'examination': [
       { id: 4, name: 'Emily Davis', age: 29, gender: 'Female', time: 'Since 09:45 AM', image: 'https://randomuser.me/api/portraits/women/22.jpg', hasAppointment: false }
