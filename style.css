@@ -280,6 +280,30 @@ header {
   color: var(--text-dark);
 }
 
+.header-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  margin-right: 15px;
+}
+
+.header-btn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.header-btn i {
+  font-size: 16px;
+}
+
 .notifications {
   position: relative;
   width: 40px;
