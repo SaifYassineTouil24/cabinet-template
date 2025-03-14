@@ -554,10 +554,12 @@ header {
 .calendar-widget {
   background-color: white;
   border-radius: var(--card-border-radius);
-  padding: 25px;
+  padding: 15px;
   box-shadow: var(--shadow);
   height: fit-content;
   transition: all 0.3s ease;
+  max-width: 300px;
+  margin-left: auto;
 }
 
 .calendar-widget:hover {
@@ -569,27 +571,28 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .calendar-header h3 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--text-dark);
 }
 
 .calendar-nav {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 .calendar-nav button {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
   color: var(--primary-color);
   transition: all 0.2s ease;
+  padding: 5px;
 }
 
 .calendar-nav button:hover {
@@ -600,7 +603,7 @@ header {
 #calendar-body {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
+  gap: 5px;
 }
 
 .calendar-day {
@@ -608,16 +611,18 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 5px;
-  border-radius: 10px;
+  justify-content: center;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
+  font-size: 12px;
 }
 
 .calendar-day .appointment-count {
-  font-size: 10px;
+  font-size: 8px;
   font-weight: normal;
 }
 
@@ -627,17 +632,17 @@ header {
 }
 
 .appointments-medium {
-  background-color: #3a0ca3;
+  background-color: #48bb78;
   color: white;
 }
 
 .appointments-high {
-  background-color: #7209b7;
+  background-color: #f6ad55;
   color: white;
 }
 
 .appointments-very-high {
-  background-color: #f72585;
+  background-color: #f56565;
   color: white;
 }
 

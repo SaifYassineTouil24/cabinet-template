@@ -597,7 +597,7 @@ function generateCalendarDays(year, month, calendarBody) {
       if (count <= 5) dayElement.classList.add('appointments-low');
       else if (count <= 10) dayElement.classList.add('appointments-medium');
       else if (count <= 15) dayElement.classList.add('appointments-high');
-      else dayElement.classList.add('appointments-very-high');
+      else if (count <= 20) dayElement.classList.add('appointments-very-high');
     }
 
     // Check if day is today
