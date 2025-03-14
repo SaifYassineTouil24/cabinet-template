@@ -608,11 +608,37 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 4px;
+  padding: 5px;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
+}
+
+.calendar-day .appointment-count {
+  font-size: 10px;
+  font-weight: normal;
+}
+
+.appointments-low {
+  background-color: #4361ee;
+  color: white;
+}
+
+.appointments-medium {
+  background-color: #3a0ca3;
+  color: white;
+}
+
+.appointments-high {
+  background-color: #7209b7;
+  color: white;
+}
+
+.appointments-very-high {
+  background-color: #f72585;
+  color: white;
 }
 
 .calendar-day:hover {

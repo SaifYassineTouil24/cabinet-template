@@ -572,21 +572,37 @@ function generateCalendarDays(year, month, calendarBody) {
 
   // Generate actual days
   const today = new Date();
-  const hasAppointmentDays = [5, 12, 18, 23, 25]; // Mock data for days with appointments
+  // Mock appointment data - in real app this would come from backend
+  const appointmentCounts = {};
+  for (let i = 1; i <= daysInMonth; i++) {
+    appointmentCounts[i] = Math.floor(Math.random() * 20); // Random number 0-19
+  }
   
   for (let i = 1; i <= daysInMonth; i++) {
     const dayElement = document.createElement('div');
     dayElement.className = 'calendar-day';
-    dayElement.textContent = i;
+    
+    const dateSpan = document.createElement('span');
+    dateSpan.textContent = i;
+    dayElement.appendChild(dateSpan);
+
+    const count = appointmentCounts[i];
+    const countSpan = document.createElement('span');
+    countSpan.className = 'appointment-count';
+    countSpan.textContent = count + ' apt';
+    dayElement.appendChild(countSpan);
+
+    // Add color based on appointment count
+    if (count > 0) {
+      if (count <= 5) dayElement.classList.add('appointments-low');
+      else if (count <= 10) dayElement.classList.add('appointments-medium');
+      else if (count <= 15) dayElement.classList.add('appointments-high');
+      else dayElement.classList.add('appointments-very-high');
+    }
 
     // Check if day is today
     if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
       dayElement.classList.add('today');
-    }
-
-    // Add appointment indicator
-    if (hasAppointmentDays.includes(i)) {
-      dayElement.classList.add('has-appointments');
     }
 
     dayElement.addEventListener('click', () => selectDate(year, month, i));
