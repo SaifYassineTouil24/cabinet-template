@@ -1541,7 +1541,7 @@ textarea.form-input {
   flex: 1;
 }
 
-.remove-med {
+.remove-med, .remove-analysis {
   color: var(--danger-color);
 }
 
