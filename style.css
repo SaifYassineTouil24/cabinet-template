@@ -553,13 +553,40 @@ header {
 .calendar-widget {
   background-color: white;
   border-radius: var(--card-border-radius);
-  padding: 15px;
+  padding: 20px;
   box-shadow: var(--shadow);
   height: fit-content;
   transition: all 0.3s ease;
-  max-width: 300px;
+  max-width: 350px;
   margin-left: auto;
 }
+
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot.appointments-low { background-color: #4361ee; }
+.dot.appointments-medium { background-color: #48bb78; }
+.dot.appointments-high { background-color: #f6ad55; }
+.dot.appointments-very-high { background-color: #f56565; }
 
 .calendar-widget:hover {
   transform: translateY(-5px);

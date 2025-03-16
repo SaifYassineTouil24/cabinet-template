@@ -771,9 +771,9 @@ function loadPatientStatusData(date) {
   // Mock patient data categories
   const patientCategories = {
     'waiting': [
-      { id: 1, name: 'John Smith', age: 45, gender: 'Male', time: '09:30 AM', image: 'https://randomuser.me/api/portraits/men/32.jpg', hasAppointment: true },
-      { id: 2, name: 'Sarah Johnson', age: 38, gender: 'Female', time: '10:15 AM', image: 'https://randomuser.me/api/portraits/women/44.jpg', hasAppointment: false },
-      { id: 3, name: 'Michael Brown', age: 52, gender: 'Male', time: '11:00 AM', image: 'https://randomuser.me/api/portraits/men/45.jpg', hasAppointment: true }
+      { id: 1, name: 'Thomas Martin', age: 45, gender: 'Male', time: '09:30', image: 'https://randomuser.me/api/portraits/men/32.jpg', hasAppointment: true },
+      { id: 2, name: 'Marie Dubois', age: 38, gender: 'Female', time: '10:15', image: 'https://randomuser.me/api/portraits/women/44.jpg', hasAppointment: false },
+      { id: 3, name: 'Lucas Bernard', age: 52, gender: 'Male', time: '11:00', image: 'https://randomuser.me/api/portraits/men/45.jpg', hasAppointment: true }
     ],
     'preparing': [
       { id: 14, name: 'Emma Wilson', age: 33, gender: 'Female', time: '10:45 AM', image: 'https://randomuser.me/api/portraits/women/67.jpg', hasAppointment: true }
