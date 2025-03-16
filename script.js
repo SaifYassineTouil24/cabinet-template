@@ -455,76 +455,12 @@ async function initializePatientDetailPage() {
 }
 
 function setupPatientDetailModals() {
-  const editBtn = document.getElementById('edit-patient-btn');
-  const scheduleBtn = document.getElementById('schedule-patient-btn');
-  const editModal = document.getElementById('edit-patient-modal');
-  const scheduleModal = document.getElementById('schedule-modal');
-
-  if (editBtn && editModal) {
-    editBtn.addEventListener('click', () => {
-      editModal.style.display = 'block';
-      prefillPatientEditForm();
-    });
-
-    const cancelEditBtn = document.getElementById('cancel-edit-patient');
-    const closeEditBtn = editModal.querySelector('.close');
-
-    if (cancelEditBtn) {
-      cancelEditBtn.addEventListener('click', () => {
-        editModal.style.display = 'none';
-      });
-    }
-
-    if (closeEditBtn) {
-      closeEditBtn.addEventListener('click', () => {
-        editModal.style.display = 'none';
-      });
-    }
-  }
-
-  if (scheduleBtn && scheduleModal) {
-    scheduleBtn.addEventListener('click', () => {
-      scheduleModal.style.display = 'block';
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      document.getElementById('appointment-date').valueAsDate = tomorrow;
-    });
-
-    const cancelScheduleBtn = document.getElementById('cancel-schedule');
-    const closeScheduleBtn = scheduleModal.querySelector('.close');
-
-    if (cancelScheduleBtn) {
-      cancelScheduleBtn.addEventListener('click', () => {
-        scheduleModal.style.display = 'none';
-      });
-    }
-
-    if (closeScheduleBtn) {
-      closeScheduleBtn.addEventListener('click', () => {
-        scheduleModal.style.display = 'none';
-      });
-    }
-  }
+  setupModal('edit-patient-btn', 'edit-patient-modal', 'cancel-edit-patient');
+  setupModal('schedule-patient-btn', 'schedule-modal', 'cancel-schedule');
 
   // Handle form submissions
-  const editForm = document.getElementById('edit-patient-form');
-  const scheduleForm = document.getElementById('schedule-appointment-form');
-
-  if (editForm) {
-    editForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Patient information updated successfully!');
-      editModal.style.display = 'none';
-    });
-  }
-
-  if (scheduleForm) {
-    scheduleForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Appointment scheduled successfully!');
-      scheduleModal.style.display = 'none';
-    });
-  }
+  setupFormSubmit('edit-patient-form', 'Patient information updated successfully!', 'edit-patient-modal');
+  setupFormSubmit('schedule-appointment-form', 'Appointment scheduled successfully!', 'schedule-modal');
 }
 
 function setupModal(triggerBtnId, modalId, cancelBtnId) {
