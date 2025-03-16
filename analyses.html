@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analyses - Clinic Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <!-- Navigation will be loaded from list.html -->
+    </nav>
+    
+    <main class="content">
+      <header>
+        <!-- Header will be loaded from header.html -->
+      </header>
+      
+      <div class="analyses-page">
+        <div class="page-header">
+          <h1>Analyses List</h1>
+          <button class="add-patient-btn" id="add-analysis-btn">
+            <i class="fas fa-plus"></i> Add New Analysis
+          </button>
+        </div>
+        
+        <div class="analyses-list">
+          <table>
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Department</th>
+              </tr>
+            </thead>
+            <tbody id="analyses-list-body">
+              <!-- Analyses data will be dynamically loaded here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Add Analysis Modal -->
+  <div id="analysis-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add New Analysis</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="analysis-name">Analysis Name</label>
+          <input type="text" id="analysis-name" class="form-input" placeholder="Enter analysis name">
+        </div>
+        <div class="form-group">
+          <label for="analysis-description">Description</label>
+          <textarea id="analysis-description" class="form-input" rows="3" placeholder="Enter analysis description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="analysis-department">Department</label>
+          <input type="text" id="analysis-department" class="form-input" placeholder="Enter department">
+        </div>
+        <div class="form-group">
+          <label for="analysis-price">Price</label>
+          <input type="number" id="analysis-price" class="form-input" placeholder="Enter price">
+        </div>
+        <div class="modal-actions">
+          <button class="btn edit-btn" id="cancel-analysis-btn">Cancel</button>
+          <button class="btn schedule-btn" id="save-analysis-btn">Save Analysis</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
