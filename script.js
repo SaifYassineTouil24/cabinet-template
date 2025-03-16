@@ -111,14 +111,49 @@ function initializePageByPath(currentPath) {
 // Medication Handlers
 function initializeMedicationHandlers() {
   const addMedicationButton = document.getElementById('add-medication');
+  const addAnalysisButton = document.getElementById('add-analysis');
+  
   if (addMedicationButton) {
     addMedicationButton.addEventListener('click', addNewMedication);
+  }
+  
+  if (addAnalysisButton) {
+    addAnalysisButton.addEventListener('click', addNewAnalysis);
   }
 
   // Add event listeners to existing remove buttons
   document.querySelectorAll('.remove-med').forEach(button => {
     button.addEventListener('click', removeMedication);
   });
+  
+  document.querySelectorAll('.remove-analysis').forEach(button => {
+    button.addEventListener('click', removeAnalysis);
+  });
+}
+
+function addNewAnalysis() {
+  const analysesList = document.getElementById('analyses-list');
+  const newAnalysisItem = document.createElement('div');
+  newAnalysisItem.className = 'analyses-item';
+
+  newAnalysisItem.innerHTML = `
+    <div class="analyses-inputs">
+      <input type="text" placeholder="Analysis name" class="form-input analysis-name">
+    </div>
+    <button class="action-btn remove-analysis"><i class="fas fa-trash"></i></button>
+  `;
+
+  analysesList.appendChild(newAnalysisItem);
+
+  // Add event listener to remove button
+  const removeButton = newAnalysisItem.querySelector('.remove-analysis');
+  removeButton.addEventListener('click', removeAnalysis);
+}
+
+function removeAnalysis() {
+  const analysisItem = this.closest('.analyses-item');
+  const analysesList = document.getElementById('analyses-list');
+  analysesList.removeChild(analysisItem);
 }
 
 function addNewMedication() {
