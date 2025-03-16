@@ -21,3 +21,7 @@ mode = "sequential"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "python -m http.server 3000 --bind 0.0.0.0"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
