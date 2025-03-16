@@ -1,4 +1,4 @@
-hidden=[".config"]
+hidden = [".config"]
 modules = ["nodejs-20", "web", "python-3.11", "nix"]
 run = "chrome index.html"
 
@@ -8,4 +8,4 @@ channel = "stable-24_05"
 [deployment]
 publicDir = "/"
 deploymentTarget = "static"
-run = ["sh", "-c", "chrome index.html"]
+run = ["sh", "-c", "chromium index.html"]
