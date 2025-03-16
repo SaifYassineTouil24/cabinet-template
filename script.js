@@ -120,9 +120,11 @@ function addNewAnalysis() {
 }
 
 function removeAnalysis() {
-  const analysisItem = this.closest('.analyses-item');
+  const analysisItem = this.closest('.medication-item');
   const analysesList = document.getElementById('analyses-list');
-  analysesList.removeChild(analysisItem);
+  if (analysisItem && analysesList) {
+    analysesList.removeChild(analysisItem);
+  }
 }
 
 function addNewMedication() {
