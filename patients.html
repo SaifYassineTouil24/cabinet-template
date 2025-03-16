@@ -63,6 +63,17 @@
             <div id="patient-details">
               <!-- Patient details will be dynamically added here -->
             </div>
+            <div class="modal-actions">
+              <button class="btn edit-btn" onclick="showMedicalCertificateModal('${patientId}')">
+                <i class="fas fa-file-medical"></i> Issue Certificate
+              </button>
+              <button class="btn edit-btn" onclick="showCertificateHistory('${patientId}')">
+                <i class="fas fa-history"></i> Certificate History
+              </button>
+              <button class="btn schedule-btn" onclick="window.location.href='patient-detail.html?id=${patientId}'">
+                <i class="fas fa-user"></i> Full Profile
+              </button>
+            </div>
           </div>
         </div>
       </div>
