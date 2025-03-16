@@ -466,14 +466,18 @@ function handleAddPatientSubmit(e) {
 }
 
 async function initializePatientDetailPage() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const patientId = urlParams.get('id');
-
   // Load components
   await Promise.all([
     loadComponent('last-appointment-container', 'last-appointment.html'),
-    loadComponent('visit-history-container', 'visit-history.html')
+    loadComponent('visit-history-container', 'visit-history.html'),
+    loadComponent('case-description-container', 'case-description.html'),
+    loadComponent('treatment-details-container', 'treatment-details.html'),
+    loadComponent('analysis-request-container', 'analysis-request.html'),
+    loadComponent('notes-container', 'notes.html')
   ]);
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const patientId = urlParams.get('id');
 
   if (patientId) {
     loadPatientDetails(patientId);
