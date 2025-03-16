@@ -1182,7 +1182,7 @@ function showAddAppointmentModal() {
   modal.innerHTML = `
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Add New Appointment</h2>
+        <h2>Nouveau Rendez-vous</h2>
         <span class="close">&times;</span>
       </div>
       <div class="modal-body">
@@ -1190,40 +1190,40 @@ function showAddAppointmentModal() {
           <div class="form-group">
             <label for="patient-select">Patient</label>
             <select id="patient-select" class="form-input" required>
-              <option value="">Select patient</option>
+              <option value="">Sélectionnez un patient</option>
               <option value="1">John Smith</option>
               <option value="2">Sarah Johnson</option>
               <option value="3">Michael Brown</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="new-appointment-date">Appointment Date</label>
+            <label for="new-appointment-date">Date du Rendez-vous</label>
             <input type="date" id="new-appointment-date" class="form-input" required>
           </div>
           <div class="form-group">
-            <label for="new-appointment-time">Time</label>
+            <label for="new-appointment-time">Heure</label>
             <input type="time" id="new-appointment-time" class="form-input" required>
           </div>
           <div class="form-group">
-            <label for="new-appointment-type">Type of Visit</label>
+            <label for="new-appointment-type">Type de Visite</label>
             <select id="new-appointment-type" class="form-input" required>
-              <option value="">Select type</option>
-              <option value="Regular Check-up">Regular Check-up</option>
-              <option value="Illness">Illness</option>
-              <option value="Follow-up">Follow-up</option>
-              <option value="Specialist">Specialist Consultation</option>
+              <option value="">Sélectionnez le type</option>
+              <option value="Regular Check-up">Consultation Régulière</option>
+              <option value="Illness">Maladie</option>
+              <option value="Follow-up">Suivi</option>
+              <option value="Specialist">Consultation Spécialiste</option>
               <option value="Vaccination">Vaccination</option>
-              <option value="Lab Results">Lab Results Review</option>
-              <option value="Other">Other</option>
+              <option value="Lab Results">Résultats d'Analyses</option>
+              <option value="Other">Autre</option>
             </select>
           </div>
           <div class="form-group">
             <label for="new-appointment-notes">Notes</label>
-            <textarea id="new-appointment-notes" class="form-input" rows="3" placeholder="Any notes about the appointment"></textarea>
+            <textarea id="new-appointment-notes" class="form-input" rows="3" placeholder="Notes concernant le rendez-vous"></textarea>
           </div>
           <div class="modal-actions">
-            <button type="button" class="btn edit-btn" id="cancel-add-appointment">Cancel</button>
-            <button type="submit" class="btn schedule-btn">Add Appointment</button>
+            <button type="button" class="btn edit-btn" id="cancel-add-appointment">Annuler</button>
+            <button type="submit" class="btn schedule-btn">Ajouter le Rendez-vous</button>
           </div>
         </form>
       </div>
