@@ -1103,17 +1103,7 @@ function openPatientDetailsModal(patientId) {
   if (!modal || !modalBody) return;
 
   // Mock patient data - in real app, this would come from API based on patientId
-  const patientDetails = {
-    id: patientId,
-    name: 'John Smith',
-    age: 45,
-    gender: 'Male',
-    phone: '(555) 123-4567',
-    cin: 'AE123456',
-    lastVisit: '2023-06-01',
-    nextAppointment: '2023-09-15',
-    doctor: 'Dr. Sarah Johnson'
-  };
+  const patientDetails = getMockPatientDetails(patientId);
 
   modalBody.innerHTML = `
     <div class="patient-modal-info">
