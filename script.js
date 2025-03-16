@@ -30,13 +30,44 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function showMeasurementsModal(patientId) {
-  fetch('modals/measurement-modal.html')
-    .then(response => response.text())
-    .then(html => {
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = html;
-      const modal = tempDiv.firstElementChild;
-      document.body.appendChild(modal);
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.id = 'measurements-modal';
+  
+  modal.innerHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Take Measurements</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="measurements-form">
+          <div class="vital-signs-grid">
+            <div class="vital-sign">
+              <label>Blood Pressure</label>
+              <input type="text" class="form-input" placeholder="120/80">
+            </div>
+            <div class="vital-sign">
+              <label>Temperature</label>
+              <input type="text" class="form-input" placeholder="37.0">
+            </div>
+            <div class="vital-sign">
+              <label>Pulse</label>
+              <input type="text" class="form-input" placeholder="72">
+            </div>
+            <div class="vital-sign">
+              <label>Weight</label>
+              <input type="text" class="form-input" placeholder="70">
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn edit-btn" id="cancel-measurements">Cancel</button>
+            <button type="submit" class="btn schedule-btn">Save & Move to Examination</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
   
   document.body.appendChild(modal);
   modal.style.display = 'block';
@@ -120,11 +151,9 @@ function addNewAnalysis() {
 }
 
 function removeAnalysis() {
-  const analysisItem = this.closest('.medication-item');
+  const analysisItem = this.closest('.analyses-item');
   const analysesList = document.getElementById('analyses-list');
-  if (analysisItem && analysesList) {
-    analysesList.removeChild(analysisItem);
-  }
+  analysesList.removeChild(analysisItem);
 }
 
 function addNewMedication() {
@@ -1061,13 +1090,60 @@ function filterMedicaments() {
 
 // Modal Functions
 function showAddAppointmentModal() {
-  fetch('modals/add-appointment-modal.html')
-    .then(response => response.text())
-    .then(html => {
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = html;
-      const modal = tempDiv.firstElementChild;
-      document.body.appendChild(modal);
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.id = 'add-appointment-modal';
+  
+  modal.innerHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add New Appointment</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="add-appointment-form">
+          <div class="form-group">
+            <label for="patient-select">Patient</label>
+            <select id="patient-select" class="form-input" required>
+              <option value="">Select patient</option>
+              <option value="1">John Smith</option>
+              <option value="2">Sarah Johnson</option>
+              <option value="3">Michael Brown</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="new-appointment-date">Appointment Date</label>
+            <input type="date" id="new-appointment-date" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="new-appointment-time">Time</label>
+            <input type="time" id="new-appointment-time" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="new-appointment-type">Type of Visit</label>
+            <select id="new-appointment-type" class="form-input" required>
+              <option value="">Select type</option>
+              <option value="Regular Check-up">Regular Check-up</option>
+              <option value="Illness">Illness</option>
+              <option value="Follow-up">Follow-up</option>
+              <option value="Specialist">Specialist Consultation</option>
+              <option value="Vaccination">Vaccination</option>
+              <option value="Lab Results">Lab Results Review</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="new-appointment-notes">Notes</label>
+            <textarea id="new-appointment-notes" class="form-input" rows="3" placeholder="Any notes about the appointment"></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn edit-btn" id="cancel-add-appointment">Cancel</button>
+            <button type="submit" class="btn schedule-btn">Add Appointment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
   
   document.body.appendChild(modal);
   modal.style.display = 'block';
@@ -1105,7 +1181,17 @@ function openPatientDetailsModal(patientId) {
   if (!modal || !modalBody) return;
 
   // Mock patient data - in real app, this would come from API based on patientId
-  const patientDetails = getMockPatientDetails(patientId);
+  const patientDetails = {
+    id: patientId,
+    name: 'John Smith',
+    age: 45,
+    gender: 'Male',
+    phone: '(555) 123-4567',
+    cin: 'AE123456',
+    lastVisit: '2023-06-01',
+    nextAppointment: '2023-09-15',
+    doctor: 'Dr. Sarah Johnson'
+  };
 
   modalBody.innerHTML = `
     <div class="patient-modal-info">

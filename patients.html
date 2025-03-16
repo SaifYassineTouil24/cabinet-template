@@ -30,23 +30,7 @@
         <div class="filter-bar">
           <div class="search-box">
             <i class="fas fa-search"></i>
-            <input type="text" id="search-input" placeholder="Search patient...">
-          </div>
-          <div class="filter">
-            <label for="filter-status">Status:</label>
-            <select id="filter-status" class="form-input">
-              <option value="all">All</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
-          </div>
-          <div class="filter">
-            <label for="filter-sort">Sort By:</label>
-            <select id="filter-sort" class="form-input">
-              <option value="name">Name</option>
-              <option value="recent">Recent Visit</option>
-              <option value="id">ID</option>
-            </select>
+            <input type="text" id="patient-search" placeholder="Search patient...">
           </div>
         </div>
         
@@ -63,6 +47,7 @@
             </thead>
             <tbody id="patients-list-body">
               <!-- Patient rows will be dynamically added here -->
+              <!-- Patient rows will be dynamically added by JavaScript -->
             </tbody>
           </table>
         </div>
@@ -76,7 +61,7 @@
             <span class="close">&times;</span>
           </div>
           <div class="modal-body">
-            <div id="patient-details" class="patient-modal-info">
+            <div id="patient-details">
               <!-- Patient details will be dynamically added here -->
             </div>
           </div>
@@ -117,6 +102,10 @@
                 <div class="form-group">
                   <label for="patient-phone">Phone Number</label>
                   <input type="tel" id="patient-phone" class="form-input" placeholder="Enter phone number" required>
+                </div>
+                <div class="form-group">
+                  <label for="patient-phone-alt">Alternative Phone Number</label>
+                  <input type="tel" id="patient-phone-alt" class="form-input" placeholder="Enter alternative phone number">
                 </div>
                 <div class="form-group">
                   <label for="patient-allergies">Allergies</label>
