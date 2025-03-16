@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
   <div class="container">
     <nav class="sidebar">
@@ -34,99 +36,20 @@
         </div>
 
         <div id="patients-list-container">
-        <!-- Patient list component will be loaded here -->
-      </div>
-      <div id="modal-container">
+          <!-- Patient list component will be loaded here -->
+        </div>
+        <div id="modal-container">
           <!-- Modal components will be loaded here -->
         </div>
       </div>
-      </div>
-
-      <!-- Patient Details Modal -->
-      <div id="patient-details-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2>Patient Details</h2>
-            <span class="close">&times;</span>
-          </div>
-          <div class="modal-body">
-            <div id="patient-details">
-              <!-- Patient details will be dynamically added here -->
-            </div>
-            <div class="modal-actions">
-              <button class="btn edit-btn" id="issue-certificate-btn">
-                <i class="fas fa-file-medical"></i> Issue Certificate
-              </button>
-              <button class="btn edit-btn" id="certificate-history-btn">
-                <i class="fas fa-history"></i> Certificate History
-              </button>
-              <button class="btn schedule-btn" id="full-profile-btn">
-                <i class="fas fa-user"></i> Full Profile
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Add New Patient Modal -->
-      <div id="add-patient-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2>Add New Patient</h2>
-            <span class="close">&times;</span>
-          </div>
-          <div class="modal-body">
-            <form id="add-patient-form">
-              <div class="form-grid">
-                <div class="form-group">
-                  <label for="patient-name">Full Name</label>
-                  <input type="text" id="patient-name" class="form-input" placeholder="Enter patient name" required>
-                </div>
-                <div class="form-group">
-                  <label for="patient-dob">Date of Birth</label>
-                  <input type="date" id="patient-dob" class="form-input" required>
-                </div>
-                <div class="form-group">
-                  <label for="patient-gender">Gender</label>
-                  <select id="patient-gender" class="form-input" required>
-                    <option value="">Select gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="patient-cin">CIN/ID Number</label>
-                  <input type="text" id="patient-cin" class="form-input" placeholder="Enter ID number">
-                </div>
-                <div class="form-group">
-                  <label for="patient-phone">Phone Number</label>
-                  <input type="tel" id="patient-phone" class="form-input" placeholder="Enter phone number" required>
-                </div>
-                <div class="form-group">
-                  <label for="patient-phone-alt">Alternative Phone Number</label>
-                  <input type="tel" id="patient-phone-alt" class="form-input" placeholder="Enter alternative phone number">
-                </div>
-                <div class="form-group">
-                  <label for="patient-allergies">Allergies</label>
-                  <textarea id="patient-allergies" class="form-input" rows="2" placeholder="Any allergies (if applicable)"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="patient-conditions">Chronic Conditions</label>
-                  <textarea id="patient-conditions" class="form-input" rows="2" placeholder="Any chronic conditions (if applicable)"></textarea>
-                </div>
-              </div>
-              <div class="modal-actions">
-                <button type="button" class="btn edit-btn" id="cancel-add-patient">Cancel</button>
-                <button type="submit" class="btn schedule-btn">Save Patient</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </main>
   </div>
+
+  <!-- Patient Details Modal -->
+
+
+
 
   <script src="script.js"></script>
 </body>
+
 </html>
