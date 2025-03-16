@@ -1029,6 +1029,44 @@ textarea.form-input {
   animation: fadeIn 0.5s ease-in-out;
 }
 
+.patient-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.prev-patient, .next-patient {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.prev-patient:hover, .next-patient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.nav-patient-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-patient-info small {
+  color: #666;
+  font-size: 12px;
+}
+
+.nav-patient-info span {
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
