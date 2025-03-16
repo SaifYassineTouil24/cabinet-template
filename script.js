@@ -1248,6 +1248,92 @@ function closeAllModals() {
   });
 }
 
+// Medical Certificate Functions
+function showMedicalCertificateModal(patientId) {
+  const modal = document.getElementById('medical-certificate-modal');
+  const form = document.getElementById('medical-certificate-form');
+  const cancelBtn = document.getElementById('cancel-certificate');
+  
+  modal.style.display = 'block';
+  
+  form.onsubmit = (e) => {
+    e.preventDefault();
+    const startDate = document.getElementById('certificate-start').value;
+    const endDate = document.getElementById('certificate-end').value;
+    const cause = document.getElementById('certificate-cause').value;
+    
+    // Save certificate data (in real app, this would go to a database)
+    const certificates = JSON.parse(localStorage.getItem('medical_certificates') || '{}');
+    if (!certificates[patientId]) {
+      certificates[patientId] = [];
+    }
+    
+    certificates[patientId].push({
+      startDate,
+      endDate,
+      cause,
+      issuedDate: new Date().toISOString()
+    });
+    
+    localStorage.setItem('medical_certificates', JSON.stringify(certificates));
+    alert('Medical certificate generated successfully!');
+    modal.style.display = 'none';
+    form.reset();
+  };
+  
+  cancelBtn.onclick = () => {
+    modal.style.display = 'none';
+    form.reset();
+  };
+}
+
+function showCertificateHistory(patientId) {
+  const modal = document.getElementById('certificate-history-modal');
+  const tbody = document.getElementById('certificate-history-body');
+  
+  // Get certificates from storage
+  const certificates = JSON.parse(localStorage.getItem('medical_certificates') || '{}');
+  const patientCertificates = certificates[patientId] || [];
+  
+  tbody.innerHTML = '';
+  
+  patientCertificates.forEach(cert => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${formatDateSimple(cert.startDate)}</td>
+      <td>${formatDateSimple(cert.endDate)}</td>
+      <td>${cert.cause}</td>
+      <td>
+        <button class="action-btn" onclick="printCertificate('${patientId}', '${cert.issuedDate}')">
+          <i class="fas fa-print"></i>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+  
+  modal.style.display = 'block';
+}
+
+function printCertificate(patientId, issuedDate) {
+  const certificates = JSON.parse(localStorage.getItem('medical_certificates') || '{}');
+  const patientCertificates = certificates[patientId] || [];
+  const certificate = patientCertificates.find(c => c.issuedDate === issuedDate);
+  
+  if (certificate) {
+    // In a real app, this would generate a proper PDF or printable document
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+      <h1>Medical Certificate</h1>
+      <p>Start Date: ${formatDateSimple(certificate.startDate)}</p>
+      <p>End Date: ${formatDateSimple(certificate.endDate)}</p>
+      <p>Cause: ${certificate.cause}</p>
+      <p>Issued: ${formatDateSimple(certificate.issuedDate)}</p>
+    `);
+    printWindow.print();
+  }
+}
+
 // Reports Functions
 function generateReports() {
   const dateInput = document.getElementById('report-date');
