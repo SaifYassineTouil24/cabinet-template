@@ -83,11 +83,12 @@
   <div id="schedule-modal"></div>
 
   <script src="script.js"></script>
-  
-  <!-- Load modal components -->
   <script>
-    loadComponent('edit-patient-modal', 'edit-patient-modal.html');
-    loadComponent('schedule-modal', 'schedule-appointment-modal.html');
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load modal components after script.js is loaded
+      loadComponent('edit-patient-modal', 'edit-patient-modal.html');
+      loadComponent('schedule-modal', 'schedule-appointment-modal.html');
+    });
   </script>
 </body>
 
