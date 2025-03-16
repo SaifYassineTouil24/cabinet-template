@@ -371,6 +371,26 @@ function setupModals() {
 // Initialize modals after DOM content is loaded
 document.addEventListener('DOMContentLoaded', setupModals);
 
+function printSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+  
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write(`
+    <html>
+      <head>
+        <title>Print Section</title>
+        <link rel="stylesheet" href="style.css">
+      </head>
+      <body>
+        ${section.innerHTML}
+      </body>
+    </html>
+  `);
+  printWindow.document.close();
+  printWindow.print();
+}
+
 async function initializePatientsPage() {
   // Load components
   await Promise.all([

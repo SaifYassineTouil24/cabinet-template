@@ -1500,6 +1500,20 @@ textarea.form-input {
   padding: 10px 0;
 }
 
+.print-btn {
+  float: right;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.3s ease;
+}
+
+.print-btn:hover {
+  color: var(--primary-color);
+}
+
 .vital-signs-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
