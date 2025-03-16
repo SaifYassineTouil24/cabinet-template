@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,26 +8,28 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
   <div class="container">
     <nav class="sidebar">
       <!-- Navigation will be loaded from list.html -->
     </nav>
-    
+
     <main class="content">
       <header>
         <!-- Header will be loaded from header.html -->
       </header>
-      
+
       <div class="patient-detail-page">
         <div class="page-header">
           <h1 id="patient-full-name">Patient Name</h1>
           <div class="action-buttons">
             <button class="btn edit-btn" id="edit-patient-btn"><i class="fas fa-edit"></i> Edit Patient</button>
-            <button class="btn schedule-btn" id="schedule-patient-btn"><i class="fas fa-calendar-plus"></i> Schedule Appointment</button>
+            <button class="btn schedule-btn" id="schedule-patient-btn"><i class="fas fa-calendar-plus"></i> Schedule
+              Appointment</button>
           </div>
         </div>
-        
+
         <div class="patient-profile">
           <div class="profile-section info-card">
             <h3>Personal Information</h3>
@@ -60,62 +62,22 @@
               </div>
             </div>
           </div>
-          
+
           <div id="last-appointment-container">
             <!-- Last appointment component will be loaded here -->
           </div>
         </div>
-        
+
         <div id="visit-history-container">
           <!-- Visit history component will be loaded here -->
-              <!-- Example visit history data -->
-              <tr>
-                <td>06/01/2023</td>
-                <td>Regular Check-up</td>
-                <td>$150</td>
-                <td>
-                  <button class="visit-action-btn" onclick="window.location.href='appointment-detail.html?id=1'">View Details</button>
-                </td>
-              </tr>
-              <tr>
-                <td>03/15/2023</td>
-                <td>Illness</td>
-                <td>$225</td>
-                <td>
-                  <button class="visit-action-btn" onclick="window.location.href='appointment-detail.html?id=2'">View Details</button>
-                </td>
-              </tr>
-              <tr>
-                <td>12/10/2022</td>
-                <td>Regular Check-up</td>
-                <td>$175</td>
-                <td>
-                  <button class="visit-action-btn" onclick="window.location.href='appointment-detail.html?id=3'">View Details</button>
-                </td>
-              </tr>
-              <tr>
-                <td>09/05/2022</td>
-                <td>Follow-up</td>
-                <td>$130</td>
-                <td>
-                  <button class="visit-action-btn" onclick="window.location.href='appointment-detail.html?id=4'">View Details</button>
-                </td>
-              </tr>
-              <tr>
-                <td>06/22/2022</td>
-                <td>Vaccination</td>
-                <td>$95</td>
-                <td>
-                  <button class="visit-action-btn" onclick="window.location.href='appointment-detail.html?id=5'">View Details</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <!-- Example visit history data -->
+
+
         </div>
       </div>
     </main>
   </div>
-  
+
   <!-- Edit Patient Modal -->
   <div id="edit-patient-modal" class="modal">
     <div class="modal-content">
@@ -153,15 +115,18 @@
             </div>
             <div class="form-group">
               <label for="edit-patient-phone-alt">Alternative Phone Number</label>
-              <input type="tel" id="edit-patient-phone-alt" class="form-input" placeholder="Enter alternative phone number">
+              <input type="tel" id="edit-patient-phone-alt" class="form-input"
+                placeholder="Enter alternative phone number">
             </div>
             <div class="form-group">
               <label for="edit-patient-allergies">Allergies</label>
-              <textarea id="edit-patient-allergies" class="form-input" rows="2" placeholder="Any allergies (if applicable)"></textarea>
+              <textarea id="edit-patient-allergies" class="form-input" rows="2"
+                placeholder="Any allergies (if applicable)"></textarea>
             </div>
             <div class="form-group">
               <label for="edit-patient-conditions">Chronic Conditions</label>
-              <textarea id="edit-patient-conditions" class="form-input" rows="2" placeholder="Any chronic conditions (if applicable)"></textarea>
+              <textarea id="edit-patient-conditions" class="form-input" rows="2"
+                placeholder="Any chronic conditions (if applicable)"></textarea>
             </div>
           </div>
           <div class="modal-actions">
@@ -172,7 +137,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Schedule Appointment Modal -->
   <div id="schedule-modal" class="modal">
     <div class="modal-content">
@@ -201,7 +166,8 @@
           </div>
           <div class="form-group">
             <label for="appointment-notes">Notes</label>
-            <textarea id="appointment-notes" class="form-input" rows="3" placeholder="Any notes about the appointment"></textarea>
+            <textarea id="appointment-notes" class="form-input" rows="3"
+              placeholder="Any notes about the appointment"></textarea>
           </div>
           <div class="modal-actions">
             <button type="button" class="btn edit-btn" id="cancel-schedule">Cancel</button>
@@ -211,7 +177,8 @@
       </div>
     </div>
   </div>
-  
+
   <script src="script.js"></script>
 </body>
+
 </html>
