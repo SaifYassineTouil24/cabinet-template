@@ -344,23 +344,30 @@ async function loadComponent(elementId, componentPath) {
   }
 }
 
-document.addEventListener('click', function(e) {
-  const editBtn = e.target.closest('#edit-patient-btn');
-  const scheduleBtn = e.target.closest('#schedule-patient-btn');
-  const closeBtn = e.target.closest('.close');
-  const cancelBtn = e.target.closest('[id^="cancel"]');
-
-  if (editBtn) {
-    document.getElementById('edit-patient-modal').style.display = 'block';
-  } else if (scheduleBtn) {
-    document.getElementById('schedule-modal').style.display = 'block';
-  } else if (closeBtn || cancelBtn) {
+function setupModals() {
+  document.addEventListener('click', function(e) {
+    const editBtn = e.target.closest('#edit-patient-btn');
+    const scheduleBtn = e.target.closest('#schedule-patient-btn');
+    const closeBtn = e.target.closest('.close');
+    const cancelBtn = e.target.closest('[id^="cancel"]');
     const modal = e.target.closest('.modal');
-    if (modal) {
+
+    if (editBtn) {
+      const editModal = document.querySelector('#edit-patient-modal .modal');
+      if (editModal) editModal.style.display = 'block';
+    } else if (scheduleBtn) {
+      const scheduleModal = document.querySelector('#schedule-modal .modal');
+      if (scheduleModal) scheduleModal.style.display = 'block';
+    } else if ((closeBtn || cancelBtn) && modal) {
       modal.style.display = 'none';
+    } else if (e.target.classList.contains('modal')) {
+      e.target.style.display = 'none';
     }
-  }
-});
+  });
+}
+
+// Initialize modals after DOM content is loaded
+document.addEventListener('DOMContentLoaded', setupModals);
 
 async function initializePatientsPage() {
   // Load components
