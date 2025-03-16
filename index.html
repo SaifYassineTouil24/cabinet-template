@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Clinic Management System</title>
+  <title>Tableau de Bord - Système de Gestion de Clinique</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -23,60 +23,60 @@
         <div class="dashboard-container">
           <div class="patient-status-container">
             <div id="scheduled" class="status-card">
-              <h3><i class="fas fa-calendar-check"></i> Programmé (Pas encore arrivé)</h3>
+              <h3><i class="fas fa-calendar-check"></i> Programmé</h3>
               <div class="patient-list">
-                <!-- Patient cards will be dynamically added here -->
+                <!-- Les fiches patients seront ajoutées dynamiquement ici -->
               </div>
             </div>
             
             <div id="waiting" class="status-card">
               <h3><i class="fas fa-clock"></i> Salle d'attente</h3>
               <div class="patient-list">
-                <!-- Patient cards will be dynamically added here -->
+                <!-- Les fiches patients seront ajoutées dynamiquement ici -->
               </div>
             </div>
             
             <div id="preparing" class="status-card">
-              <h3><i class="fas fa-clipboard-list"></i> Preparing to Enter</h3>
+              <h3><i class="fas fa-clipboard-list"></i> En préparation</h3>
               <div class="patient-list">
-                <!-- Patient cards will be dynamically added here -->
+                <!-- Les fiches patients seront ajoutées dynamiquement ici -->
               </div>
             </div>
             
             <div id="examination" class="status-card">
-              <h3><i class="fas fa-stethoscope"></i> In Medicine Room</h3>
+              <h3><i class="fas fa-stethoscope"></i> En consultation</h3>
               <div class="patient-list">
-                <!-- Patient cards will be dynamically added here -->
+                <!-- Les fiches patients seront ajoutées dynamiquement ici -->
               </div>
             </div>
           </div>
           
           <div class="calendar-widget">
             <div class="calendar-header">
-              <h3>Calendar</h3>
+              <h3>Calendrier</h3>
               <div class="calendar-nav">
                 <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
-                <h4 id="current-month">June 2023</h4>
+                <h4 id="current-month">Juin 2023</h4>
                 <button id="next-month"><i class="fas fa-chevron-right"></i></button>
               </div>
             </div>
             <div id="calendar-body" class="calendar-grid">
-              <!-- Calendar days will be dynamically added here -->
+              <!-- Les jours du calendrier seront ajoutés dynamiquement ici -->
             </div>
           </div>
           
           <div class="dashboard-bottom" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
             <div id="completed" class="status-card">
-              <h3><i class="fas fa-check-circle"></i> Completed Today</h3>
+              <h3><i class="fas fa-check-circle"></i> Terminé Aujourd'hui</h3>
               <div class="patient-list">
-                <!-- Patient cards will be dynamically added here -->
+                <!-- Les fiches patients seront ajoutées dynamiquement ici -->
               </div>
             </div>
             
             <div id="canceled" class="status-card">
-              <h3><i class="fas fa-ban"></i> Canceled</h3>
+              <h3><i class="fas fa-ban"></i> Annulé</h3>
               <div class="patient-list">
-                <!-- Patient cards will be dynamically added here -->
+                <!-- Les fiches patients seront ajoutées dynamiquement ici -->
               </div>
             </div>
           </div>
