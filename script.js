@@ -723,22 +723,10 @@ function generateCalendarDays(year, month, calendarBody) {
 
     // Add color based on appointment count
     if (count > 0) {
-      if (count <= 5) {
-        dayElement.classList.add('appointments-low');
-        dayElement.title = '1-5 RV';
-      }
-      else if (count <= 10) {
-        dayElement.classList.add('appointments-medium');
-        dayElement.title = '6-10 RV';
-      }
-      else if (count <= 15) {
-        dayElement.classList.add('appointments-high');
-        dayElement.title = '11-15 RV';
-      }
-      else {
-        dayElement.classList.add('appointments-very-high');
-        dayElement.title = '>15 RV';
-      }
+      if (count <= 5) dayElement.classList.add('appointments-low');
+      else if (count <= 10) dayElement.classList.add('appointments-medium');
+      else if (count <= 15) dayElement.classList.add('appointments-high');
+      else if (count <= 20) dayElement.classList.add('appointments-very-high');
     }
 
     // Check if day is today

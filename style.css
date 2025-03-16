@@ -638,67 +638,38 @@ header {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 8px;
-  border-radius: 8px;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
-  font-size: 14px;
-  position: relative;
-  margin: 2px;
+  font-size: 12px;
 }
 
 .calendar-day .appointment-count {
-  font-size: 10px;
-  position: absolute;
-  bottom: 2px;
+  font-size: 8px;
+  font-weight: normal;
 }
 
 .appointments-low {
-  background-color: #4361EE;
+  background-color: #4361ee;
   color: white;
 }
 
 .appointments-medium {
-  background-color: #4CAF50;
+  background-color: #48bb78;
   color: white;
 }
 
 .appointments-high {
-  background-color: #FF9800;
+  background-color: #f6ad55;
   color: white;
 }
 
 .appointments-very-high {
-  background-color: #F44336;
+  background-color: #f56565;
   color: white;
-}
-
-.calendar-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 15px;
-  padding: 15px;
-  background: #f5f7ff;
-  border-radius: 8px;
-}
-
-.calendar-legend .legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-}
-
-.calendar-day.empty {
-  background: transparent;
-}
-
-.calendar-day.day-label {
-  font-weight: 600;
-  color: #666;
-  background: transparent;
 }
 
 .calendar-day:hover {
