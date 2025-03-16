@@ -30,44 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function showMeasurementsModal(patientId) {
-  const modal = document.createElement('div');
-  modal.className = 'modal';
-  modal.id = 'measurements-modal';
-  
-  modal.innerHTML = `
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Take Measurements</h2>
-        <span class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <form id="measurements-form">
-          <div class="vital-signs-grid">
-            <div class="vital-sign">
-              <label>Blood Pressure</label>
-              <input type="text" class="form-input" placeholder="120/80">
-            </div>
-            <div class="vital-sign">
-              <label>Temperature</label>
-              <input type="text" class="form-input" placeholder="37.0">
-            </div>
-            <div class="vital-sign">
-              <label>Pulse</label>
-              <input type="text" class="form-input" placeholder="72">
-            </div>
-            <div class="vital-sign">
-              <label>Weight</label>
-              <input type="text" class="form-input" placeholder="70">
-            </div>
-          </div>
-          <div class="modal-actions">
-            <button type="button" class="btn edit-btn" id="cancel-measurements">Cancel</button>
-            <button type="submit" class="btn schedule-btn">Save & Move to Examination</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  `;
+  fetch('modals/measurement-modal.html')
+    .then(response => response.text())
+    .then(html => {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
+      const modal = tempDiv.firstElementChild;
+      document.body.appendChild(modal);
   
   document.body.appendChild(modal);
   modal.style.display = 'block';
@@ -1090,60 +1059,13 @@ function filterMedicaments() {
 
 // Modal Functions
 function showAddAppointmentModal() {
-  const modal = document.createElement('div');
-  modal.className = 'modal';
-  modal.id = 'add-appointment-modal';
-  
-  modal.innerHTML = `
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Add New Appointment</h2>
-        <span class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <form id="add-appointment-form">
-          <div class="form-group">
-            <label for="patient-select">Patient</label>
-            <select id="patient-select" class="form-input" required>
-              <option value="">Select patient</option>
-              <option value="1">John Smith</option>
-              <option value="2">Sarah Johnson</option>
-              <option value="3">Michael Brown</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="new-appointment-date">Appointment Date</label>
-            <input type="date" id="new-appointment-date" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label for="new-appointment-time">Time</label>
-            <input type="time" id="new-appointment-time" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label for="new-appointment-type">Type of Visit</label>
-            <select id="new-appointment-type" class="form-input" required>
-              <option value="">Select type</option>
-              <option value="Regular Check-up">Regular Check-up</option>
-              <option value="Illness">Illness</option>
-              <option value="Follow-up">Follow-up</option>
-              <option value="Specialist">Specialist Consultation</option>
-              <option value="Vaccination">Vaccination</option>
-              <option value="Lab Results">Lab Results Review</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="new-appointment-notes">Notes</label>
-            <textarea id="new-appointment-notes" class="form-input" rows="3" placeholder="Any notes about the appointment"></textarea>
-          </div>
-          <div class="modal-actions">
-            <button type="button" class="btn edit-btn" id="cancel-add-appointment">Cancel</button>
-            <button type="submit" class="btn schedule-btn">Add Appointment</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  `;
+  fetch('modals/add-appointment-modal.html')
+    .then(response => response.text())
+    .then(html => {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
+      const modal = tempDiv.firstElementChild;
+      document.body.appendChild(modal);
   
   document.body.appendChild(modal);
   modal.style.display = 'block';
