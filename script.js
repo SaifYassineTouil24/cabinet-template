@@ -1,23 +1,22 @@
-
 // DOM Content Loaded Event - Entry Point
 document.addEventListener('DOMContentLoaded', function() {
   // Include navigation and header
   includeNavbar();
   includeHeader();
-  
+
   // Add appointment button listener
   document.addEventListener('click', function(e) {
     if (e.target.closest('.add-appointment')) {
       showAddAppointmentModal();
     }
   });
-  
+
   // Initialize page-specific functionality
   initializePageByPath(window.location.pathname);
-  
+
   // Initialize medication functionality
   initializeMedicationHandlers();
-  
+
   // Add preparing patient click handler
   document.addEventListener('click', function(e) {
     const preparingCard = e.target.closest('#preparing .patient-card');
@@ -33,7 +32,7 @@ function showMeasurementsModal(patientId) {
   const modal = document.createElement('div');
   modal.className = 'modal';
   modal.id = 'measurements-modal';
-  
+
   modal.innerHTML = `
     <div class="modal-content">
       <div class="modal-header">
@@ -68,24 +67,24 @@ function showMeasurementsModal(patientId) {
       </div>
     </div>
   `;
-  
+
   document.body.appendChild(modal);
   modal.style.display = 'block';
-  
+
   const closeBtn = modal.querySelector('.close');
   const cancelBtn = modal.querySelector('#cancel-measurements');
   const form = modal.querySelector('#measurements-form');
-  
+
   closeBtn.onclick = () => modal.remove();
   cancelBtn.onclick = () => modal.remove();
-  
+
   form.onsubmit = (e) => {
     e.preventDefault();
     // Here you would save the measurements and move patient to examination
     alert('Measurements saved. Patient moved to examination.');
     modal.remove();
   };
-  
+
   window.onclick = (e) => {
     if (e.target === modal) modal.remove();
   };
@@ -112,11 +111,11 @@ function initializePageByPath(currentPath) {
 function initializeMedicationHandlers() {
   const addMedicationButton = document.getElementById('add-medication');
   const addAnalysisButton = document.getElementById('add-analysis');
-  
+
   if (addMedicationButton) {
     addMedicationButton.addEventListener('click', addNewMedication);
   }
-  
+
   if (addAnalysisButton) {
     addAnalysisButton.addEventListener('click', addNewAnalysis);
   }
@@ -125,7 +124,7 @@ function initializeMedicationHandlers() {
   document.querySelectorAll('.remove-med').forEach(button => {
     button.addEventListener('click', removeMedication);
   });
-  
+
   document.querySelectorAll('.remove-analysis').forEach(button => {
     button.addEventListener('click', removeAnalysis);
   });
@@ -199,9 +198,9 @@ function includeHeader() {
 
 function fetchAndInjectHTML(selector, sourcePath, callback) {
   const containers = document.querySelectorAll(selector);
-  
+
   if (containers.length === 0) return;
-  
+
   fetch(sourcePath)
     .then(response => response.text())
     .then(data => {
@@ -225,13 +224,13 @@ function setActiveNavItem() {
     'medicament.html': 'nav-medicament',
     'report.html': 'nav-reports'
   };
-  
+
   // Set default for homepage
   if (currentPath === '/' || currentPath.endsWith('/')) {
     document.getElementById('nav-dashboard')?.classList.add('active');
     return;
   }
-  
+
   // Find matching nav item
   for (const [page, navId] of Object.entries(navItems)) {
     if (currentPath.includes(page)) {
@@ -244,9 +243,9 @@ function setActiveNavItem() {
 function setBreadcrumb() {
   const currentPath = window.location.pathname;
   const breadcrumb = document.getElementById('page-breadcrumb');
-  
+
   if (!breadcrumb) return;
-  
+
   const breadcrumbMap = {
     'index.html': '<span>Dashboard</span>',
     'patients.html': '<span>Patients</span>',
@@ -254,27 +253,27 @@ function setBreadcrumb() {
     'medicament.html': '<span>Medicament</span>',
     'report.html': '<span>Reports</span>'
   };
-  
+
   // Default for homepage
   if (currentPath === '/' || currentPath.endsWith('/')) {
     breadcrumb.innerHTML = '<span>Dashboard</span>';
     return;
   }
-  
+
   // Special case for patient detail page
   if (currentPath.includes('patient-detail.html')) {
     const patientName = document.getElementById('patient-full-name')?.textContent || 'Patient Details';
     breadcrumb.innerHTML = '<a href="patients.html">Patients</a> / <span id="patient-name-header">' + patientName + '</span>';
     return;
   }
-  
+
   // Special case for appointment detail page
   if (currentPath.includes('appointment-detail.html')) {
     const patientName = 'Patient Name'; // This should be dynamic in a real app
     breadcrumb.innerHTML = '<a href="patients.html">Patients</a> / <a href="#" id="patient-link">' + patientName + '</a> / <span>Appointment Details</span>';
     return;
   }
-  
+
   // Set breadcrumb for other pages
   for (const [page, content] of Object.entries(breadcrumbMap)) {
     if (currentPath.includes(page)) {
@@ -287,9 +286,9 @@ function setBreadcrumb() {
 function configureSearchBox() {
   const currentPath = window.location.pathname;
   const searchBox = document.getElementById('header-search');
-  
+
   if (!searchBox) return;
-  
+
   // Hide search for certain pages
   if (currentPath.includes('patient-detail.html') || 
       currentPath.includes('appointment-detail.html') || 
@@ -297,7 +296,7 @@ function configureSearchBox() {
     searchBox.style.display = 'none';
     return;
   }
-  
+
   // Configure search placeholder
   const searchInput = document.getElementById('search-input');
   if (searchInput) {
@@ -305,14 +304,14 @@ function configureSearchBox() {
       'patients.html': 'Search patient...',
       'medicament.html': 'Search medicament...'
     };
-    
+
     for (const [page, placeholder] of Object.entries(placeholders)) {
       if (currentPath.includes(page)) {
         searchInput.placeholder = placeholder;
         return;
       }
     }
-    
+
     // Default placeholder
     searchInput.placeholder = 'Search...';
   }
@@ -349,7 +348,7 @@ async function initializePatientsPage() {
     loadComponent('modal-container', 'patient-details-modal.html'),
     loadComponent('modal-container', 'add-patient-modal.html')
   ]);
-  
+
   loadPatientsListData();
   addPatientSearchListeners();
   setupPatientModals();
@@ -392,29 +391,29 @@ function setupPatientModals() {
       closeAllModals();
     }
   });
-  
+
   // Add patient modal
   const addPatientBtn = document.getElementById('add-patient-btn');
   const addPatientModal = document.getElementById('add-patient-modal');
   const cancelAddPatientBtn = document.getElementById('cancel-add-patient');
   const addPatientForm = document.getElementById('add-patient-form');
-  
+
   if (addPatientBtn && addPatientModal) {
     addPatientBtn.addEventListener('click', () => {
       addPatientModal.style.display = 'block';
     });
   }
-  
+
   if (cancelAddPatientBtn) {
     cancelAddPatientBtn.addEventListener('click', () => {
       addPatientModal.style.display = 'none';
     });
   }
-  
+
   if (addPatientForm) {
     addPatientForm.addEventListener('submit', handleAddPatientSubmit);
   }
-  
+
   // Close modal when clicking outside
   window.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal')) {
@@ -425,34 +424,40 @@ function setupPatientModals() {
 
 function handleAddPatientSubmit(e) {
   e.preventDefault();
-  
+
   // Get form values
   const name = document.getElementById('patient-name').value;
-  
+
   // In a real app, you would save this data to a database
   alert(`Patient ${name} added successfully!`);
   document.getElementById('add-patient-modal').style.display = 'none';
   this.reset();
-  
+
   // Refresh patient list
   loadPatientsListData();
 }
 
-function initializePatientDetailPage() {
+async function initializePatientDetailPage() {
   const urlParams = new URLSearchParams(window.location.search);
   const patientId = urlParams.get('id');
+
+  // Load components
+  await Promise.all([
+    loadComponent('last-appointment-container', 'last-appointment.html'),
+    loadComponent('visit-history-container', 'visit-history.html')
+  ]);
 
   if (patientId) {
     loadPatientDetails(patientId);
   }
-  
+
   setupPatientDetailModals();
 }
 
 function setupPatientDetailModals() {
   setupModal('edit-patient-btn', 'edit-patient-modal', 'cancel-edit-patient');
   setupModal('schedule-patient-btn', 'schedule-modal', 'cancel-schedule');
-  
+
   // Handle form submissions
   setupFormSubmit('edit-patient-form', 'Patient information updated successfully!', 'edit-patient-modal');
   setupFormSubmit('schedule-appointment-form', 'Appointment scheduled successfully!', 'schedule-modal');
@@ -463,7 +468,7 @@ function setupModal(triggerBtnId, modalId, cancelBtnId) {
   const modal = document.getElementById(modalId);
   const cancelBtn = document.getElementById(cancelBtnId);
   const closeModalBtn = modal?.querySelector('.close');
-  
+
   if (triggerBtn && modal) {
     triggerBtn.addEventListener('click', () => {
       if (modalId === 'schedule-modal') {
@@ -475,15 +480,15 @@ function setupModal(triggerBtnId, modalId, cancelBtnId) {
         // Pre-fill the form with patient details
         prefillPatientEditForm();
       }
-      
+
       modal.style.display = 'block';
     });
   }
-  
+
   if (cancelBtn) {
     cancelBtn.addEventListener('click', () => modal.style.display = 'none');
   }
-  
+
   if (closeModalBtn) {
     closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
   }
@@ -500,7 +505,7 @@ function prefillPatientEditForm() {
 function setupFormSubmit(formId, successMessage, modalId) {
   const form = document.getElementById(formId);
   const modal = document.getElementById(modalId);
-  
+
   if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -512,12 +517,12 @@ function setupFormSubmit(formId, successMessage, modalId) {
 
 function initializeMedicamentPage() {
   loadMedicamentData();
-  
+
   const searchInput = document.getElementById('medicament-search');
   if (searchInput) {
     searchInput.addEventListener('input', filterMedicaments);
   }
-  
+
   setupMedicamentModal();
 }
 
@@ -629,11 +634,11 @@ function generateCalendarDays(year, month, calendarBody) {
   for (let i = 1; i <= daysInMonth; i++) {
     appointmentCounts[i] = Math.floor(Math.random() * 20); // Random number 0-19
   }
-  
+
   for (let i = 1; i <= daysInMonth; i++) {
     const dayElement = document.createElement('div');
     dayElement.className = 'calendar-day';
-    
+
     const dateSpan = document.createElement('span');
     dateSpan.textContent = i;
     dayElement.appendChild(dateSpan);
@@ -859,7 +864,7 @@ function getMockPatientDetails(patientId) {
 
   // Generate visit history data
   patientDetails.visits = generateRandomVisits();
-  
+
   return patientDetails;
 }
 
@@ -883,7 +888,7 @@ function generateRandomVisits() {
 
   // Create visits array
   const visits = [];
-  
+
   // First add the most recent visit to keep the last diagnostic consistent
   visits.push({ 
     date: '2023-06-01', 
@@ -940,7 +945,7 @@ function generateRandomVisits() {
 function populateVisitHistory(visits) {
   const visitHistoryBody = document.getElementById('visit-history-body');
   if (!visitHistoryBody) return;
-  
+
   visitHistoryBody.innerHTML = '';
 
   visits.forEach((visit, index) => {
@@ -970,7 +975,7 @@ function populateVisitHistory(visits) {
 function showAppointmentDetail(visit) {
   const appointmentDetailContent = document.getElementById('appointment-detail-content');
   if (!appointmentDetailContent) return;
-  
+
   appointmentDetailContent.innerHTML = `
     <div class="info-item">
       <span class="label">Date:</span>
@@ -1110,7 +1115,7 @@ function showAddAppointmentModal() {
   const modal = document.createElement('div');
   modal.className = 'modal';
   modal.id = 'add-appointment-modal';
-  
+
   modal.innerHTML = `
     <div class="modal-content">
       <div class="modal-header">
@@ -1161,29 +1166,29 @@ function showAddAppointmentModal() {
       </div>
     </div>
   `;
-  
+
   document.body.appendChild(modal);
   modal.style.display = 'block';
-  
+
   // Add event listeners
   const closeBtn = modal.querySelector('.close');
   const cancelBtn = modal.querySelector('#cancel-add-appointment');
   const form = modal.querySelector('#add-appointment-form');
-  
+
   closeBtn.onclick = () => {
     modal.remove();
   };
-  
+
   cancelBtn.onclick = () => {
     modal.remove();
   };
-  
+
   form.onsubmit = (e) => {
     e.preventDefault();
     alert('Appointment added successfully!');
     modal.remove();
   };
-  
+
   window.onclick = (e) => {
     if (e.target === modal) {
       modal.remove();
@@ -1270,34 +1275,34 @@ function showMedicalCertificateModal(patientId) {
   const modal = document.getElementById('medical-certificate-modal');
   const form = document.getElementById('medical-certificate-form');
   const cancelBtn = document.getElementById('cancel-certificate');
-  
+
   modal.style.display = 'block';
-  
+
   form.onsubmit = (e) => {
     e.preventDefault();
     const startDate = document.getElementById('certificate-start').value;
     const endDate = document.getElementById('certificate-end').value;
     const cause = document.getElementById('certificate-cause').value;
-    
+
     // Save certificate data (in real app, this would go to a database)
     const certificates = JSON.parse(localStorage.getItem('medical_certificates') || '{}');
     if (!certificates[patientId]) {
       certificates[patientId] = [];
     }
-    
+
     certificates[patientId].push({
       startDate,
       endDate,
       cause,
       issuedDate: new Date().toISOString()
     });
-    
+
     localStorage.setItem('medical_certificates', JSON.stringify(certificates));
     alert('Medical certificate generated successfully!');
     modal.style.display = 'none';
     form.reset();
   };
-  
+
   cancelBtn.onclick = () => {
     modal.style.display = 'none';
     form.reset();
@@ -1307,13 +1312,13 @@ function showMedicalCertificateModal(patientId) {
 function showCertificateHistory(patientId) {
   const modal = document.getElementById('certificate-history-modal');
   const tbody = document.getElementById('certificate-history-body');
-  
+
   // Get certificates from storage
   const certificates = JSON.parse(localStorage.getItem('medical_certificates') || '{}');
   const patientCertificates = certificates[patientId] || [];
-  
+
   tbody.innerHTML = '';
-  
+
   patientCertificates.forEach(cert => {
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -1328,7 +1333,7 @@ function showCertificateHistory(patientId) {
     `;
     tbody.appendChild(row);
   });
-  
+
   modal.style.display = 'block';
 }
 
@@ -1336,7 +1341,7 @@ function printCertificate(patientId, issuedDate) {
   const certificates = JSON.parse(localStorage.getItem('medical_certificates') || '{}');
   const patientCertificates = certificates[patientId] || [];
   const certificate = patientCertificates.find(c => c.issuedDate === issuedDate);
-  
+
   if (certificate) {
     // In a real app, this would generate a proper PDF or printable document
     const printWindow = window.open('', '_blank');
@@ -1355,7 +1360,7 @@ function printCertificate(patientId, issuedDate) {
 function generateReports() {
   const dateInput = document.getElementById('report-date');
   const illnessType = document.getElementById('illness-type');
-  
+
   const selectedDate = dateInput ? new Date(dateInput.value) : new Date();
   const selectedIllnessType = illnessType ? illnessType.value : 'all';
 
@@ -1366,7 +1371,7 @@ function generateReports() {
 function generateMockReportData(date, reportType, illnessType) {
   // Apply a multiplier based on illness type to simulate different data
   let multiplier = 1.0;
-  
+
   if (illnessType !== 'all') {
     // Different illness types would have different weights
     const multipliers = {
@@ -1381,7 +1386,7 @@ function generateMockReportData(date, reportType, illnessType) {
     };
     multiplier = multipliers[illnessType] || 1.0;
   }
-  
+
   // Update report data
   updateReportData('daily', multiplier);
   updateReportData('weekly', multiplier);
@@ -1410,13 +1415,13 @@ function updateReportData(period, multiplier) {
       maxAmount: 45000
     }
   };
-  
+
   const { minPatients, maxPatients, minAmount, maxAmount } = config[period];
-  
+
   // Generate random data with multiplier applied
   const patients = Math.floor((Math.random() * (maxPatients - minPatients) + minPatients) * multiplier);
   const amount = ((Math.random() * (maxAmount - minAmount) + minAmount) * multiplier).toFixed(2);
-  
+
   // Update DOM elements
   document.getElementById(`${period}-patients`).textContent = patients || "0";
   document.getElementById(`${period}-amount`).textContent = `$${amount || "0.00"}`;
@@ -1426,19 +1431,19 @@ function updateReportData(period, multiplier) {
 function initializeClock() {
   const clockElement = document.getElementById('live-clock');
   if (!clockElement) return;
-  
+
   function updateClock() {
     const now = new Date();
     const hours = now.getHours().toString().padStart(2, '0');
     const minutes = now.getMinutes().toString().padStart(2, '0');
     const seconds = now.getSeconds().toString().padStart(2, '0');
-    
+
     clockElement.textContent = `${hours}:${minutes}:${seconds}`;
   }
-  
+
   // Update clock immediately
   updateClock();
-  
+
   // Update clock every second
   setInterval(updateClock, 1000);
 }
