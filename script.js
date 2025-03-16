@@ -709,7 +709,7 @@ function generateCalendarDays(year, month, calendarBody) {
     const count = appointmentCounts[i];
     const countSpan = document.createElement('span');
     countSpan.className = 'appointment-count';
-    countSpan.textContent = count + ' apt';
+    countSpan.textContent = count + ' rv';
     dayElement.appendChild(countSpan);
 
     // Add color based on appointment count
