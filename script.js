@@ -335,7 +335,32 @@ async function loadComponent(elementId, componentPath) {
   try {
     const response = await fetch(`components/${componentPath}`);
     const html = await response.text();
-    document.getElementById(elementId).innerHTML = html;
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.innerHTML = html;
+      // Add click handlers for modal buttons after loading
+      const editBtn = document.getElementById('edit-patient-btn');
+      const scheduleBtn = document.getElementById('schedule-patient-btn');
+      
+      if (editBtn) {
+        editBtn.onclick = () => {
+          document.getElementById('edit-patient-modal').style.display = 'block';
+        };
+      }
+      
+      if (scheduleBtn) {
+        scheduleBtn.onclick = () => {
+          document.getElementById('schedule-modal').style.display = 'block';
+        };
+      }
+
+      // Add close handlers for all modals
+      document.querySelectorAll('.modal .close, .modal .edit-btn[id^="cancel"]').forEach(button => {
+        button.onclick = () => {
+          button.closest('.modal').style.display = 'none';
+        };
+      });
+    }
   } catch (error) {
     console.error(`Error loading component ${componentPath}:`, error);
   }
