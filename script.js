@@ -134,13 +134,13 @@ function initializeMedicationHandlers() {
 function addNewAnalysis() {
   const analysesList = document.getElementById('analyses-list');
   const newAnalysisItem = document.createElement('div');
-  newAnalysisItem.className = 'analyses-item';
+  newAnalysisItem.className = 'medication-item';
 
   newAnalysisItem.innerHTML = `
-    <div class="analyses-inputs">
+    <div class="medication-inputs">
       <input type="text" placeholder="Analysis name" class="form-input analysis-name">
     </div>
-    <button class="action-btn remove-analysis"><i class="fas fa-trash"></i></button>
+    <button class="action-btn remove-analysis" style="color: #f56565;"><i class="fas fa-trash"></i></button>
   `;
 
   analysesList.appendChild(newAnalysisItem);
