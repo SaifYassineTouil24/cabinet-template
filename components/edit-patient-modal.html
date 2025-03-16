@@ -2,53 +2,53 @@
 <div id="edit-patient-modal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>Edit Patient</h2>
+      <h2>Modifier le Patient</h2>
       <span class="close">&times;</span>
     </div>
     <div class="modal-body">
       <form id="edit-patient-form">
         <div class="form-grid">
           <div class="form-group">
-            <label for="edit-patient-name">Full Name</label>
-            <input type="text" id="edit-patient-name" class="form-input" placeholder="Enter patient name" required>
+            <label for="edit-patient-name">Nom Complet</label>
+            <input type="text" id="edit-patient-name" class="form-input" placeholder="Entrez le nom du patient" required>
           </div>
           <div class="form-group">
-            <label for="edit-patient-dob">Date of Birth</label>
+            <label for="edit-patient-dob">Date de Naissance</label>
             <input type="date" id="edit-patient-dob" class="form-input" required>
           </div>
           <div class="form-group">
-            <label for="edit-patient-gender">Gender</label>
+            <label for="edit-patient-gender">Sexe</label>
             <select id="edit-patient-gender" class="form-input" required>
-              <option value="">Select gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
+              <option value="">Sélectionnez le sexe</option>
+              <option value="Male">Homme</option>
+              <option value="Female">Femme</option>
+              <option value="Other">Autre</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="edit-patient-cin">CIN/ID Number</label>
-            <input type="text" id="edit-patient-cin" class="form-input" placeholder="Enter ID number">
+            <label for="edit-patient-cin">Numéro CIN</label>
+            <input type="text" id="edit-patient-cin" class="form-input" placeholder="Entrez le numéro CIN">
           </div>
           <div class="form-group">
-            <label for="edit-patient-phone">Phone Number</label>
-            <input type="tel" id="edit-patient-phone" class="form-input" placeholder="Enter phone number" required>
+            <label for="edit-patient-phone">Numéro de Téléphone</label>
+            <input type="tel" id="edit-patient-phone" class="form-input" placeholder="Entrez le numéro de téléphone" required>
           </div>
           <div class="form-group">
-            <label for="edit-patient-phone-alt">Alternative Phone Number</label>
-            <input type="tel" id="edit-patient-phone-alt" class="form-input" placeholder="Enter alternative phone number">
+            <label for="edit-patient-phone-alt">Numéro de Téléphone Alternatif</label>
+            <input type="tel" id="edit-patient-phone-alt" class="form-input" placeholder="Entrez un autre numéro de téléphone">
           </div>
           <div class="form-group">
             <label for="edit-patient-allergies">Allergies</label>
-            <textarea id="edit-patient-allergies" class="form-input" rows="2" placeholder="Any allergies (if applicable)"></textarea>
+            <textarea id="edit-patient-allergies" class="form-input" rows="2" placeholder="Allergies (si applicable)"></textarea>
           </div>
           <div class="form-group">
-            <label for="edit-patient-conditions">Chronic Conditions</label>
-            <textarea id="edit-patient-conditions" class="form-input" rows="2" placeholder="Any chronic conditions (if applicable)"></textarea>
+            <label for="edit-patient-conditions">Maladies Chroniques</label>
+            <textarea id="edit-patient-conditions" class="form-input" rows="2" placeholder="Maladies chroniques (si applicable)"></textarea>
           </div>
         </div>
         <div class="modal-actions">
-          <button type="button" class="btn edit-btn" id="cancel-edit-patient">Cancel</button>
-          <button type="submit" class="btn schedule-btn">Save Changes</button>
+          <button type="button" class="btn edit-btn" id="cancel-edit-patient">Annuler</button>
+          <button type="submit" class="btn schedule-btn">Enregistrer</button>
         </div>
       </form>
     </div>
