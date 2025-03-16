@@ -9,3 +9,15 @@ channel = "stable-24_05"
 publicDir = "/"
 deploymentTarget = "static"
 run = ["sh", "-c", "chromium index.html"]
+
+[workflows]
+runButton = "Run Server"
+
+[[workflows.workflow]]
+name = "Run Server"
+author = 40045856
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python -m http.server 3000 --bind 0.0.0.0"
