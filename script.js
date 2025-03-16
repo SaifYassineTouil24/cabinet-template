@@ -104,6 +104,8 @@ function initializePageByPath(currentPath) {
     initializeMedicamentPage();
   } else if (currentPath.includes('report.html')) {
     initializeReportPage();
+  } else if (currentPath.includes('appointment-detail.html')) {
+    initializeAppointmentDetailPage();
   }
 }
 
@@ -463,6 +465,15 @@ function handleAddPatientSubmit(e) {
 
   // Refresh patient list
   loadPatientsListData();
+}
+
+async function initializeAppointmentDetailPage() {
+  await Promise.all([
+    loadComponent('case-description-container', 'case-description.html'),
+    loadComponent('treatment-details-container', 'treatment-details.html'),
+    loadComponent('analysis-request-container', 'analysis-request.html'),
+    loadComponent('notes-container', 'notes.html')
+  ]);
 }
 
 async function initializePatientDetailPage() {
