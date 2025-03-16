@@ -332,7 +332,24 @@ function initializeDashboard() {
   loadPatientStatusData();
 }
 
-function initializePatientsPage() {
+async function loadComponent(elementId, componentPath) {
+  try {
+    const response = await fetch(`components/${componentPath}`);
+    const html = await response.text();
+    document.getElementById(elementId).innerHTML = html;
+  } catch (error) {
+    console.error(`Error loading component ${componentPath}:`, error);
+  }
+}
+
+async function initializePatientsPage() {
+  // Load components
+  await Promise.all([
+    loadComponent('patients-list-container', 'patient-list.html'),
+    loadComponent('modal-container', 'patient-details-modal.html'),
+    loadComponent('modal-container', 'add-patient-modal.html')
+  ]);
+  
   loadPatientsListData();
   addPatientSearchListeners();
   setupPatientModals();
