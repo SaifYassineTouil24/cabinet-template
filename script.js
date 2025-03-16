@@ -106,8 +106,6 @@ function initializePageByPath(currentPath) {
     initializeReportPage();
   } else if (currentPath.includes('appointment-detail.html')) {
     initializeAppointmentDetailPage();
-  } else if (currentPath.includes('doctor-dashboard.html')) {
-    initializeDashboard();
   }
 }
 
@@ -331,15 +329,8 @@ function initializeSettingsPage() {
 }
 
 function initializeDashboard() {
-  if (window.location.pathname.includes('doctor-dashboard.html')) {
-    setTimeout(() => {
-      initializeCalendar();
-    }, 100);
-    loadPatientStatusData();
-  } else {
-    initializeCalendar();
-    loadPatientStatusData();
-  }
+  initializeCalendar();
+  loadPatientStatusData();
 }
 
 async function loadComponent(elementId, componentPath) {
