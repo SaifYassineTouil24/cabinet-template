@@ -889,6 +889,20 @@ tbody tr:hover {
   box-shadow: 0 8px 15px rgba(76, 201, 240, 0.4);
 }
 
+.dashboard-bottom {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.remaining-patients {
+  background: white;
+  border-radius: var(--card-border-radius);
+  padding: 15px;
+  box-shadow: var(--shadow);
+}
+
 /* Modal Styles */
 .modal {
   display: none;
