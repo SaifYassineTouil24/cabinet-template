@@ -1501,8 +1501,11 @@ textarea.form-input {
 }
 
 .print-btn {
-  float: right;
-  background-color: var(--primary-color);
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--success-color);
   border: none;
   color: white;
   cursor: pointer;
@@ -1517,13 +1520,17 @@ textarea.form-input {
 }
 
 .print-btn:hover {
-  background-color: var(--secondary-color);
-  transform: translateY(-2px);
+  background-color: #3c9d50;
+  transform: translateY(-50%) scale(1.05);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .print-btn i {
   font-size: 16px;
+}
+
+.info-card h3 {
+  position: relative;
 }
 
 .vital-signs-grid {
