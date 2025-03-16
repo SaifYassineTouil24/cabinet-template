@@ -137,8 +137,8 @@ function addNewAnalysis() {
   newAnalysisItem.className = 'medication-item';
 
   newAnalysisItem.innerHTML = `
-    <div class="medication-inputs">
-      <input type="text" placeholder="Analysis name" class="form-input analysis-name">
+    <div class="medication-inputs" style="grid-template-columns: 1fr;">
+      <input type="text" placeholder="Analysis name" class="form-input analysis-name" style="width: 100%;">
     </div>
     <button class="action-btn remove-analysis" style="color: #f56565;"><i class="fas fa-trash"></i></button>
   `;
