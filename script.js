@@ -416,9 +416,23 @@ function addPatientSearchListeners() {
         filterPatients();
       } else if (currentPath.includes('medicament.html')) {
         filterMedicaments();
+      } else if (currentPath.includes('index.html') || currentPath === '/') {
+        filterDashboardPatients();
       }
     });
   }
+}
+
+function filterDashboardPatients() {
+  const searchInput = document.getElementById('search-input');
+  const searchTerm = searchInput.value.toLowerCase();
+  const patientCards = document.querySelectorAll('.patient-card');
+
+  patientCards.forEach(card => {
+    const patientName = card.querySelector('.patient-name').textContent.toLowerCase();
+    card.style.display = patientName.includes(searchTerm) ? '' : 'none';
+  });
+}
 
   if (statusFilter) {
     statusFilter.addEventListener('change', filterPatients);
