@@ -29,8 +29,11 @@
         
         <div class="appointment-info-container">
           <div class="info-card">
-            <h3><i class="fas fa-info-circle"></i> Case Description</h3>
-            <div class="appointment-section">
+            <div class="section-header">
+              <h3><i class="fas fa-info-circle"></i> Case Description</h3>
+              <button class="print-btn" onclick="printSection('case-description-section')"><i class="fas fa-print"></i> Print</button>
+            </div>
+            <div class="appointment-section" id="case-description-section">
               <div class="form-group">
                 <label for="case-description">Chief Complaint</label>
                 <textarea id="case-description" class="form-input" rows="4" placeholder="Describe the patient's complaint and symptoms"></textarea>
@@ -64,8 +67,11 @@
           </div>
           
           <div class="info-card">
-            <h3><i class="fas fa-pills"></i> Treatment Plan</h3>
-            <div class="appointment-section">
+            <div class="section-header">
+              <h3><i class="fas fa-pills"></i> Treatment Plan</h3>
+              <button class="print-btn" onclick="printSection('treatment-plan-section')"><i class="fas fa-print"></i> Print</button>
+            </div>
+            <div class="appointment-section" id="treatment-plan-section">
               <div class="form-group">
                 <label for="medication-list">Medications</label>
                 <div id="medication-list">
@@ -91,8 +97,11 @@
           </div>
           
           <div class="info-card">
-            <h3><i class="fas fa-flask"></i> Analyses Request</h3>
-            <div class="appointment-section">
+            <div class="section-header">
+              <h3><i class="fas fa-flask"></i> Analyses Request</h3>
+              <button class="print-btn" onclick="printSection('analyses-section')"><i class="fas fa-print"></i> Print</button>
+            </div>
+            <div class="appointment-section" id="analyses-section">
               <div class="form-group">
                 <label for="analyses-list">Required Analyses</label>
                 <div id="analyses-list">
@@ -111,8 +120,11 @@
           </div>
 
           <div class="info-card">
-            <h3><i class="fas fa-clipboard"></i> Notes</h3>
-            <div class="appointment-section">
+            <div class="section-header">
+              <h3><i class="fas fa-clipboard"></i> Notes</h3>
+              <button class="print-btn" onclick="printSection('notes-section')"><i class="fas fa-print"></i> Print</button>
+            </div>
+            <div class="appointment-section" id="notes-section">
               <div class="form-group">
                 <label for="clinical-notes">Clinical Notes</label>
                 <textarea id="clinical-notes" class="form-input" rows="5" placeholder="Enter clinical notes, observations, or follow-up reminders"></textarea>

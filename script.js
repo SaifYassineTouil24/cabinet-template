@@ -462,6 +462,28 @@ function setupPatientDetailModals() {
   setupFormSubmit('schedule-appointment-form', 'Appointment scheduled successfully!', 'schedule-modal');
 }
 
+function printSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  const printWindow = window.open('', '', 'width=800,height=600');
+  printWindow.document.write(`
+    <html>
+      <head>
+        <title>Print ${sectionId}</title>
+        <link rel="stylesheet" href="style.css">
+      </head>
+      <body>
+        <div class="appointment-section">
+          ${section.innerHTML}
+        </div>
+      </body>
+    </html>
+  `);
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+  printWindow.close();
+}
+
 function setupModal(triggerBtnId, modalId, cancelBtnId) {
   const triggerBtn = document.getElementById(triggerBtnId);
   const modal = document.getElementById(modalId);
