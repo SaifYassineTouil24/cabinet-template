@@ -15,61 +15,99 @@
     </nav>
     
     <main class="content">
-      <header>
-        <!-- Header will be loaded from header.html -->
+      <header class="dashboard-header">
+        <div class="search-navigation">
+          <div class="patient-navigation">
+            <button class="nav-btn prev">
+              <i class="fas fa-chevron-left"></i>
+              <div class="nav-info">
+                <span class="label">Patient Précédent</span>
+                <span class="name">Jean Dupont - 09:30</span>
+              </div>
+            </button>
+            <button class="nav-btn next">
+              <div class="nav-info">
+                <span class="label">Patient Suivant</span>
+                <span class="name">Sophie Martin - 10:30</span>
+              </div>
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search...">
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="clock">
+            <i class="far fa-clock"></i>
+            <span>12:49:13</span>
+          </div>
+          <button class="header-btn add-patient">
+            <i class="fas fa-user-plus"></i>
+            Ajouter Patient
+          </button>
+          <button class="header-btn add-appointment">
+            <i class="fas fa-calendar-plus"></i>
+            Ajouter Rendez-vous
+          </button>
+          <div class="notifications">
+            <i class="far fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="user-info">
+            <span>Dr. Smith</span>
+            <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Doctor Profile">
+          </div>
+        </div>
       </header>
-      
-      <div class="dashboard">
-        <div class="dashboard-container">
-          <div class="patient-status-container">
-            <div id="current" class="status-card">
-              <h3><i class="fas fa-user-clock"></i> Current Patient</h3>
-              <div class="patient-list">
-                <!-- Current patient will be added here -->
-              </div>
-            </div>
 
-            <div id="next" class="status-card">
-              <h3><i class="fas fa-user-plus"></i> Next Patient</h3>
-              <div class="patient-list">
-                <!-- Next patient will be added here -->
-              </div>
-            </div>
-
-            <div id="previous" class="status-card">
-              <h3><i class="fas fa-user-minus"></i> Previous Patient</h3>
-              <div class="patient-list">
-                <!-- Previous patient will be added here -->
-              </div>
-            </div>
-
-            <div id="waiting" class="status-card">
-              <h3><i class="fas fa-clock"></i> Waiting Room</h3>
-              <div class="patient-list">
-                <!-- Waiting patients will be added here -->
-              </div>
+      <div class="current-patient-section">
+        <div class="patient-card current">
+          <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Marie Martin">
+          <div class="patient-info">
+            <h2>Marie Martin</h2>
+            <div class="appointment-details">
+              <span class="time"><i class="far fa-clock"></i> 10:00 - 10:30</span>
+              <span class="type"><i class="fas fa-stethoscope"></i> Consultation de Suivi</span>
             </div>
           </div>
-          
-          <div class="calendar-widget">
-            <div class="calendar-header">
-              <h3>Calendar</h3>
-              <div class="calendar-nav">
-                <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
-                <h4 id="current-month">June 2023</h4>
-                <button id="next-month"><i class="fas fa-chevron-right"></i></button>
-              </div>
-            </div>
-            <div id="calendar-body" class="calendar-grid">
-              <!-- Calendar days will be dynamically added here -->
-            </div>
+        </div>
+        <div class="action-buttons">
+          <button class="action-btn primary">
+            <i class="fas fa-info-circle"></i>
+            Détails du RV
+          </button>
+          <button class="action-btn secondary">
+            <i class="fas fa-user"></i>
+            Détails du Patient
+          </button>
+        </div>
+      </div>
+
+      <div class="dashboard-bottom">
+        <div class="calendar-section">
+          <h3><i class="far fa-calendar"></i> Calendrier</h3>
+          <div class="calendar-nav">
+            <button class="month-nav prev"><i class="fas fa-chevron-left"></i></button>
+            <h4>Juin 2023</h4>
+            <button class="month-nav next"><i class="fas fa-chevron-right"></i></button>
           </div>
-          
-          <div id="completed" class="status-card">
-            <h3><i class="fas fa-check-circle"></i> Completed Today</h3>
-            <div class="patient-list">
-              <!-- Completed appointments will be added here -->
-            </div>
+          <div class="appointment-indicators">
+            <span class="indicator"><i class="fas fa-circle" style="color: #1-5 RV"></i> 1-5 RV</span>
+            <span class="indicator"><i class="fas fa-circle" style="color: #6-10 RV"></i> 6-10 RV</span>
+            <span class="indicator"><i class="fas fa-circle" style="color: #11-13 RV"></i> 11-13 RV</span>
+            <span class="indicator"><i class="fas fa-circle" style="color: #15 RV"></i> >15 RV</span>
+          </div>
+          <div class="calendar-grid">
+            <!-- Calendar will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="waiting-section">
+          <h3><i class="fas fa-clock"></i> Patients en Attente</h3>
+          <div class="waiting-list">
+            <!-- Waiting patients will be populated by JavaScript -->
           </div>
         </div>
       </div>
