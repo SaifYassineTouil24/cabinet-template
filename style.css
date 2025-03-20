@@ -1991,11 +1991,22 @@ textarea.form-input {
   gap: 8px;
   font-size: 14px;
   transition: all 0.3s ease;
+  margin-left: auto;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .print-btn:hover {
   background-color: #4B5563;
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 0;
 }
 
 @media print {
