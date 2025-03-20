@@ -1,6 +1,6 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
   <div class="container">
     <nav class="sidebar">
@@ -25,8 +24,9 @@
           <h1 id="patient-full-name">Patient Name</h1>
           <div class="action-buttons">
             <button class="btn edit-btn" id="edit-patient-btn"><i class="fas fa-edit"></i> Edit Patient</button>
-            <button class="btn schedule-btn" id="schedule-patient-btn"><i class="fas fa-calendar-plus"></i> Schedule
-              Appointment</button>
+            <button class="btn schedule-btn" id="schedule-patient-btn">
+              <i class="fas fa-calendar-plus"></i> Schedule Appointment
+            </button>
           </div>
         </div>
 
@@ -34,62 +34,161 @@
           <div class="profile-section info-card">
             <h3>Informations Personnelles</h3>
             <div class="profile-details">
-              <div class="profile-info">
-                <div class="info-item">
-                  <span class="label">Nom:</span>
-                  <span id="patient-name" class="value">John Smith</span>
-                </div>
-                <div class="info-item">
-                  <span class="label">Date de Naissance:</span>
-                  <span id="patient-dob" class="value">15/01/1985</span>
-                </div>
-                <div class="info-item">
-                  <span class="label">Âge:</span>
-                  <span id="patient-age" class="value">38</span>
-                </div>
-                <div class="info-item">
-                  <span class="label">Sexe:</span>
-                  <span id="patient-gender" class="value">Masculin</span>
-                </div>
-                <div class="info-item">
-                  <span class="label">CIN:</span>
-                  <span id="patient-cin" class="value">AE123456</span>
-                </div>
-                <div class="info-item">
-                  <span class="label">Phone:</span>
-                  <span id="patient-phone" class="value">+1 (555) 123-4567</span>
-                </div>
+              <div class="info-item">
+                <span class="label">Nom:</span>
+                <span id="patient-name" class="value">John Smith</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Date de Naissance:</span>
+                <span id="patient-dob" class="value">15/01/1985</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Âge:</span>
+                <span id="patient-age" class="value">38</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Sexe:</span>
+                <span id="patient-gender" class="value">Masculin</span>
+              </div>
+              <div class="info-item">
+                <span class="label">CIN:</span>
+                <span id="patient-cin" class="value">AE123456</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Phone:</span>
+                <span id="patient-phone" class="value">+1 (555) 123-4567</span>
               </div>
             </div>
           </div>
 
-          <div id="last-appointment-container">
-            <!-- Last appointment component will be loaded here -->
+          <div class="last-appointment info-card">
+            <h3>Dernier Rendez-vous</h3>
+            <div class="appointment-date">
+              <i class="fas fa-calendar"></i>
+              <span id="last-appointment-date">15 Juin 2023</span>
+            </div>
+            <div class="appointment-details">
+              <div class="info-item">
+                <span class="label">Type:</span>
+                <span id="last-appointment-type" class="value">Consultation</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Diagnostic:</span>
+                <span id="patient-last-diagnostic" class="value">Rhume saisonnier</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Traitement:</span>
+                <span id="last-appointment-treatment" class="value">Antibiotiques</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div id="visit-history-container">
-          <!-- Visit history component will be loaded here -->
-          <!-- Example visit history data -->
+        <div class="visit-history info-card">
+          <h3>Historique des Visites</h3>
+          <div class="visit-list" id="visit-list">
+            <!-- Visit history will be populated dynamically -->
+          </div>
+        </div>
 
+        <div class="appointment-details-container">
+          <div class="case-description info-card">
+            <h3>Description du Cas</h3>
+            <div id="case-description-content"></div>
+          </div>
 
+          <div class="treatment-details info-card">
+            <h3>Détails du Traitement</h3>
+            <div id="treatment-details-content"></div>
+          </div>
+
+          <div class="analysis-request info-card">
+            <h3>Analyses Demandées</h3>
+            <div id="analysis-request-content">
+              <ul id="analysis-list"></ul>
+            </div>
+          </div>
+
+          <div class="notes info-card">
+            <h3>Notes</h3>
+            <div id="notes-content"></div>
+          </div>
         </div>
       </div>
     </main>
   </div>
 
-  <!-- Modal container for patient details -->
-  <div id="edit-patient-modal"></div>
-  <div id="schedule-modal"></div>
+  <!-- Edit Patient Modal -->
+  <div id="edit-patient-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Modifier Patient</h2>
+        <span class="close">&times;</span>
+      </div>
+      <form id="edit-patient-form">
+        <div class="form-group">
+          <label for="edit-name">Nom</label>
+          <input type="text" id="edit-name" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-dob">Date de Naissance</label>
+          <input type="date" id="edit-dob" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-gender">Sexe</label>
+          <select id="edit-gender" class="form-input" required>
+            <option value="male">Masculin</option>
+            <option value="female">Féminin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="edit-phone">Téléphone</label>
+          <input type="tel" id="edit-phone" class="form-input" required>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="cancel-edit-patient">Annuler</button>
+          <button type="submit" class="btn schedule-btn">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Schedule Appointment Modal -->
+  <div id="schedule-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Planifier un Rendez-vous</h2>
+        <span class="close">&times;</span>
+      </div>
+      <form id="schedule-appointment-form">
+        <div class="form-group">
+          <label for="appointment-date">Date</label>
+          <input type="date" id="appointment-date" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label for="appointment-time">Heure</label>
+          <input type="time" id="appointment-time" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label for="appointment-type">Type</label>
+          <select id="appointment-type" class="form-input" required>
+            <option value="consultation">Consultation</option>
+            <option value="followup">Suivi</option>
+            <option value="emergency">Urgence</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="appointment-notes">Notes</label>
+          <textarea id="appointment-notes" class="form-input" rows="3"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="cancel-schedule">Annuler</button>
+          <button type="submit" class="btn schedule-btn">Planifier</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <script src="script.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load modal components after script.js is loaded
-      loadComponent('edit-patient-modal', 'edit-patient-modal.html');
-      loadComponent('schedule-modal', 'schedule-appointment-modal.html');
-    });
-  </script>
 </body>
-
 </html>
