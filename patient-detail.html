@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,105 +14,114 @@
     </nav>
 
     <main class="content">
-      <header>
-        <!-- Header will be loaded from header.html -->
-      </header>
+      <div class="breadcrumb">
+        <a href="patients.html">Patients</a> / <span id="patient-name-bread">Patient Name</span>
+      </div>
 
-      <div class="patient-detail-page">
-        <div class="page-header">
-          <h1 id="patient-full-name">Patient Name</h1>
-          <div class="action-buttons">
-            <button class="btn edit-btn" id="edit-patient-btn"><i class="fas fa-edit"></i> Edit Patient</button>
-            <button class="btn schedule-btn" id="schedule-patient-btn">
-              <i class="fas fa-calendar-plus"></i> Schedule Appointment
-            </button>
-          </div>
+      <div class="patient-detail-header">
+        <h1>Patient Name</h1>
+        <div class="action-buttons">
+          <button class="btn edit-btn" id="edit-patient-btn">
+            <i class="fas fa-edit"></i> Edit Patient
+          </button>
+          <button class="btn schedule-btn" id="schedule-patient-btn">
+            <i class="fas fa-calendar-plus"></i> Schedule Appointment
+          </button>
         </div>
+      </div>
 
-        <div class="details-grid">
-          <div class="profile-section info-card">
-            <h3><i class="fas fa-user"></i> Personal Information</h3>
-            <div class="profile-details">
-              <div class="profile-image">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Patient Photo">
-              </div>
-              <div class="profile-info">
-                <div class="info-item">
-                  <span class="label">Full Name</span>
-                  <span id="patient-name" class="value">John Smith</span>
-                </div>
-                <div class="info-item">
-                  <span class="label">Date of Birth</span>
-                  <span id="patient-dob" class="value">15/01/1985</span>
-                </div>
-                <div class="info-item">
-                  <span class="label">Age</span>
-                  <span id="patient-age" class="value">38</span>
-                </div>
-                <div class="info-item">
-                  <span class="label">Gender</span>
-                  <span id="patient-gender" class="value">Male</span>
-                </div>
-                <div class="info-item">
-                  <span class="label">CIN</span>
-                  <span id="patient-cin" class="value">AE123456</span>
-                </div>
-                <div class="info-item">
-                  <span class="label">Phone</span>
-                  <span id="patient-phone" class="value">+1 (555) 123-4567</span>
-                </div>
-              </div>
+      <div class="details-grid">
+        <div class="info-card">
+          <h3>Informations Personnelles</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Nom:</span>
+              <span id="patient-name" class="value">John Smith</span>
             </div>
-          </div>
-
-          <div class="appointment-section info-card">
-            <h3><i class="fas fa-calendar-check"></i> Current Visit</h3>
-            <div class="appointment-date">
-              <i class="fas fa-calendar"></i>
-              <span id="appointment-date">15 June 2023</span>
+            <div class="info-item">
+              <span class="label">Date de Naissance:</span>
+              <span id="patient-dob" class="value">15/01/1985</span>
             </div>
-            <div class="appointment-details">
-              <div id="case-description">
-                <h4>Case Description</h4>
-                <p id="case-description-text">Patient presents with seasonal allergies and respiratory symptoms.</p>
-              </div>
-              <div id="treatment-details">
-                <h4>Treatment Details</h4>
-                <p id="treatment-details-text">Prescribed antihistamines and nasal spray.</p>
-              </div>
-              <div id="analysis-request">
-                <h4>Requested Analyses</h4>
-                <ul id="analysis-list">
-                  <li>Blood Test</li>
-                  <li>Allergy Panel</li>
-                </ul>
-              </div>
-              <div id="notes">
-                <h4>Notes</h4>
-                <p id="notes-text">Follow up in 2 weeks to assess treatment effectiveness.</p>
-              </div>
+            <div class="info-item">
+              <span class="label">Âge:</span>
+              <span id="patient-age" class="value">38</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Sexe:</span>
+              <span id="patient-gender" class="value">Masculin</span>
+            </div>
+            <div class="info-item">
+              <span class="label">CIN:</span>
+              <span id="patient-cin" class="value">AE123456</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Phone:</span>
+              <span id="patient-phone" class="value">+1 (555) 123-4567</span>
             </div>
           </div>
         </div>
 
-        <div class="visit-history info-card">
-          <h3><i class="fas fa-history"></i> Visit History</h3>
-          <div class="visit-table-container">
-            <table class="visit-table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Type</th>
-                  <th>Cost</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="visit-history-body">
-                <!-- Visit history will be populated dynamically -->
-              </tbody>
-            </table>
+        <div class="info-card">
+          <h3>Dernière Consultation</h3>
+          <div class="consultation-info">
+            <div class="info-item">
+              <span class="label">Date:</span>
+              <span class="value">01/12/2023</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Type:</span>
+              <span class="value">Consultation Régulière</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Diagnostic:</span>
+              <span class="value">Hypertension contrôlée</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Traitement:</span>
+              <span class="value">Continuer les médicaments actuels</span>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div class="visit-history info-card">
+        <h3>Historique des Visites</h3>
+        <table class="visit-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Montant</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01/12/2023</td>
+              <td>Consultation Régulière</td>
+              <td>150 DH</td>
+              <td><button class="btn-link">Voir Détails</button></td>
+            </tr>
+            <tr>
+              <td>15/09/2023</td>
+              <td>Suivi</td>
+              <td>120 DH</td>
+              <td><button class="btn-link">Voir Détails</button></td>
+            </tr>
+            <tr>
+              <td>2023-06-22</td>
+              <td>Spécialiste</td>
+              <td>200 DH</td>
+              <td><button class="btn-link">Voir Détails</button></td>
+            </tr>
+            <tr>
+              <td>2023-03-10</td>
+              <td>Maladie</td>
+              <td>175 DH</td>
+              <td><button class="btn-link">Voir Détails</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </main>
   </div>

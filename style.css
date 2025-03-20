@@ -2046,6 +2046,56 @@ textarea.form-input {
   margin-bottom: 25px;
 }
 
+.breadcrumb {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.breadcrumb a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.patient-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 20px;
+  background: var(--light-bg);
+  border-radius: 12px;
+}
+
+.consultation-info {
+  padding: 20px;
+  background: var(--light-bg);
+  border-radius: 12px;
+}
+
+.consultation-info .info-item {
+  margin-bottom: 15px;
+}
+
+.btn-link {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-link:hover {
+  background: var(--secondary-color);
+}
+
 .details-grid .info-card {
   height: 100%;
 }
