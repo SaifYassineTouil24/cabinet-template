@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
   <div class="container">
     <nav class="sidebar">
@@ -14,189 +16,80 @@
     </nav>
 
     <main class="content">
-      <div class="breadcrumb">
-        <a href="patients.html">Patients</a> / <span id="patient-name-bread">Patient Name</span>
-      </div>
+      <header>
+        <!-- Header will be loaded from header.html -->
+      </header>
 
-      <div class="patient-detail-header">
-        <h1>Patient Name</h1>
-        <div class="action-buttons">
-          <button class="btn edit-btn" id="edit-patient-btn">
-            <i class="fas fa-edit"></i> Edit Patient
-          </button>
-          <button class="btn schedule-btn" id="schedule-patient-btn">
-            <i class="fas fa-calendar-plus"></i> Schedule Appointment
-          </button>
-        </div>
-      </div>
-
-      <div class="details-grid">
-        <div class="info-card">
-          <h3>Informations Personnelles</h3>
-          <div class="info-grid">
-            <div class="info-item">
-              <span class="label">Nom:</span>
-              <span id="patient-name" class="value">John Smith</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Date de Naissance:</span>
-              <span id="patient-dob" class="value">15/01/1985</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Âge:</span>
-              <span id="patient-age" class="value">38</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Sexe:</span>
-              <span id="patient-gender" class="value">Masculin</span>
-            </div>
-            <div class="info-item">
-              <span class="label">CIN:</span>
-              <span id="patient-cin" class="value">AE123456</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Phone:</span>
-              <span id="patient-phone" class="value">+1 (555) 123-4567</span>
-            </div>
+      <div class="patient-detail-page">
+        <div class="page-header">
+          <h1 id="patient-full-name">Patient Name</h1>
+          <div class="action-buttons">
+            <button class="btn edit-btn" id="edit-patient-btn"><i class="fas fa-edit"></i> Edit Patient</button>
+            <button class="btn schedule-btn" id="schedule-patient-btn"><i class="fas fa-calendar-plus"></i> Schedule
+              Appointment</button>
           </div>
         </div>
 
-        <div class="info-card">
-          <h3>Dernière Consultation</h3>
-          <div class="consultation-info">
-            <div class="info-item">
-              <span class="label">Date:</span>
-              <span class="value">01/12/2023</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Type:</span>
-              <span class="value">Consultation Régulière</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Diagnostic:</span>
-              <span class="value">Hypertension contrôlée</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Traitement:</span>
-              <span class="value">Continuer les médicaments actuels</span>
+        <div class="patient-profile">
+          <div class="profile-section info-card">
+            <h3>Personal Information</h3>
+            <div class="profile-details">
+              <div class="profile-info">
+                <div class="info-item">
+                  <span class="label">Name:</span>
+                  <span id="patient-name" class="value">John Smith</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Date of Birth:</span>
+                  <span id="patient-dob" class="value">01/15/1985</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Age:</span>
+                  <span id="patient-age" class="value">38</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Gender:</span>
+                  <span id="patient-gender" class="value">Male</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">CIN:</span>
+                  <span id="patient-cin" class="value">AE123456</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Phone:</span>
+                  <span id="patient-phone" class="value">+1 (555) 123-4567</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="visit-history info-card">
-        <h3>Historique des Visites</h3>
-        <table class="visit-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Type</th>
-              <th>Montant</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>01/12/2023</td>
-              <td>Consultation Régulière</td>
-              <td>150 DH</td>
-              <td><button class="btn-link">Voir Détails</button></td>
-            </tr>
-            <tr>
-              <td>15/09/2023</td>
-              <td>Suivi</td>
-              <td>120 DH</td>
-              <td><button class="btn-link">Voir Détails</button></td>
-            </tr>
-            <tr>
-              <td>2023-06-22</td>
-              <td>Spécialiste</td>
-              <td>200 DH</td>
-              <td><button class="btn-link">Voir Détails</button></td>
-            </tr>
-            <tr>
-              <td>2023-03-10</td>
-              <td>Maladie</td>
-              <td>175 DH</td>
-              <td><button class="btn-link">Voir Détails</button></td>
-            </tr>
-          </tbody>
-        </table>
+          <div id="last-appointment-container">
+            <!-- Last appointment component will be loaded here -->
+          </div>
+        </div>
+
+        <div id="visit-history-container">
+          <!-- Visit history component will be loaded here -->
+          <!-- Example visit history data -->
+
+
+        </div>
       </div>
     </main>
   </div>
 
-  <!-- Edit Patient Modal -->
-  <div id="edit-patient-modal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Edit Patient</h2>
-        <span class="close">&times;</span>
-      </div>
-      <form id="edit-patient-form">
-        <div class="form-group">
-          <label for="edit-name">Name</label>
-          <input type="text" id="edit-name" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label for="edit-dob">Date of Birth</label>
-          <input type="date" id="edit-dob" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label for="edit-gender">Gender</label>
-          <select id="edit-gender" class="form-input" required>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="edit-phone">Phone</label>
-          <input type="tel" id="edit-phone" class="form-input" required>
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="btn" id="cancel-edit-patient">Cancel</button>
-          <button type="submit" class="btn schedule-btn">Save Changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Schedule Appointment Modal -->
-  <div id="schedule-modal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Schedule Appointment</h2>
-        <span class="close">&times;</span>
-      </div>
-      <form id="schedule-appointment-form">
-        <div class="form-group">
-          <label for="appointment-date">Date</label>
-          <input type="date" id="appointment-date" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label for="appointment-time">Time</label>
-          <input type="time" id="appointment-time" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label for="appointment-type">Type</label>
-          <select id="appointment-type" class="form-input" required>
-            <option value="consultation">Consultation</option>
-            <option value="followup">Follow-up</option>
-            <option value="emergency">Emergency</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="appointment-notes">Notes</label>
-          <textarea id="appointment-notes" class="form-input" rows="3"></textarea>
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="btn" id="cancel-schedule">Cancel</button>
-          <button type="submit" class="btn schedule-btn">Schedule</button>
-        </div>
-      </form>
-    </div>
-  </div>
+  <!-- Modal container for patient details -->
+  <div id="edit-patient-modal"></div>
+  <div id="schedule-modal"></div>
 
   <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load modal components after script.js is loaded
+      loadComponent('edit-patient-modal', 'edit-patient-modal.html');
+      loadComponent('schedule-modal', 'schedule-appointment-modal.html');
+    });
+  </script>
 </body>
+
 </html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rapports - Système de Gestion de Clinique</title>
+  <title>Reports - Clinic Management System</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -20,54 +20,54 @@
 
       <div class="reports-page">
         <div class="page-header">
-          <h1><i class="fas fa-chart-line"></i> Rapports</h1>
+          <h1><i class="fas fa-chart-line"></i> Reports</h1>
         </div>
 
         <div class="report-container">
           <!-- Daily Report -->
           <div class="report-card info-card">
-            <h3><i class="fas fa-calendar-day"></i> Rapport Quotidien</h3>
+            <h3><i class="fas fa-calendar-day"></i> Daily Report</h3>
             <div class="report-content">
               <div class="report-stat">
-                <span class="stat-label">Nombre de Patients:</span>
+                <span class="stat-label">Number of Patients:</span>
                 <span class="stat-value" id="daily-patients">0</span>
               </div>
 
               <div class="report-stat">
-                <span class="stat-label">Montant Total:</span>
-                <span class="stat-value" id="daily-amount">0,00 €</span>
+                <span class="stat-label">Total Amount:</span>
+                <span class="stat-value" id="daily-amount">$0.00</span>
               </div>
             </div>
           </div>
 
           <!-- Weekly Report -->
           <div class="report-card info-card">
-            <h3><i class="fas fa-calendar-week"></i> Rapport Hebdomadaire</h3>
+            <h3><i class="fas fa-calendar-week"></i> Weekly Report</h3>
             <div class="report-content">
               <div class="report-stat">
-                <span class="stat-label">Nombre de Patients:</span>
+                <span class="stat-label">Number of Patients:</span>
                 <span class="stat-value" id="weekly-patients">0</span>
               </div>
 
               <div class="report-stat">
-                <span class="stat-label">Montant Total:</span>
-                <span class="stat-value" id="weekly-amount">0,00 €</span>
+                <span class="stat-label">Total Amount:</span>
+                <span class="stat-value" id="weekly-amount">$0.00</span>
               </div>
             </div>
           </div>
 
           <!-- Monthly Report -->
           <div class="report-card info-card">
-            <h3><i class="fas fa-calendar-alt"></i> Rapport Mensuel</h3>
+            <h3><i class="fas fa-calendar-alt"></i> Monthly Report</h3>
             <div class="report-content">
               <div class="report-stat">
-                <span class="stat-label">Nombre de Patients:</span>
+                <span class="stat-label">Number of Patients:</span>
                 <span class="stat-value" id="monthly-patients">0</span>
               </div>
 
               <div class="report-stat">
-                <span class="stat-label">Montant Total:</span>
-                <span class="stat-value" id="monthly-amount">0,00 €</span>
+                <span class="stat-label">Total Amount:</span>
+                <span class="stat-value" id="monthly-amount">$0.00</span>
               </div>
             </div>
           </div>
@@ -75,30 +75,30 @@
 
         <!-- Date Filter for Reports -->
         <div class="report-filters info-card">
-          <h3><i class="fas fa-filter"></i> Filtres de Rapport</h3>
+          <h3><i class="fas fa-filter"></i> Report Filters</h3>
           <div class="filter-controls">
             <div class="form-group">
-              <label for="report-date">Sélectionner la date:</label>
+              <label for="report-date">Select Date:</label>
               <input type="date" id="report-date" class="form-input">
             </div>
 
             <div class="form-group">
-              <label for="illness-type">Type de Maladie:</label>
+              <label for="illness-type">Illness Type:</label>
               <select id="illness-type" class="form-input">
-                <option value="all">Tous les types</option>
-                <option value="Regular Check-up">Visite de Routine</option>
-                <option value="Illness">Maladie</option>
-                <option value="Follow-up">Suivi</option>
-                <option value="Specialist">Consultation Spécialiste</option>
+                <option value="all">All Types</option>
+                <option value="Regular Check-up">Regular Check-up</option>
+                <option value="Illness">Illness</option>
+                <option value="Follow-up">Follow-up</option>
+                <option value="Specialist">Specialist Consultation</option>
                 <option value="Vaccination">Vaccination</option>
-                <option value="Lab Results">Revue des Résultats de Laboratoire</option>
-                <option value="Emergency">Urgence</option>
-                <option value="Surgery Consultation">Consultation Chirurgicale</option>
+                <option value="Lab Results">Lab Results Review</option>
+                <option value="Emergency">Emergency</option>
+                <option value="Surgery Consultation">Surgery Consultation</option>
               </select>
             </div>
 
             <button id="generate-report" class="btn schedule-btn">
-              <i class="fas fa-sync-alt"></i> Générer les Rapports
+              <i class="fas fa-sync-alt"></i> Generate Reports
             </button>
           </div>
         </div>

@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Médicaments - Gestion de Cabinet</title>
+  <title>Medicament - Clinic Management System</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -12,33 +13,27 @@
     <nav class="sidebar">
       <!-- Navigation will be loaded from list.html -->
     </nav>
-
+    
     <main class="content">
       <header>
         <!-- Header will be loaded from header.html -->
       </header>
-
+      
       <div class="medicament-page">
-        <div class="filter-bar">
-          <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="search-input" placeholder="Rechercher un médicament...">
-          </div>
-        </div>
         <div class="page-header">
-          <h1>Liste des Médicaments</h1>
+          <h1>Medicament List</h1>
           <button class="add-patient-btn" id="add-medication-btn">
-            <i class="fas fa-plus"></i> Ajouter un Médicament
+            <i class="fas fa-plus"></i> Add New Medication
           </button>
         </div>
-
+        
         <div class="medicament-list">
           <table>
             <thead>
               <tr>
                 <th>Code</th>
-                <th>Nom</th>
-                <th>Prix</th>
+                <th>Name</th>
+                <th>Price</th>
               </tr>
             </thead>
             <tbody id="medicament-list-body">
@@ -49,35 +44,35 @@
       </div>
     </main>
   </div>
-
+  
   <!-- Add Medication Modal -->
   <div id="medication-modal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Ajouter un Médicament</h2>
+        <h2>Add New Medication</h2>
         <span class="close">&times;</span>
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="med-name">Nom du Médicament</label>
-          <input type="text" id="med-name" class="form-input" placeholder="Entrer le nom du médicament">
+          <label for="med-name">Medication Name</label>
+          <input type="text" id="med-name" class="form-input" placeholder="Enter medication name">
         </div>
         <div class="form-group">
           <label for="med-description">Description</label>
-          <textarea id="med-description" class="form-input" rows="3" placeholder="Entrer la description du médicament"></textarea>
+          <textarea id="med-description" class="form-input" rows="3" placeholder="Enter medication description"></textarea>
         </div>
         <div class="form-group">
-          <label for="med-price">Prix</label>
-          <input type="number" id="med-price" class="form-input" placeholder="Entrer le prix">
+          <label for="med-price">Price</label>
+          <input type="number" id="med-price" class="form-input" placeholder="Enter price">
         </div>
         <div class="modal-actions">
-          <button class="btn edit-btn" id="cancel-med-btn">Annuler</button>
-          <button class="btn schedule-btn" id="save-med-btn">Enregistrer</button>
+          <button class="btn edit-btn" id="cancel-med-btn">Cancel</button>
+          <button class="btn schedule-btn" id="save-med-btn">Save Medication</button>
         </div>
       </div>
     </div>
   </div>
-
+  
   <script src="script.js"></script>
 </body>
 </html>

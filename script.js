@@ -104,8 +104,6 @@ function initializePageByPath(currentPath) {
     initializeMedicamentPage();
   } else if (currentPath.includes('report.html')) {
     initializeReportPage();
-  } else if (currentPath.includes('appointment-detail.html')) {
-    initializeAppointmentDetailPage();
   }
 }
 
@@ -371,26 +369,6 @@ function setupModals() {
 // Initialize modals after DOM content is loaded
 document.addEventListener('DOMContentLoaded', setupModals);
 
-function printSection(sectionId) {
-  const section = document.getElementById(sectionId);
-  if (!section) return;
-  
-  const printWindow = window.open('', '_blank');
-  printWindow.document.write(`
-    <html>
-      <head>
-        <title>Print Section</title>
-        <link rel="stylesheet" href="style.css">
-      </head>
-      <body>
-        ${section.innerHTML}
-      </body>
-    </html>
-  `);
-  printWindow.document.close();
-  printWindow.print();
-}
-
 async function initializePatientsPage() {
   // Load components
   await Promise.all([
@@ -487,28 +465,15 @@ function handleAddPatientSubmit(e) {
   loadPatientsListData();
 }
 
-async function initializeAppointmentDetailPage() {
-  await Promise.all([
-    loadComponent('case-description-container', 'case-description.html'),
-    loadComponent('treatment-details-container', 'treatment-details.html'),
-    loadComponent('analysis-request-container', 'analysis-request.html'),
-    loadComponent('notes-container', 'notes.html')
-  ]);
-}
-
 async function initializePatientDetailPage() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const patientId = urlParams.get('id');
+
   // Load components
   await Promise.all([
     loadComponent('last-appointment-container', 'last-appointment.html'),
-    loadComponent('visit-history-container', 'visit-history.html'),
-    loadComponent('case-description-container', 'case-description.html'),
-    loadComponent('treatment-details-container', 'treatment-details.html'),
-    loadComponent('analysis-request-container', 'analysis-request.html'),
-    loadComponent('notes-container', 'notes.html')
+    loadComponent('visit-history-container', 'visit-history.html')
   ]);
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const patientId = urlParams.get('id');
 
   if (patientId) {
     loadPatientDetails(patientId);
@@ -709,7 +674,7 @@ function generateCalendarDays(year, month, calendarBody) {
     const count = appointmentCounts[i];
     const countSpan = document.createElement('span');
     countSpan.className = 'appointment-count';
-    countSpan.textContent = count + ' rv';
+    countSpan.textContent = count + ' apt';
     dayElement.appendChild(countSpan);
 
     // Add color based on appointment count
@@ -771,9 +736,9 @@ function loadPatientStatusData(date) {
   // Mock patient data categories
   const patientCategories = {
     'waiting': [
-      { id: 1, name: 'Thomas Martin', age: 45, gender: 'Male', time: '09:30', image: 'https://randomuser.me/api/portraits/men/32.jpg', hasAppointment: true },
-      { id: 2, name: 'Marie Dubois', age: 38, gender: 'Female', time: '10:15', image: 'https://randomuser.me/api/portraits/women/44.jpg', hasAppointment: false },
-      { id: 3, name: 'Lucas Bernard', age: 52, gender: 'Male', time: '11:00', image: 'https://randomuser.me/api/portraits/men/45.jpg', hasAppointment: true }
+      { id: 1, name: 'John Smith', age: 45, gender: 'Male', time: '09:30 AM', image: 'https://randomuser.me/api/portraits/men/32.jpg', hasAppointment: true },
+      { id: 2, name: 'Sarah Johnson', age: 38, gender: 'Female', time: '10:15 AM', image: 'https://randomuser.me/api/portraits/women/44.jpg', hasAppointment: false },
+      { id: 3, name: 'Michael Brown', age: 52, gender: 'Male', time: '11:00 AM', image: 'https://randomuser.me/api/portraits/men/45.jpg', hasAppointment: true }
     ],
     'preparing': [
       { id: 14, name: 'Emma Wilson', age: 33, gender: 'Female', time: '10:45 AM', image: 'https://randomuser.me/api/portraits/women/67.jpg', hasAppointment: true }
@@ -1182,7 +1147,7 @@ function showAddAppointmentModal() {
   modal.innerHTML = `
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Nouveau Rendez-vous</h2>
+        <h2>Add New Appointment</h2>
         <span class="close">&times;</span>
       </div>
       <div class="modal-body">
@@ -1190,40 +1155,40 @@ function showAddAppointmentModal() {
           <div class="form-group">
             <label for="patient-select">Patient</label>
             <select id="patient-select" class="form-input" required>
-              <option value="">Sélectionnez un patient</option>
+              <option value="">Select patient</option>
               <option value="1">John Smith</option>
               <option value="2">Sarah Johnson</option>
               <option value="3">Michael Brown</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="new-appointment-date">Date du Rendez-vous</label>
+            <label for="new-appointment-date">Appointment Date</label>
             <input type="date" id="new-appointment-date" class="form-input" required>
           </div>
           <div class="form-group">
-            <label for="new-appointment-time">Heure</label>
+            <label for="new-appointment-time">Time</label>
             <input type="time" id="new-appointment-time" class="form-input" required>
           </div>
           <div class="form-group">
-            <label for="new-appointment-type">Type de Visite</label>
+            <label for="new-appointment-type">Type of Visit</label>
             <select id="new-appointment-type" class="form-input" required>
-              <option value="">Sélectionnez le type</option>
-              <option value="Regular Check-up">Consultation Régulière</option>
-              <option value="Illness">Maladie</option>
-              <option value="Follow-up">Suivi</option>
-              <option value="Specialist">Consultation Spécialiste</option>
+              <option value="">Select type</option>
+              <option value="Regular Check-up">Regular Check-up</option>
+              <option value="Illness">Illness</option>
+              <option value="Follow-up">Follow-up</option>
+              <option value="Specialist">Specialist Consultation</option>
               <option value="Vaccination">Vaccination</option>
-              <option value="Lab Results">Résultats d'Analyses</option>
-              <option value="Other">Autre</option>
+              <option value="Lab Results">Lab Results Review</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <div class="form-group">
             <label for="new-appointment-notes">Notes</label>
-            <textarea id="new-appointment-notes" class="form-input" rows="3" placeholder="Notes concernant le rendez-vous"></textarea>
+            <textarea id="new-appointment-notes" class="form-input" rows="3" placeholder="Any notes about the appointment"></textarea>
           </div>
           <div class="modal-actions">
-            <button type="button" class="btn edit-btn" id="cancel-add-appointment">Annuler</button>
-            <button type="submit" class="btn schedule-btn">Ajouter le Rendez-vous</button>
+            <button type="button" class="btn edit-btn" id="cancel-add-appointment">Cancel</button>
+            <button type="submit" class="btn schedule-btn">Add Appointment</button>
           </div>
         </form>
       </div>
