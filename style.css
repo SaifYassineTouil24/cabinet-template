@@ -1,16 +1,16 @@
 /* Global Styles */
 :root {
-  --primary-color: #4361ee;
-  --secondary-color: #3a0ca3;
+  --primary-color: #4461EE;
+  --secondary-color: #3B4FEE;
   --accent-color: #4cc9f0;
-  --light-bg: #f5f7ff;
-  --border-color: #e2e8f0;
+  --light-bg: #f8f9fd;
+  --border-color: #edf0f7;
   --text-dark: #2d3748;
   --text-light: #718096;
   --success-color: #48bb78;
   --warning-color: #f6ad55;
   --danger-color: #f56565;
-  --shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow: 0 4px 12px rgba(0,0,0,0.05);
   --card-border-radius: 12px;
   --card-shadow: var(--shadow);
 }
@@ -246,12 +246,11 @@ header {
 .search-box {
   display: flex;
   align-items: center;
-  background-color: white;
-  border-radius: 50px;
+  background-color: var(--light-bg);
+  border-radius: 8px;
   padding: 5px 15px;
-  box-shadow: var(--shadow);
   width: 300px;
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
   transition: all 0.3s ease;
 }
 
@@ -279,15 +278,17 @@ header {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 10px 20px;
   background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 500;
   transition: all 0.3s ease;
   margin-right: 15px;
+  box-shadow: 0 2px 4px rgba(68, 97, 238, 0.1);
 }
 
 .header-btn:hover {
@@ -387,6 +388,10 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  background-color: white;
+  padding: 15px 20px;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--shadow);
 }
 
 .search-navigation {
@@ -436,10 +441,11 @@ header {
 
 .current-patient-section {
   background: white;
-  border-radius: 12px;
+  border-radius: var(--card-border-radius);
   padding: 25px;
-  margin-bottom: 30px;
+  margin: 20px 0;
   box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
 }
 
 .patient-card.current {
