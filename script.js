@@ -1302,26 +1302,6 @@ function showCertificateHistory(patientId) {
   modal.style.display = 'block';
 }
 
-function printSection(sectionId) {
-  const section = document.getElementById(sectionId);
-  const printWindow = window.open('', '_blank');
-  printWindow.document.write(`
-    <html>
-      <head>
-        <title>Print ${sectionId}</title>
-        <link rel="stylesheet" href="style.css">
-      </head>
-      <body>
-        <div class="info-card">
-          ${section.innerHTML}
-        </div>
-      </body>
-    </html>
-  `);
-  printWindow.document.close();
-  printWindow.print();
-}
-
 function printCertificate(patientId, issuedDate) {
   const certificates = JSON.parse(localStorage.getItem('medical_certificates') || '{}');
   const patientCertificates = certificates[patientId] || [];

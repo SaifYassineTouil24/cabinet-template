@@ -1378,35 +1378,6 @@ tbody tr:hover {
   box-shadow: 0 8px 15px rgba(67, 97, 238, 0.4);
 }
 
-.print-btn {
-  background-color: #28a745;
-  color: white;
-  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
-}
-
-.print-btn:hover {
-  background-color: #218838;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(40, 167, 69, 0.4);
-}
-
-@media print {
-  .sidebar, .header, .action-buttons {
-    display: none;
-  }
-  .content {
-    margin-left: 0;
-  }
-  body {
-    background: white;
-  }
-  .info-card {
-    break-inside: avoid;
-    box-shadow: none;
-    border: 1px solid #ddd;
-  }
-}
-
 /* Modal Styles */
 .modal {
   display: none;
@@ -1561,27 +1532,15 @@ textarea.form-input {
   box-shadow: 0 12px 20px rgba(0,0,0,0.1);
 }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.info-card h3 {
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid var(--border-color);
-}
-
-.card-header h3 {
   color: var(--text-dark);
   font-size: 1.2rem;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 0;
-}
-
-.card-header .print-btn {
-  padding: 8px 12px;
-  font-size: 0.9rem;
 }
 
 .info-card h3 i {
