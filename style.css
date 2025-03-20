@@ -388,10 +388,52 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  background-color: white;
-  padding: 15px 20px;
+  background: linear-gradient(135deg, #4461EE 0%, #3B4FEE 100%);
+  padding: 20px 25px;
   border-radius: var(--card-border-radius);
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 20px rgba(67, 97, 238, 0.15);
+  color: white;
+}
+
+.dashboard-header .search-box {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-header .search-box input {
+  color: white;
+}
+
+.dashboard-header .search-box input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dashboard-header .search-box i {
+  color: white;
+}
+
+.dashboard-header .clock {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.dashboard-header .clock i {
+  color: white;
+}
+
+.dashboard-header .nav-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 20px;
+}
+
+.dashboard-header .nav-info .label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dashboard-header .nav-info .name {
+  color: white;
 }
 
 .search-navigation {
@@ -564,11 +606,66 @@ header {
 }
 
 .status-card {
-  background-color: white;
+  background: white;
   border-radius: var(--card-border-radius);
   padding: 25px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 20px rgba(67, 97, 238, 0.08);
   transition: all 0.3s ease;
+  border: 1px solid rgba(67, 97, 238, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.status-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary-color);
+  opacity: 0.8;
+}
+
+.status-card h3 {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.status-card h3 i {
+  background: var(--light-bg);
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--primary-color);
+}
+
+.patient-card {
+  background: var(--light-bg);
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(67, 97, 238, 0.1);
+  margin-bottom: 10px;
+}
+
+.patient-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(67, 97, 238, 0.1);
+  background: white;
+}
+
+.patient-card img {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
 }
 
 .status-card:hover {
@@ -711,14 +808,47 @@ header {
 
 /* Calendar Widget */
 .calendar-widget {
-  background-color: white;
+  background: white;
   border-radius: var(--card-border-radius);
-  padding: 15px;
-  box-shadow: var(--shadow);
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(67, 97, 238, 0.08);
   height: fit-content;
   transition: all 0.3s ease;
   max-width: 300px;
   margin-left: auto;
+  border: 1px solid rgba(67, 97, 238, 0.1);
+}
+
+.calendar-header {
+  background: var(--light-bg);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.calendar-day {
+  background: var(--light-bg);
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--text-dark);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.calendar-day.today {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
+}
+
+.calendar-day.has-appointments {
+  border-color: var(--primary-color);
 }
 
 .calendar-widget:hover {
