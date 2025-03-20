@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard - Clinic Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <!-- Navigation will be loaded from list.html -->
+    </nav>
+    
+    <main class="content">
+      <header>
+        <!-- Header will be loaded from header.html -->
+      </header>
+      
+      <div class="dashboard">
+        <div class="dashboard-container">
+          <div class="patient-status-container">
+            <div id="current" class="status-card">
+              <h3><i class="fas fa-user-clock"></i> Current Patient</h3>
+              <div class="patient-list">
+                <!-- Current patient will be added here -->
+              </div>
+            </div>
+
+            <div id="next" class="status-card">
+              <h3><i class="fas fa-user-plus"></i> Next Patient</h3>
+              <div class="patient-list">
+                <!-- Next patient will be added here -->
+              </div>
+            </div>
+
+            <div id="previous" class="status-card">
+              <h3><i class="fas fa-user-minus"></i> Previous Patient</h3>
+              <div class="patient-list">
+                <!-- Previous patient will be added here -->
+              </div>
+            </div>
+
+            <div id="waiting" class="status-card">
+              <h3><i class="fas fa-clock"></i> Waiting Room</h3>
+              <div class="patient-list">
+                <!-- Waiting patients will be added here -->
+              </div>
+            </div>
+          </div>
+          
+          <div class="calendar-widget">
+            <div class="calendar-header">
+              <h3>Calendar</h3>
+              <div class="calendar-nav">
+                <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                <h4 id="current-month">June 2023</h4>
+                <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+              </div>
+            </div>
+            <div id="calendar-body" class="calendar-grid">
+              <!-- Calendar days will be dynamically added here -->
+            </div>
+          </div>
+          
+          <div id="completed" class="status-card">
+            <h3><i class="fas fa-check-circle"></i> Completed Today</h3>
+            <div class="patient-list">
+              <!-- Completed appointments will be added here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
