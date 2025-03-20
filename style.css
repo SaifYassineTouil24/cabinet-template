@@ -750,6 +750,10 @@ header {
   box-shadow: 0 8px 15px rgba(67, 97, 238, 0.4);
 }
 
+.add-patient-btn i {
+  font-size: 16px;
+}
+
 .filter-bar {
   display: flex;
   gap: 25px;
@@ -1124,7 +1128,7 @@ textarea.form-input {
   margin-bottom: 30px;
 }
 
-.doctor-dashboard .page-header h1 {
+.doctor-dashboard .pageheader h1 {
   font-size: 2rem;
   color: var(--text-dark);
   display: flex;
@@ -1223,7 +1227,7 @@ textarea.form-input {
   color: #666;
   display: flex;
   align-items: center;
-gap: 8px;
+  gap: 8px;
 }
 
 .vital-signs.pending {
@@ -2007,6 +2011,23 @@ gap: 8px;
 
 @media (max-width: 768px) {
   .profile-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.details-grid .info-card {
+  height: 100%;
+}
+
+@media (max-width: 1024px) {
+  .details-grid {
     grid-template-columns: 1fr;
   }
 }

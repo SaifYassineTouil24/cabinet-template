@@ -30,25 +30,25 @@
           </div>
         </div>
 
-        <div class="patient-profile">
+        <div class="details-grid">
           <div class="profile-section info-card">
-            <h3>Informations Personnelles</h3>
+            <h3><i class="fas fa-user"></i> Personal Information</h3>
             <div class="profile-details">
               <div class="info-item">
-                <span class="label">Nom:</span>
+                <span class="label">Full Name:</span>
                 <span id="patient-name" class="value">John Smith</span>
               </div>
               <div class="info-item">
-                <span class="label">Date de Naissance:</span>
+                <span class="label">Date of Birth:</span>
                 <span id="patient-dob" class="value">15/01/1985</span>
               </div>
               <div class="info-item">
-                <span class="label">Âge:</span>
+                <span class="label">Age:</span>
                 <span id="patient-age" class="value">38</span>
               </div>
               <div class="info-item">
-                <span class="label">Sexe:</span>
-                <span id="patient-gender" class="value">Masculin</span>
+                <span class="label">Gender:</span>
+                <span id="patient-gender" class="value">Male</span>
               </div>
               <div class="info-item">
                 <span class="label">CIN:</span>
@@ -61,57 +61,52 @@
             </div>
           </div>
 
-          <div class="last-appointment info-card">
-            <h3>Dernier Rendez-vous</h3>
+          <div class="appointment-section info-card">
+            <h3><i class="fas fa-calendar-check"></i> Current Visit</h3>
             <div class="appointment-date">
               <i class="fas fa-calendar"></i>
-              <span id="last-appointment-date">15 Juin 2023</span>
+              <span id="appointment-date">15 June 2023</span>
             </div>
             <div class="appointment-details">
-              <div class="info-item">
-                <span class="label">Type:</span>
-                <span id="last-appointment-type" class="value">Consultation</span>
+              <div id="case-description">
+                <h4>Case Description</h4>
+                <p id="case-description-text">Patient presents with seasonal allergies and respiratory symptoms.</p>
               </div>
-              <div class="info-item">
-                <span class="label">Diagnostic:</span>
-                <span id="patient-last-diagnostic" class="value">Rhume saisonnier</span>
+              <div id="treatment-details">
+                <h4>Treatment Details</h4>
+                <p id="treatment-details-text">Prescribed antihistamines and nasal spray.</p>
               </div>
-              <div class="info-item">
-                <span class="label">Traitement:</span>
-                <span id="last-appointment-treatment" class="value">Antibiotiques</span>
+              <div id="analysis-request">
+                <h4>Requested Analyses</h4>
+                <ul id="analysis-list">
+                  <li>Blood Test</li>
+                  <li>Allergy Panel</li>
+                </ul>
+              </div>
+              <div id="notes">
+                <h4>Notes</h4>
+                <p id="notes-text">Follow up in 2 weeks to assess treatment effectiveness.</p>
               </div>
             </div>
           </div>
         </div>
 
         <div class="visit-history info-card">
-          <h3>Historique des Visites</h3>
-          <div class="visit-list" id="visit-list">
-            <!-- Visit history will be populated dynamically -->
-          </div>
-        </div>
-
-        <div class="appointment-details-container">
-          <div class="case-description info-card">
-            <h3>Description du Cas</h3>
-            <div id="case-description-content"></div>
-          </div>
-
-          <div class="treatment-details info-card">
-            <h3>Détails du Traitement</h3>
-            <div id="treatment-details-content"></div>
-          </div>
-
-          <div class="analysis-request info-card">
-            <h3>Analyses Demandées</h3>
-            <div id="analysis-request-content">
-              <ul id="analysis-list"></ul>
-            </div>
-          </div>
-
-          <div class="notes info-card">
-            <h3>Notes</h3>
-            <div id="notes-content"></div>
+          <h3><i class="fas fa-history"></i> Visit History</h3>
+          <div class="visit-table-container">
+            <table class="visit-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Cost</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="visit-history-body">
+                <!-- Visit history will be populated dynamically -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -122,32 +117,32 @@
   <div id="edit-patient-modal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Modifier Patient</h2>
+        <h2>Edit Patient</h2>
         <span class="close">&times;</span>
       </div>
       <form id="edit-patient-form">
         <div class="form-group">
-          <label for="edit-name">Nom</label>
+          <label for="edit-name">Name</label>
           <input type="text" id="edit-name" class="form-input" required>
         </div>
         <div class="form-group">
-          <label for="edit-dob">Date de Naissance</label>
+          <label for="edit-dob">Date of Birth</label>
           <input type="date" id="edit-dob" class="form-input" required>
         </div>
         <div class="form-group">
-          <label for="edit-gender">Sexe</label>
+          <label for="edit-gender">Gender</label>
           <select id="edit-gender" class="form-input" required>
-            <option value="male">Masculin</option>
-            <option value="female">Féminin</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="edit-phone">Téléphone</label>
+          <label for="edit-phone">Phone</label>
           <input type="tel" id="edit-phone" class="form-input" required>
         </div>
         <div class="modal-actions">
-          <button type="button" class="btn" id="cancel-edit-patient">Annuler</button>
-          <button type="submit" class="btn schedule-btn">Enregistrer</button>
+          <button type="button" class="btn" id="cancel-edit-patient">Cancel</button>
+          <button type="submit" class="btn schedule-btn">Save Changes</button>
         </div>
       </form>
     </div>
@@ -157,7 +152,7 @@
   <div id="schedule-modal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Planifier un Rendez-vous</h2>
+        <h2>Schedule Appointment</h2>
         <span class="close">&times;</span>
       </div>
       <form id="schedule-appointment-form">
@@ -166,15 +161,15 @@
           <input type="date" id="appointment-date" class="form-input" required>
         </div>
         <div class="form-group">
-          <label for="appointment-time">Heure</label>
+          <label for="appointment-time">Time</label>
           <input type="time" id="appointment-time" class="form-input" required>
         </div>
         <div class="form-group">
           <label for="appointment-type">Type</label>
           <select id="appointment-type" class="form-input" required>
             <option value="consultation">Consultation</option>
-            <option value="followup">Suivi</option>
-            <option value="emergency">Urgence</option>
+            <option value="followup">Follow-up</option>
+            <option value="emergency">Emergency</option>
           </select>
         </div>
         <div class="form-group">
@@ -182,8 +177,8 @@
           <textarea id="appointment-notes" class="form-input" rows="3"></textarea>
         </div>
         <div class="modal-actions">
-          <button type="button" class="btn" id="cancel-schedule">Annuler</button>
-          <button type="submit" class="btn schedule-btn">Planifier</button>
+          <button type="button" class="btn" id="cancel-schedule">Cancel</button>
+          <button type="submit" class="btn schedule-btn">Schedule</button>
         </div>
       </form>
     </div>
