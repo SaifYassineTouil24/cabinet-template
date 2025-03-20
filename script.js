@@ -597,6 +597,22 @@ function initializeReportPage() {
   generateReports();
 }
 
+// Load Calendar Component
+function loadCalendarWidget() {
+  const container = document.getElementById('calendar-widget-container');
+  if (container) {
+    fetch('components/calendar-widget.html')
+      .then(response => response.text())
+      .then(html => {
+        container.innerHTML = html;
+        initializeCalendar();
+      });
+  }
+}
+
+// Initialize calendar when document loads
+document.addEventListener('DOMContentLoaded', loadCalendarWidget);
+
 // Calendar Functions
 function initializeCalendar() {
   const calendarBody = document.getElementById('calendar-body');
