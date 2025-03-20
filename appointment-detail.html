@@ -28,7 +28,12 @@
 
         <div class="appointment-info-container">
           <div class="info-card">
-            <h3><i class="fas fa-info-circle"></i> Case Description</h3>
+            <div class="card-header">
+              <h3><i class="fas fa-info-circle"></i> Case Description</h3>
+              <button class="btn print-btn" onclick="printSection('case-description')">
+                <i class="fas fa-print"></i> Print
+              </button>
+            </div>
             <div class="appointment-section">
               <div class="form-group">
                 <label for="case-description">Chief Complaint</label>
@@ -63,7 +68,12 @@
           </div>
 
           <div class="info-card">
-            <h3><i class="fas fa-pills"></i> Treatment Plan</h3>
+            <div class="card-header">
+              <h3><i class="fas fa-pills"></i> Treatment Plan</h3>
+              <button class="btn print-btn" onclick="printSection('treatment-plan')">
+                <i class="fas fa-print"></i> Print
+              </button>
+            </div>
             <div class="appointment-section">
               <div class="form-group">
                 <label for="medication-list">Medications</label>
@@ -90,7 +100,12 @@
           </div>
 
           <div class="info-card">
-            <h3><i class="fas fa-flask"></i> Analyses Request</h3>
+            <div class="card-header">
+              <h3><i class="fas fa-flask"></i> Analyses Request</h3>
+              <button class="btn print-btn" onclick="printSection('analyses-request')">
+                <i class="fas fa-print"></i> Print
+              </button>
+            </div>
             <div class="appointment-section">
               <div class="form-group">
                 <label for="analyses-list">Required Analyses</label>
@@ -110,7 +125,12 @@
           </div>
 
           <div class="info-card">
-            <h3><i class="fas fa-clipboard"></i> Notes</h3>
+            <div class="card-header">
+              <h3><i class="fas fa-clipboard"></i> Notes</h3>
+              <button class="btn print-btn" onclick="printSection('notes')">
+                <i class="fas fa-print"></i> Print
+              </button>
+            </div>
             <div class="appointment-section">
               <div class="form-group">
                 <label for="clinical-notes">Clinical Notes</label>

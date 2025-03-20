@@ -1561,15 +1561,27 @@ textarea.form-input {
   box-shadow: 0 12px 20px rgba(0,0,0,0.1);
 }
 
-.info-card h3 {
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid var(--border-color);
+}
+
+.card-header h3 {
   color: var(--text-dark);
   font-size: 1.2rem;
   display: flex;
   align-items: center;
   gap: 10px;
+  margin: 0;
+}
+
+.card-header .print-btn {
+  padding: 8px 12px;
+  font-size: 0.9rem;
 }
 
 .info-card h3 i {
