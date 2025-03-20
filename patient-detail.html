@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,7 +101,11 @@
               <tr>
                 <td>2023-12-01</td>
                 <td>Regular Check-up</td>
-                <td>$150</td>
+                <td>
+                  <input type="number" class="amount-input" value="150" 
+                    style="width: 80px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;" 
+                    onchange="updateAmount(this, 0)">
+                </td>
                 <td>
                   <button class="visit-action-btn" data-index="0">View Details</button>
                 </td>
@@ -110,7 +113,11 @@
               <tr>
                 <td>2023-09-15</td>
                 <td>Follow-up</td>
-                <td>$120</td>
+                <td>
+                  <input type="number" class="amount-input" value="120" 
+                    style="width: 80px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;" 
+                    onchange="updateAmount(this, 1)">
+                </td>
                 <td>
                   <button class="visit-action-btn" data-index="1">View Details</button>
                 </td>
@@ -118,7 +125,11 @@
               <tr>
                 <td>2023-06-22</td>
                 <td>Specialist</td>
-                <td>$200</td>
+                <td>
+                  <input type="number" class="amount-input" value="200" 
+                    style="width: 80px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;" 
+                    onchange="updateAmount(this, 2)">
+                </td>
                 <td>
                   <button class="visit-action-btn" data-index="2">View Details</button>
                 </td>
@@ -126,7 +137,11 @@
               <tr>
                 <td>2023-03-10</td>
                 <td>Illness</td>
-                <td>$175</td>
+                <td>
+                  <input type="number" class="amount-input" value="175" 
+                    style="width: 80px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;" 
+                    onchange="updateAmount(this, 3)">
+                </td>
                 <td>
                   <button class="visit-action-btn" data-index="3">View Details</button>
                 </td>
@@ -144,6 +159,11 @@
 
   <script src="script.js"></script>
   <script>
+    function updateAmount(input, index) {
+      // Add your update logic here.  This is a placeholder.
+      console.log(`Amount for visit ${index} updated to: $${input.value}`);
+      // You would typically send this updated amount to your backend here.
+    }
     document.addEventListener('DOMContentLoaded', function() {
       loadComponent('edit-patient-modal', 'edit-patient-modal.html');
       loadComponent('schedule-modal', 'schedule-appointment-modal.html');

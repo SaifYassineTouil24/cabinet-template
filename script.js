@@ -1000,6 +1000,17 @@ function populateVisitHistory(visits) {
   }
 }
 
+function updateAmount(input, index) {
+  const amount = parseFloat(input.value);
+  if (!isNaN(amount)) {
+    // Update the displayed amount in visit details if open
+    const detailAmount = document.querySelector('#appointment-detail-content .info-item:last-child .value');
+    if (detailAmount) {
+      detailAmount.textContent = `$${amount}`;
+    }
+  }
+}
+
 function showAppointmentDetail(visit) {
   const appointmentDetailContent = document.getElementById('appointment-detail-content');
   if (!appointmentDetailContent) return;
