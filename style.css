@@ -278,7 +278,7 @@ header {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 8px 16px;
   background-color: var(--primary-color);
   color: white;
   border: none;
@@ -287,8 +287,15 @@ header {
   font-size: 14px;
   font-weight: 500;
   transition: all 0.3s ease;
-  margin-right: 15px;
-  box-shadow: 0 2px 4px rgba(68, 97, 238, 0.1);
+  margin-right: 12px;
+}
+
+.header-btn.add-patient {
+  background-color: var(--primary-color);
+}
+
+.header-btn.add-appointment {
+  background-color: #4c6ef5;
 }
 
 .header-btn:hover {
@@ -302,16 +309,36 @@ header {
 
 .notifications {
   position: relative;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: var(--shadow);
+  margin: 0 12px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.user-info img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.user-info span {
+  color: #495057;
+  font-size: 14px;
 }
 
 .notifications:hover {
@@ -389,8 +416,8 @@ header {
   align-items: center;
   margin-bottom: 20px;
   background: white;
-  padding: 15px 20px;
-  border-radius: 15px;
+  padding: 8px 16px;
+  border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
@@ -482,11 +509,13 @@ header {
 
 .current-patient-section {
   background: white;
-  border-radius: 15px;
-  padding: 15px 20px;
+  border-radius: 12px;
+  padding: 16px;
   margin: 0 0 20px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  border: 1px solid #edf2f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .patient-info-container {
