@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -19,54 +18,38 @@
         <!-- Header will be loaded from header.html -->
       </header>
 
-      <div class="doctor-dashboard">
-        <div class="patient-navigation">
-          <div class="prev-patient">
-            <i class="fas fa-chevron-left"></i>
-            <div class="nav-patient-info">
-              <small>Patient Précédent</small>
-              <span>Jean Dupont - 09:30</span>
+      <div class="dashboard">
+        <div class="dashboard-container">
+          <div class="patient-status-container">
+            <div id="waiting" class="status-card">
+              <h3><i class="fas fa-clock"></i> En Attente</h3>
+              <div class="patient-list">
+                <!-- Patient list will be loaded dynamically -->
+              </div>
             </div>
-          </div>
-          <div class="next-patient">
-            <div class="nav-patient-info">
-              <small>Patient Suivant</small>
-              <span>Sophie Martin - 10:30</span>
-            </div>
-            <i class="fas fa-chevron-right"></i>
-          </div>
-        </div>
 
-        <div class="current-patient-details">
-          <div class="patient-header info-card">
-            <div class="patient-basic-info">
-              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Patient photo" class="patient-image">
-              <div class="info-content">
-                <h2>Marie Martin</h2>
-                <p><i class="fas fa-clock"></i> 10:00 - 10:30</p>
-                <p><i class="fas fa-stethoscope"></i> Consultation de Suivi</p>
+            <div id="examination" class="status-card">
+              <h3><i class="fas fa-stethoscope"></i> En Consultation</h3>
+              <div class="patient-list">
+                <!-- Patient list will be loaded dynamically -->
+              </div>
+            </div>
+
+            <div id="completed" class="status-card">
+              <h3><i class="fas fa-check-circle"></i> Terminé</h3>
+              <div class="patient-list">
+                <!-- Patient list will be loaded dynamically -->
+              </div>
+            </div>
+
+            <div id="canceled" class="status-card">
+              <h3><i class="fas fa-ban"></i> Annulé</h3>
+              <div class="patient-list">
+                <!-- Patient list will be loaded dynamically -->
               </div>
             </div>
           </div>
 
-          <div class="appointment-info-container">
-            <div id="case-description-container"></div>
-            <div id="treatment-details-container"></div>
-            <div id="analysis-request-container"></div>
-            <div id="notes-container"></div>
-          </div>
-
-          <div class="action-buttons">
-            <button class="btn details-btn" onclick="window.location.href='appointment-detail.html'">
-              <i class="fas fa-calendar-alt"></i> Détails du RV
-            </button>
-            <button class="btn patient-btn" onclick="window.location.href='patient-detail.html'">
-              <i class="fas fa-user"></i> Détails du Patient
-            </button>
-          </div>
-        </div>
-
-        <div class="dashboard-bottom">
           <div class="calendar-widget">
             <div class="calendar-header">
               <h3><i class="fas fa-calendar-alt"></i> Calendrier</h3>
@@ -95,15 +78,6 @@
               <div class="legend-item">
                 <span class="dot appointments-very-high"></span>
                 <span>>15 RV</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="remaining-patients">
-            <div id="waiting" class="status-card">
-              <h3><i class="fas fa-clock"></i> Patients en Attente</h3>
-              <div class="patient-list">
-                <!-- Liste des patients sera ajoutée dynamiquement -->
               </div>
             </div>
           </div>
