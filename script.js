@@ -462,28 +462,6 @@ function setupPatientDetailModals() {
   setupFormSubmit('schedule-appointment-form', 'Appointment scheduled successfully!', 'schedule-modal');
 }
 
-function printSection(sectionId) {
-  const section = document.getElementById(sectionId);
-  const printWindow = window.open('', '', 'width=800,height=600');
-  printWindow.document.write(`
-    <html>
-      <head>
-        <title>Print ${sectionId}</title>
-        <link rel="stylesheet" href="style.css">
-      </head>
-      <body>
-        <div class="appointment-section">
-          ${section.innerHTML}
-        </div>
-      </body>
-    </html>
-  `);
-  printWindow.document.close();
-  printWindow.focus();
-  printWindow.print();
-  printWindow.close();
-}
-
 function setupModal(triggerBtnId, modalId, cancelBtnId) {
   const triggerBtn = document.getElementById(triggerBtnId);
   const modal = document.getElementById(modalId);
@@ -596,22 +574,6 @@ function initializeReportPage() {
   // Generate reports on page load
   generateReports();
 }
-
-// Load Calendar Component
-function loadCalendarWidget() {
-  const container = document.getElementById('calendar-widget-container');
-  if (container) {
-    fetch('components/calendar-widget.html')
-      .then(response => response.text())
-      .then(html => {
-        container.innerHTML = html;
-        initializeCalendar();
-      });
-  }
-}
-
-// Initialize calendar when document loads
-document.addEventListener('DOMContentLoaded', loadCalendarWidget);
 
 // Calendar Functions
 function initializeCalendar() {

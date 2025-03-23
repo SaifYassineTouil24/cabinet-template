@@ -1972,43 +1972,6 @@ textarea.form-input {
   gap: 25px;
 }
 
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.print-btn {
-  background-color: #6B7280;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.print-btn:hover {
-  background-color: #4B5563;
-  transform: translateY(-2px);
-}
-
-@media print {
-  .sidebar, .header, .action-buttons, .print-btn {
-    display: none !important;
-  }
-  
-  .appointment-section {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-}
-
 .appointment-date {
   display: flex;
   align-items: center;
